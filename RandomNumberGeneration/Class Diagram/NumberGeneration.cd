@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="RandomNumberGeneration.AbstractNumberGenerator">
+    <Position X="3" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>gBAAIAAIAAAAAAAAAAAgAAADAAQAAAAAAAAAAAAAgAg=</HashCode>
+      <FileName>AbstractNumberGenerator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RandomNumberGeneration.BaukeNumberGenerator">
+    <Position X="0.5" Y="4" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AIIAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>BaukeNumberGenerator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RandomNumberGeneration.LEcuyerNumberGenerator">
+    <Position X="5.75" Y="4" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAABQAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>LEcuyerNumberGenerator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RandomNumberGeneration.RNGCrypto">
+    <Position X="8.5" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AgCEAAAAAAAICAAACAAAAAQAAAAAAAAAAAAAAAAACAA=</HashCode>
+      <FileName>RNGCrypto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RandomNumberGeneration.TauswortheNumberGenerator">
+    <Position X="3" Y="4" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAOAAAAAABAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>TauswortheNumberGenerator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

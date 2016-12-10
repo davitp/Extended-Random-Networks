@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="NetworkModel.Engine.Cycles.CyclesCounter">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAAAAAAAAAACAAAAAAAAAgAAAAAAAAEAA=</HashCode>
+      <FileName>Engine\Cycles\CyclesCounter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NetworkModel.Engine.Cycles.CyclesCounterDoubleThreaded">
+    <Position X="2.25" Y="0.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>EgqAIIgAAAACAAABAAAAACAAAQAhAAAgAEAAAAABgBA=</HashCode>
+      <FileName>Engine\Cycles\CyclesCounterDoubleThreaded.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NetworkModel.Engine.Cycles.CyclesParallelCounter" BaseTypeListCollapsed="true">
+    <Position X="8.25" Y="2" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAIQAAAQAAAIAAAAAAACAAAEAAAAAAAAAAAAAAEAA=</HashCode>
+      <FileName>Engine\Cycles\CyclesParrallelCounter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="NetworkModel.Engine.Cycles.PivotsCyclesCounter">
+    <Position X="5.25" Y="0.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>EgqAIIgAAQACAAABgAEEACAAAUAhAAAAAEAAAAABgBA=</HashCode>
+      <FileName>Engine\Cycles\CyclesParrallelCounter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="NetworkModel.Engine.Cycles.IThreadEventHandler">
+    <Position X="8.25" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Engine\Cycles\CyclesParrallelCounter.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

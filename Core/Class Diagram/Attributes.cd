@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Core.Attributes.AnalyzeOptionInfo">
+    <Position X="6" Y="2.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAIAAAAAAgAAAAAAAAAAAAACAAAgCAAI=</HashCode>
+      <FileName>Attributes\AnalyzeOptionInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Core.Attributes.AvailableAnalyzeOption">
+    <Position X="6" Y="5.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAA=</HashCode>
+      <FileName>Attributes\AvailableAnalyzeOption.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Core.Attributes.AvailableModelType">
+    <Position X="8.5" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Attributes\AvailableModelType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Core.Attributes.GenerationParameterInfo">
+    <Position X="3.25" Y="3" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAIAAAAAAAAAAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>Attributes\GenerationParameterInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Core.Attributes.ManagerTypeInfo">
+    <Position X="8.5" Y="2.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAIAAAAAAAQAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Attributes\ManagerTypeInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Core.Attributes.ModelTypeInfo">
+    <Position X="3.25" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAIAAAAAAAQAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Attributes\ModelTypeInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Core.Attributes.RequiredGenerationParameter">
+    <Position X="3.25" Y="5.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Attributes\RequiredGenerationParameter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Core.Attributes.RequiredResearchParameter">
+    <Position X="0.5" Y="5.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Attributes\RequiredResearchParameter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Core.Attributes.ResearchParameterInfo">
+    <Position X="0.5" Y="3" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAIAAAAAAAAAAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>Attributes\ResearchParameterInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Core.Attributes.ResearchTypeInfo">
+    <Position X="0.5" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAIAAAAAAAQAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Attributes\ResearchTypeInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Core.Attributes.StorageTypeInfo">
+    <Position X="8.5" Y="5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Attributes\StorageTypeInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="Core.Attributes.OptionType">
+    <Position X="6" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgQAAAAAAAAAAAAAAAAAAAAAAAABAAA=</HashCode>
+      <FileName>Attributes\AnalyzeOptionInfo.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

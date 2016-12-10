@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="NetworkModel.NonHierarchicAnalyzer">
+    <Position X="0.5" Y="1.5" Width="3" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="NetworkModel.NonHierarchicAnalyzer.Node">
+        <TypeIdentifier>
+          <NewMemberFileName>NonHierarchicAnalyzer.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>BAAAAEQBggCKAAQAgIJAUDACRgAAAIGQEAkEAAwAgAA=</HashCode>
+      <FileName>NonHierarchicAnalyzer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NetworkModel.NonHierarchicContainer">
+    <Position X="4" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAEAMggAAAAAhoAAAMIACACAEAIAADhAAAAAAABJABI=</HashCode>
+      <FileName>NonHierarchicContainer.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Core.Model.AbstractNetworkAnalyzer" Collapsed="true">
+    <Position X="1" Y="0.5" Width="2" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
