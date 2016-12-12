@@ -120,26 +120,33 @@ namespace Core.Enumerations
             "AvgCount")]
         CompleteComponentDistribution = 0x8000,
 
+        [AnalyzeOptionInfo("Subtree distribution",
+            "Length distribution of the subtrees in the network.",
+            OptionType.Distribution,
+            "Order",
+            "AvgCount")]
+        SubtreeDistribution = 0x10000,
+
         [AnalyzeOptionInfo("Distance distribution", 
             "Node-node distance distribution in the network.",
             OptionType.Distribution,
             "Distance",
             "AvgCount")]
-        DistanceDistribution = 0x10000,
+        DistanceDistribution = 0x20000,
 
         [AnalyzeOptionInfo("Triangle distribution", 
             "The distribution of cycles of length 3 (triangles), which contain the node x.",
             OptionType.Distribution,
             "TriangleCount",
             "AvgCount")]
-        TriangleByVertexDistribution = 0x20000,
+        TriangleByVertexDistribution = 0x40000,
 
         [AnalyzeOptionInfo("Cycle distribution", 
             "Cycle length distribution in the network.",
             OptionType.Distribution,
             "Length",
             "AvgCount")]
-        CycleDistribution = 0x40000,
+        CycleDistribution = 0x80000,
 
         // Trajectories. //
 
@@ -148,23 +155,23 @@ namespace Core.Enumerations
             OptionType.Trajectory,
             "StepNumber",
             "AvgCount")]
-        Cycles3Trajectory = 0x80000,
+        Cycles3Trajectory = 0x100000,
 
         //Centralities//
 
         [AnalyzeOptionInfo("Degree Centrality",
              "Network's node Degree Centrality.",
              OptionType.Centrality)]
-        DegreeCentrality = 0x100000,
+        DegreeCentrality = 0x200000,
 
         [AnalyzeOptionInfo("Betweenness Centrality",
            "Network's node Betweenness Centrality.",
            OptionType.Centrality)]
-        BetweennessCentrality = 0x2000000,
+        BetweennessCentrality = 0x4000000,
 
         [AnalyzeOptionInfo("Closeness Centrality",
            "Network's node Closeness Centrality.",
            OptionType.Centrality)]
-        ClosenessCentrality = 0x4000000
+        ClosenessCentrality = 0x8000000
     }
 }

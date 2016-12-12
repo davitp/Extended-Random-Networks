@@ -24,6 +24,7 @@ namespace WSModel
         AnalyzeOption.ClusteringCoefficientDistribution |
         AnalyzeOption.CompleteComponentDistribution |
         AnalyzeOption.ConnectedComponentDistribution |
+        AnalyzeOption.SubtreeDistribution |
         AnalyzeOption.CycleDistribution | 
         AnalyzeOption.Cycles3 |
         AnalyzeOption.Cycles4 |

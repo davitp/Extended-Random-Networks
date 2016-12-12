@@ -22,6 +22,7 @@ namespace ERModel
         AnalyzeOption.ClusteringCoefficientDistribution |
         AnalyzeOption.ClusteringCoefficientPerVertex |
         AnalyzeOption.ConnectedComponentDistribution |
+        AnalyzeOption.SubtreeDistribution |
         AnalyzeOption.CycleDistribution |
         AnalyzeOption.Cycles3 |
         AnalyzeOption.Cycles4 |

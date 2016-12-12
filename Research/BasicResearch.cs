@@ -32,6 +32,7 @@ namespace Research
         AnalyzeOption.ClusteringCoefficientPerVertex |
         AnalyzeOption.CompleteComponentDistribution |
         AnalyzeOption.ConnectedComponentDistribution |
+        AnalyzeOption.SubtreeDistribution |
         AnalyzeOption.CycleDistribution |
         AnalyzeOption.Cycles3 |
         AnalyzeOption.Cycles4 |

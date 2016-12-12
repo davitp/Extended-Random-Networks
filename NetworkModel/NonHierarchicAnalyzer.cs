@@ -215,6 +215,12 @@ namespace NetworkModel
             return connectedSubGraphDic;
         }
 
+        protected override SortedDictionary<double, double> CalculateSubtreeDistribution()
+        {
+            // TODO add implementation Aram Karapetyan
+            return new SortedDictionary<double, double>();
+        }
+
         protected override SortedDictionary<Double, Double> CalculateDistanceDistribution()
         {
             if (!calledPaths)

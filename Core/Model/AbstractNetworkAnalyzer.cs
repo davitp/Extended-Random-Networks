@@ -45,6 +45,8 @@ namespace Core.Model
                     return CalculateCompleteComponentDistribution();
                 case AnalyzeOption.ConnectedComponentDistribution:
                     return CalculateConnectedComponentDistribution();
+                case AnalyzeOption.SubtreeDistribution:
+                    return CalculateSubtreeDistribution();
                 case AnalyzeOption.CycleDistribution:
                     // TODO
                     return CalculateCycleDistribution(1, 1);
@@ -223,6 +225,15 @@ namespace Core.Model
         /// </summary>
         /// <returns>(order of connected component, count) pairs.</returns>
         protected virtual SortedDictionary<Double, Double> CalculateConnectedComponentDistribution()
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Calculates counts of subtrees in the network.
+        /// </summary>
+        /// <returns>(order of connected component, count) pairs.</returns>
+        protected virtual SortedDictionary<Double, Double> CalculateSubtreeDistribution()
         {
             throw new NotImplementedException();
         }
