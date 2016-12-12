@@ -36,6 +36,11 @@ namespace Core.Enumerations
         [ModelTypeInfo("Non Regular Hierarchical model", 
             "Random non-regularly branching block-hierarchical network.",
             "NonRegularHierarchicModel.NonRegularHierarchicNetwork, NonRegularHierarchicModel")]
-        NonRegularHierarchic
+        NonRegularHierarchic,
+
+        [ModelTypeInfo("IM model",
+            "Random network.",
+            "IMModel.IMNetwork, IMModel")]
+        IM
     }
 }

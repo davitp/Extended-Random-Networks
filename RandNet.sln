@@ -163,6 +163,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetworkModel", "NetworkMode
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModelChecking", "ModelChecking\ModelChecking.csproj", "{8F6B53CF-9E41-4535-BAB4-CCF1F34A8238}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IMModel", "IMModel\IMModel.csproj", "{6D6AF5BB-B73C-4A48-B798-3B2CF22A70AB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -289,6 +291,14 @@ Global
 		{8F6B53CF-9E41-4535-BAB4-CCF1F34A8238}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8F6B53CF-9E41-4535-BAB4-CCF1F34A8238}.Release|x86.ActiveCfg = Release|Any CPU
 		{8F6B53CF-9E41-4535-BAB4-CCF1F34A8238}.Release|x86.Build.0 = Release|Any CPU
+		{6D6AF5BB-B73C-4A48-B798-3B2CF22A70AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D6AF5BB-B73C-4A48-B798-3B2CF22A70AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D6AF5BB-B73C-4A48-B798-3B2CF22A70AB}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{6D6AF5BB-B73C-4A48-B798-3B2CF22A70AB}.Debug|x86.Build.0 = Debug|Any CPU
+		{6D6AF5BB-B73C-4A48-B798-3B2CF22A70AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D6AF5BB-B73C-4A48-B798-3B2CF22A70AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D6AF5BB-B73C-4A48-B798-3B2CF22A70AB}.Release|x86.ActiveCfg = Release|Any CPU
+		{6D6AF5BB-B73C-4A48-B798-3B2CF22A70AB}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

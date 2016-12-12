@@ -21,6 +21,7 @@ namespace Research
     [AvailableModelType(ModelType.WS)]
     [AvailableModelType(ModelType.RegularHierarchic)]
     [AvailableModelType(ModelType.NonRegularHierarchic)]
+    [AvailableModelType(ModelType.IM)]
     [AvailableGenerationType(GenerationType.Random)]
     [AvailableGenerationType(GenerationType.Static)]
     [AvailableAnalyzeOption(

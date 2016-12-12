@@ -59,6 +59,21 @@ namespace Core.Enumerations
         [GenerationParameterInfo("Adjacency matrix",
             "Adjacency matrix and branches of the networks.",
             typeof(MatrixPath), null)]
-        AdjacencyMatrix
+        AdjacencyMatrix,
+
+        [GenerationParameterInfo("",
+            "",
+            typeof(UInt32), "3")]
+        ZeroLevelNodesCount,
+
+        [GenerationParameterInfo("α",
+            "Random parameter of IM network",
+            typeof(Double), "0.1")]
+        Alpha,
+
+        [GenerationParameterInfo("",
+            "",
+            typeof(UInt32), "2")]
+        BlocksCount,
     }
 }
