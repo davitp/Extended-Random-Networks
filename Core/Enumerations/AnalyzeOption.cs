@@ -59,29 +59,36 @@ namespace Core.Enumerations
             OptionType.Global)]
         Cycles5 = 0x40,
 
+        [AnalyzeOptionInfo("Dr",
+            "Dr",
+            OptionType.Global,
+            "",
+            "")]
+        Dr = 0x80,
+
         // Eigenvalues spectra properties. //
 
         [AnalyzeOptionInfo("Eigenvalues",
             "The spectrum of network's adjacency matrix’s eigenvalues.",
             OptionType.ValueList)]
-        EigenValues = 0x80,
+        EigenValues = 0x100,
 
         [AnalyzeOptionInfo("3-length cycles (eigenvalues)", 
             "Number of cycles of length 3 in the network calculated from the spectrum of eigenvalues.",
             OptionType.Global)]
-        Cycles3Eigen = 0x100,
+        Cycles3Eigen = 0x200,
 
         [AnalyzeOptionInfo("4-length cycles (eigenvalues)",
             "Number of cycles of length 4 in the network calculated from the spectrum of eigenvalues.",
             OptionType.Global)]
-        Cycles4Eigen = 0x200,
+        Cycles4Eigen = 0x400,
 
         [AnalyzeOptionInfo("Eigenvalues distances distribution",
             "The distribution of intervals between network's adjacency matrix’s eigenvalues.",
             OptionType.Distribution,
             "Distance", 
             "Count")]
-        EigenDistanceDistribution = 0x400,
+        EigenDistanceDistribution = 0x800,
 
         // Distributions. //
 
@@ -90,63 +97,63 @@ namespace Core.Enumerations
             OptionType.Distribution,
             "Degree",
             "AvgCount")]
-        DegreeDistribution = 0x800,
+        DegreeDistribution = 0x1000,
 
         [AnalyzeOptionInfo("Clustering coefficients distribution", 
             "Network's node clustering coefficient distribution.",
             OptionType.Distribution,
             "Coefficient",
             "AvgCount")]
-        ClusteringCoefficientDistribution = 0x1000,
+        ClusteringCoefficientDistribution = 0x2000,
 
         [AnalyzeOptionInfo("Clustering coefficient per vertex",
             "Clustering coefficient for each node of network.",
             OptionType.Distribution,
             "Vertex",
             "AvgCoefficient")]
-        ClusteringCoefficientPerVertex = 0x2000,
+        ClusteringCoefficientPerVertex = 0x4000,
 
         [AnalyzeOptionInfo("Connected component distribution",
             "Length distribution of the connected subnetworks in the network.",
             OptionType.Distribution,
             "Order",
             "AvgCount")]
-        ConnectedComponentDistribution = 0x4000,
+        ConnectedComponentDistribution = 0x8000,
 
         [AnalyzeOptionInfo("Complete component distribution", 
             "Length distribution of the complete subnetworks in the network.",
             OptionType.Distribution,
             "Order",
             "AvgCount")]
-        CompleteComponentDistribution = 0x8000,
+        CompleteComponentDistribution = 0x10000,
 
         [AnalyzeOptionInfo("Subtree distribution",
             "Length distribution of the subtrees in the network.",
             OptionType.Distribution,
             "Order",
             "AvgCount")]
-        SubtreeDistribution = 0x10000,
+        SubtreeDistribution = 0x20000,
 
         [AnalyzeOptionInfo("Distance distribution", 
             "Node-node distance distribution in the network.",
             OptionType.Distribution,
             "Distance",
             "AvgCount")]
-        DistanceDistribution = 0x20000,
+        DistanceDistribution = 0x40000,
 
         [AnalyzeOptionInfo("Triangle distribution", 
             "The distribution of cycles of length 3 (triangles), which contain the node x.",
             OptionType.Distribution,
             "TriangleCount",
             "AvgCount")]
-        TriangleByVertexDistribution = 0x40000,
+        TriangleByVertexDistribution = 0x80000,
 
         [AnalyzeOptionInfo("Cycle distribution", 
             "Cycle length distribution in the network.",
             OptionType.Distribution,
             "Length",
             "AvgCount")]
-        CycleDistribution = 0x80000,
+        CycleDistribution = 0x100000,        
 
         // Trajectories. //
 
@@ -155,23 +162,23 @@ namespace Core.Enumerations
             OptionType.Trajectory,
             "StepNumber",
             "AvgCount")]
-        Cycles3Trajectory = 0x100000,
+        Cycles3Trajectory = 0x200000,
 
         //Centralities//
 
         [AnalyzeOptionInfo("Degree Centrality",
              "Network's node Degree Centrality.",
              OptionType.Centrality)]
-        DegreeCentrality = 0x200000,
+        DegreeCentrality = 0x400000,
 
         [AnalyzeOptionInfo("Betweenness Centrality",
            "Network's node Betweenness Centrality.",
            OptionType.Centrality)]
-        BetweennessCentrality = 0x4000000,
+        BetweennessCentrality = 0x8000000,
 
         [AnalyzeOptionInfo("Closeness Centrality",
            "Network's node Closeness Centrality.",
            OptionType.Centrality)]
-        ClosenessCentrality = 0x8000000
+        ClosenessCentrality = 0x10000000
     }
 }

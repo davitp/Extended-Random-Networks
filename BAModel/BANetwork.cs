@@ -33,7 +33,8 @@ namespace BAModel
         AnalyzeOption.DistanceDistribution |
         AnalyzeOption.EigenDistanceDistribution |
         AnalyzeOption.EigenValues |
-        AnalyzeOption.TriangleByVertexDistribution)]// |
+        AnalyzeOption.TriangleByVertexDistribution |
+        AnalyzeOption.Dr)] // |
         //AnalyzeOption.DegreeCentrality |
         //AnalyzeOption.BetweennessCentrality |
         //AnalyzeOption.ClosenessCentrality)]

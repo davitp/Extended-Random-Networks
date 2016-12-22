@@ -557,6 +557,119 @@ namespace NetworkModel
         }
 
 
+        protected override double CalculateDr()
+        {
+            uint Size = container.Size;
+            List<List<int>> matrix = new List<List<int>>();
+            List<List<int>> lstNr = new List<List<int>>();
+            
+
+            for (int i = 0; i < Size; ++i)
+            {
+                lstNr.Add(container.Neighbourship[i]);
+            }
+
+            
+            for (int i = 0; i < Size; ++i)
+            {
+                List<int> temp = new List<int>();
+                temp.Add(lstNr[i].Count);
+
+                List<int> tmplst = new List<int>();
+                List<int> cur = lstNr[i];
+                List<int> prev = new List<int>();
+                prev.Add(i);
+
+                foreach (int k in cur)
+                {
+                    tmplst.Add(k);
+                }
+
+                int count = temp.Last();
+                while (true)
+                {
+                    List<int> curlst = new List<int>();
+                    foreach (int t in tmplst)
+                        curlst.Add(t);
+                    
+                    foreach (int p in curlst.OrderBy(x => x))
+                    {
+                        count += NeighbourshipCount(p, prev);
+                        prev.Add(p);
+                        f(p, tmplst);
+                    }
+
+                    foreach (int q in curlst)
+                        tmplst.Remove(q);
+
+                    if (count <= temp.Last())
+                        break;
+                    temp.Add(count);
+                }
+
+                matrix.Add(temp);
+            }
+
+            int maxC = matrix[0].Count;
+
+            foreach (List<int> lst in matrix)
+                if (lst.Count > maxC)
+                    maxC = lst.Count;
+
+            for (int i = 0; i < matrix.Count; ++i)
+            {
+                if (matrix[i].Count < maxC)
+                {
+                    int temp = matrix[i].Last();
+                    while (matrix[i].Count != maxC)
+                        matrix[i].Add(temp);
+                }
+            }
+
+            List<double> NrAVG = new List<double>();
+
+            foreach (List<int> i in matrix)
+                NrAVG.Add(CalculateNrAvg(i));
+            
+
+            return CalculateNrAvg(NrAVG);
+        }
+
+        private int NeighbourshipCount(int i, List<int> lst)
+        {
+            List<int> temp = new List<int>();
+
+            for (int j = 1; j < container.Size; ++j)
+            {
+                if (container.AreConnected(i, j) && !temp.Contains(j))
+                {
+                    temp.Add(j);
+                }
+            }
+            
+            if(lst != null)
+                foreach (int item in lst)
+                {
+                    if (temp.Contains(item))
+                    {
+                        temp.Remove(item);
+                    }
+                }
+                 
+            return temp.Count;
+        }
+
+        private void f(int i, List<int> lst)
+        {
+            for (int j = 0; j < container.Size; ++j)
+            {
+                if (i != j && container.AreConnected(i, j) && !lst.Contains(j))
+                {
+                    lst.Add(j);
+                }
+            }
+            
+        }
 
         /*protected override SortedDictionary<Double, Double> CalculateEigenVectorCentrality()
         {
@@ -564,6 +677,38 @@ namespace NetworkModel
         }*/
 
         #region Utilities
+
+        private double CalculateNrAvg(List<int> lst)
+        {
+            if (lst.Count != 0)
+            {
+                double sum = 0;
+                foreach (int item in lst)
+                {
+                    sum += item;
+                }
+
+                return sum / lst.Count;
+            }
+
+            return 0;
+        }
+
+        private double CalculateNrAvg(List<double> lst)
+        {
+            if (lst.Count != 0)
+            {
+                double sum = 0;
+                foreach (int item in lst)
+                {
+                    sum += item;
+                }
+
+                return sum / lst.Count;
+            }
+
+            return 0;
+        }
 
         private bool calledPaths = false;
         private double averagePathLength;

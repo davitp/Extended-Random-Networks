@@ -41,16 +41,21 @@ namespace IMModel
             UInt32 blocksCount = Convert.ToUInt32(genParam[GenerationParameter.BlocksCount]); // b hly vor b = 2
             Double alpha = Convert.ToDouble(genParam[GenerationParameter.Alpha]); //a
 
-
+     
             bool pb = (probability < 0 || probability > 1);
-            if (pb)
+            bool a = (alpha < 0 || alpha > 1);
+
+            if (pb || blocksCount != 2 || a || !(IsPowerOfTwo(numberOfVertices/zeroLevelNodesCount)))
                 throw new InvalidGenerationParameters();
 
             container.Size = numberOfVertices;
-            String errorMessage = String.Empty; // stack overflow exceptioni depqum messagen kunenanq 
-            Generate(numberOfVertices, zeroLevelNodesCount, blocksCount, probability, alpha, out errorMessage);
+            Generate(numberOfVertices, zeroLevelNodesCount, blocksCount, probability, alpha);
         }
 
+        private bool IsPowerOfTwo(UInt32 x)
+        {
+            return (x != 0) && ((x & (x - 1)) == 0);
+        }
 
         private void GenerateFullGraph(Int32[] nodes)
         {
@@ -63,11 +68,10 @@ namespace IMModel
             }
         }
 
-        private void TwoBlocksProbablyConnection(double probability, UInt32[] firstBlock, UInt32[] secondBlock, out string errorMessage)
+        private void TwoBlocksProbablyConnection(double probability, UInt32[] firstBlock, UInt32[] secondBlock)
         {
             try
             {
-                errorMessage = "";
                 bool isAtLeastOneConnectionAdded = false;
 
                 for (UInt32 i = 0; i < firstBlock.Length; ++i)
@@ -80,11 +84,11 @@ namespace IMModel
                         }
                     }
                 if (!isAtLeastOneConnectionAdded)
-                    TwoBlocksProbablyConnection(probability, firstBlock, secondBlock, out errorMessage);
+                    TwoBlocksProbablyConnection(probability, firstBlock, secondBlock);
             }
-            catch (Exception e)
+            catch
             {
-                errorMessage = e.Message;
+                container.AddConnection(Convert.ToInt32(firstBlock[0]), Convert.ToInt32(secondBlock[0]));
             }
         }
 
@@ -104,10 +108,8 @@ namespace IMModel
         }
 
         private void Generate(UInt32 numberOfVertices, UInt32 zeroLevelNodesCount,
-            uint blocksCount, double probability, Double alpha, out string errorMessage)
+            uint blocksCount, double probability, Double alpha)
         {
-            errorMessage = "";
-            //Int32 fullGraphNodesCount = Convert.ToInt32(numberOfVertices / zeroLevelNodesCount);
             Int32 fullGraphNodesCount = Convert.ToInt32(zeroLevelNodesCount);
             for (Int32 i = 0; i < container.Size; i += fullGraphNodesCount)
             {
@@ -136,8 +138,7 @@ namespace IMModel
                                                                          Convert.ToUInt32(Math.Pow(2, level-1) * zeroLevelNodesCount), 
                                                                          out secondBlock
                                                                          ),
-                                                secondBlock, 
-                                                out errorMessage
+                                                secondBlock
                                                 );
                 }
 

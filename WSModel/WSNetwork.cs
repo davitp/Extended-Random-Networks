@@ -32,7 +32,8 @@ namespace WSModel
         AnalyzeOption.Diameter |
         AnalyzeOption.DistanceDistribution |
         AnalyzeOption.EigenDistanceDistribution |
-        AnalyzeOption.EigenValues)]// |
+        AnalyzeOption.EigenValues |
+        AnalyzeOption.Dr)] // |
         //AnalyzeOption.DegreeCentrality |
         //AnalyzeOption.BetweennessCentrality |
         //AnalyzeOption.ClosenessCentrality)]

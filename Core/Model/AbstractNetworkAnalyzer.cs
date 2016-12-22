@@ -80,9 +80,16 @@ namespace Core.Model
                     return CalculateClosenessCentrality();
                 case AnalyzeOption.DegreeCentrality:
                     return CalculateDegreeCentrality();
+                case AnalyzeOption.Dr:
+                    return CalculateDr();
                 default:
                     return null;
             }
+        }
+
+        protected virtual Double CalculateDr()
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>
