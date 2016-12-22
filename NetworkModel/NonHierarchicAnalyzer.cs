@@ -214,13 +214,46 @@ namespace NetworkModel
             }
             return connectedSubGraphDic;
         }
+        //-----------------------------Aram--------------------------------------------------------------
 
         protected override SortedDictionary<double, double> CalculateSubtreeDistribution()
         {
-            // TODO add implementation Aram Karapetyan
-            return new SortedDictionary<double, double>();
-        }
+            List<NonHierarchicContainer.Edge> Edges = new List<NonHierarchicContainer.Edge>();
+            int i = 0;
+            foreach (var item in container.ExistingEdges())
+            {
+                Edges.Add(new NonHierarchicContainer.Edge(item.Key, item.Value, i));
+                i++;
+            }
+            List<NonHierarchicContainer.Edge> tree = new List<NonHierarchicContainer.Edge>();
+            Stack<NonHierarchicContainer.Edge> stack = new Stack<NonHierarchicContainer.Edge>();
+            foreach (NonHierarchicContainer.Edge edge in Edges)
+                stack.Push(edge);
 
+            List<int> l = new List<int>();
+            for (int j = 0; j < Edges.Count; j++)
+                l.Add(0);
+
+            while (stack.Count != 0)
+            {
+                NonHierarchicContainer.Edge edge = stack.Pop();
+                if (!tree.Remove(edge))
+                {
+                    tree.Add(edge);
+                    l[tree.Count]++;
+                    stack.Push(edge);
+                    foreach (NonHierarchicContainer.Edge e in Edges)
+                        if (NonHierarchicContainer.IsMaxHanging(tree, e))
+                            stack.Push(e);
+                }
+            }
+            SortedDictionary<double, double> result = new SortedDictionary<double, double>();
+            for (int j = 1; j < l.Count; j++)
+                result.Add(j, l[j]);
+
+            return result;
+        }
+        //---------------------------------------------------------------------------------
         protected override SortedDictionary<Double, Double> CalculateDistanceDistribution()
         {
             if (!calledPaths)

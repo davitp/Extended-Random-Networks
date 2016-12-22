@@ -20,6 +20,55 @@ namespace NetworkModel
     /// </summary>
     public class NonHierarchicContainer : INetworkContainer
     {
+        //------------------Aram----------------------------------
+        public struct Edge
+        {
+            public int A;
+            public int B;
+            public int Id;
+
+            public Edge(int a, int b, int x=0)
+            {
+                A = a;
+                B = b;
+                Id = x;
+            }
+        }
+
+        public static bool IsMaxHanging(List<Edge> Edges, Edge e)
+        {
+            int i = 0;
+            foreach (Edge k in Edges)
+            {
+                if (e.A == k.A) i++;
+                if (e.A == k.B) i++;
+                if (e.B == k.A) i++;
+                if (e.B == k.B) i++;
+            }
+            if (i != 1)
+                return false;
+            int m = 0;
+            Edges.Add(e);
+            foreach (Edge k in Edges)
+                if (k.Id > m)
+                {
+                    int z = 0;
+                    foreach (Edge h in Edges)
+                        if (h.Id != k.Id)
+                        {
+                            if (h.A == k.A) z++;
+                            if (h.A == k.B) z++;
+                            if (h.B == k.A) z++;
+                            if (h.B == k.B) z++;
+                        }
+
+                    if (z == 1)
+                        m = k.Id;
+                }
+            Edges.Remove(e);
+            return e.Id >= m;
+        }
+        //------------------------------------------------------------------
         private int size = 0;
         private SortedDictionary<int, List<int>> neighbourship;
         private List<int> degrees;
