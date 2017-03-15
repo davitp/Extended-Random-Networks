@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Threading;
+using System.Diagnostics;
 
 using Core;
 using Core.Utility;
@@ -239,6 +240,8 @@ namespace NetworkModel
         /// <param name="j">Second vertex number.</param>
         public void AddConnection(int i, int j)
         {
+            Debug.Assert(i < size);
+            Debug.Assert(j < size);
             if (!AreConnected(i, j))
             {
                 int ivertexdegree = GetVertexDegree(i);
