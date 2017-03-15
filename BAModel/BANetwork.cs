@@ -24,6 +24,7 @@ namespace BAModel
         AnalyzeOption.ClusteringCoefficientDistribution |
         AnalyzeOption.ClusteringCoefficientPerVertex |
         AnalyzeOption.ConnectedComponentDistribution |
+        AnalyzeOption.CompleteComponentDistribution |
         AnalyzeOption.SubtreeDistribution |
         AnalyzeOption.CycleDistribution |
         AnalyzeOption.Cycles3 |

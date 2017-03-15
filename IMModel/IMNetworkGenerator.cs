@@ -16,9 +16,7 @@ namespace IMModel
     class IMNetworkGenerator : INetworkGenerator
     {
         private NonHierarchicContainer container;
-        private RNGCrypto rand;
 
-        private uint node { get; set; }
         public IMNetworkGenerator()
         {
             container = new NonHierarchicContainer();
@@ -34,13 +32,11 @@ namespace IMModel
 
         public void RandomGeneration(Dictionary<GenerationParameter, object> genParam)
         {
-
-            UInt32 numberOfVertices = Convert.ToUInt32(genParam[GenerationParameter.Vertices]); //N
-            UInt32 zeroLevelNodesCount = Convert.ToUInt32(genParam[GenerationParameter.ZeroLevelNodesCount]); //M0
-            Double probability = Convert.ToDouble(genParam[GenerationParameter.Probability]); //p
-            UInt32 blocksCount = Convert.ToUInt32(genParam[GenerationParameter.BlocksCount]); // b hly vor b = 2
-            Double alpha = Convert.ToDouble(genParam[GenerationParameter.Alpha]); //a
-
+            UInt32 numberOfVertices = Convert.ToUInt32(genParam[GenerationParameter.Vertices]);
+            UInt32 zeroLevelNodesCount = Convert.ToUInt32(genParam[GenerationParameter.ZeroLevelNodesCount]);
+            Double probability = Convert.ToDouble(genParam[GenerationParameter.Probability]);
+            UInt32 blocksCount = Convert.ToUInt32(genParam[GenerationParameter.BlocksCount]);
+            Double alpha = Convert.ToDouble(genParam[GenerationParameter.Alpha]);
      
             bool pb = (probability < 0 || probability > 1);
             bool a = (alpha < 0 || alpha > 1);
@@ -51,6 +47,14 @@ namespace IMModel
             container.Size = numberOfVertices;
             Generate(numberOfVertices, zeroLevelNodesCount, blocksCount, probability, alpha);
         }
+
+        public void StaticGeneration(MatrixInfoToRead matrixInfo)
+        {
+            container.SetMatrix(matrixInfo.Matrix);
+        }
+
+        private RNGCrypto rand;
+        private uint node { get; set; }
 
         private bool IsPowerOfTwo(UInt32 x)
         {
@@ -70,38 +74,32 @@ namespace IMModel
 
         private void TwoBlocksProbablyConnection(double probability, UInt32[] firstBlock, UInt32[] secondBlock)
         {
-            try
-            {
-                bool isAtLeastOneConnectionAdded = false;
+            bool stop = false;
 
+            while (!stop)
+            {
                 for (UInt32 i = 0; i < firstBlock.Length; ++i)
                     for (UInt32 j = 0; j < secondBlock.Length; ++j)
                     {
                         if (probability >= rand.NextDouble())
                         {
                             container.AddConnection(Convert.ToInt32(firstBlock[i]), Convert.ToInt32(secondBlock[j]));
-                            isAtLeastOneConnectionAdded = true;
+                            stop = true;
                         }
                     }
-                if (!isAtLeastOneConnectionAdded)
-                    TwoBlocksProbablyConnection(probability, firstBlock, secondBlock);
-            }
-            catch
-            {
-                container.AddConnection(Convert.ToInt32(firstBlock[0]), Convert.ToInt32(secondBlock[0]));
             }
         }
 
-        private UInt32[] GetTwoBloksFromContainer(UInt32 startIndex, UInt32 size, out UInt32[] secondBlock)
+        private UInt32[] GetTwoBlocksFromContainer(UInt32 startIndex, UInt32 size, out UInt32[] secondBlock)
         {
             UInt32[] firstBlock = new UInt32[size];
             secondBlock = new UInt32[size];
             for (UInt32 i = 0; i < 2 * size; ++i)
             {
                 if (i < size)
-                    firstBlock[i] = node++;
+                    firstBlock[i] = ++node;
                 else
-                    secondBlock[i - size] = node++;
+                    secondBlock[i - size] = ++node;
             }
 
             return firstBlock;
@@ -124,36 +122,26 @@ namespace IMModel
             }
 
             UInt32 level = 1;
-            double levelsCouunt = Math.Log(numberOfVertices / zeroLevelNodesCount, blocksCount);
+            double levelsCount = Math.Log(numberOfVertices / zeroLevelNodesCount, blocksCount);
 
-            while (levelsCouunt > 0)
+            while (levelsCount > 0)
             {
                 UInt32[] secondBlock;
                 double levelP = alpha * Math.Pow(probability, level);
                 node = 0;
                 for (UInt32 i = 0; i < container.Size; i += 2 * Convert.ToUInt32(Math.Pow(2, level - 1) * zeroLevelNodesCount))
                 {
+
                     TwoBlocksProbablyConnection(levelP,
-                                                GetTwoBloksFromContainer(i, 
-                                                                         Convert.ToUInt32(Math.Pow(2, level-1) * zeroLevelNodesCount), 
-                                                                         out secondBlock
-                                                                         ),
-                                                secondBlock
-                                                );
+                                                GetTwoBlocksFromContainer(i, 
+                                                                          Convert.ToUInt32(Math.Pow(2, level-1) * zeroLevelNodesCount),
+                                                                          out secondBlock),
+                                                secondBlock);
                 }
 
-                levelsCouunt--;
-                level++;
-
+                --levelsCount;
+                ++level;
             }
         }
-
-        /**********************************************/
-
-        public void StaticGeneration(MatrixInfoToRead matrixInfo)
-        {
-            container.SetMatrix(matrixInfo.Matrix);
-        }
-
     }
 }

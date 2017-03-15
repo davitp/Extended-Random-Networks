@@ -49,6 +49,7 @@
     <Compile Include="Engine\Eigenvalues\EigenValueUtils.cs" />
     <Compile Include="HierarchicEngine\Engine.cs" />
     <Compile Include="HierarchicEngine\EngineForConnectedComp.cs" />
+    <Compile Include="MatrixContainer.cs" />
     <Compile Include="NonHierarchicAnalyzer.cs" />
     <Compile Include="NonHierarchicContainer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

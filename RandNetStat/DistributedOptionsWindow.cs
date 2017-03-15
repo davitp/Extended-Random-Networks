@@ -92,37 +92,3 @@ namespace RandNetStat
         }
     }
 }
-
-        /*foreach (int i in resultsByGroups.Keys)
-            {
-                if (resultsByGroups[i].Contains(selectedId))
-                {
-                    Dictionary<AnalyzeOption, ChartProperties> p = new Dictionary<AnalyzeOption,ChartProperties>();
-                    foreach(DataGridViewRow r in distributedOptionsTable.Rows)
-                    {
-                        DataGridViewCheckBoxCell cell = r.Cells["distributedCheckedColumn"] as DataGridViewCheckBoxCell;
-                        if ((bool)(cell.Value) == true)
-                        {
-                            AnalyzeOption opt = (AnalyzeOption)Enum.Parse(typeof(AnalyzeOption), 
-                                r.Cells["distributedNameColumn"].Value.ToString());
-                            ThickeningType t = (ThickeningType)Enum.Parse(typeof(ThickeningType), 
-                                r.Cells["thickeningTypeColumn"].Value.ToString());
-                            ApproximationType at = (ApproximationType)Enum.Parse(typeof(ApproximationType), 
-                                r.Cells["approximationColumn"].Value.ToString());
-                            ChartProperties pv = new ChartProperties(t, 
-                                Int32.Parse(r.Cells["thickeningValueColumn"].Value.ToString()), 
-                                at,
-                                color.BackColor);
-                            p.Add(opt, pv);
-                        }
-                    }
-                    if (p.Count() == 0)
-                    {
-                        MessageBox.Show("There are no checked options.", "Information");
-                        return;
-                    }
-                    AnalyzeChartsWindow chartsWindow = new AnalyzeChartsWindow(i, p);
-                    chartsWindow.Show();
-                    return;
-                }
-            }*/

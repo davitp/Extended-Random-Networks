@@ -145,18 +145,11 @@ namespace Storage
             if (fileNameToLoad != null)
             {
                 r = new ResearchResult();
-                try
-                {
-                    book = excelApp.Workbooks.Open(fileNameToLoad);
-                    sheet = (Worksheet)book.Worksheets[1];
-                    LoadResearchInfo(sheet, r);
-                    LoadResearchAndGenerationParameters(sheet, r);
-                    LoadEnsembleResults(book, r);
-                }
-                catch (SystemException ex)
-                {
-                    Console.WriteLine(ex.Data);
-                }
+                book = excelApp.Workbooks.Open(fileNameToLoad);
+                sheet = (Worksheet)book.Worksheets[1];
+                LoadResearchInfo(sheet, r);
+                LoadResearchAndGenerationParameters(sheet, r);
+                LoadEnsembleResults(book, r);
             }
             book.Close();
             Marshal.ReleaseComObject(book);
@@ -418,10 +411,10 @@ namespace Storage
 
             Debug.Assert(value is SortedDictionary<Double, Double>);
             SortedDictionary<Double, Double> l = value as SortedDictionary<Double, Double>;
-            foreach (Double d in l.Keys)
+            foreach (KeyValuePair<Double, Double> d in l)
             {
-                sheet.Cells[lastRow, 1] = d;
-                sheet.Cells[lastRow, 2] = l[d];
+                sheet.Cells[lastRow, 1] = d.Key;
+                sheet.Cells[lastRow, 2] = d.Value;
                 ++lastRow;
             }
         }
@@ -444,8 +437,8 @@ namespace Storage
             SortedDictionary<Double, Double> l = value as SortedDictionary<Double, Double>;
             using (StreamWriter file = new StreamWriter(fileName))
             {
-                foreach (Double d in l.Keys)
-                    file.WriteLine(d.ToString() + " " + l[d].ToString());
+                foreach (KeyValuePair<Double, Double> d in l)
+                    file.WriteLine(d.Key.ToString() + " " + d.Value.ToString());
             }
         }
 

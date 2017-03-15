@@ -136,21 +136,14 @@ namespace Storage
                 r = new ResearchResult();
                 using (reader = XmlReader.Create(fileNameToLoad))
                 {
-                    try
-                    {
-                        while (reader.Read() &&
-                            (reader.NodeType != XmlNodeType.Element ||
-                            reader.Name == "Research")) { }
+                    while (reader.Read() &&
+                        (reader.NodeType != XmlNodeType.Element ||
+                        reader.Name == "Research")) { }
 
-                        LoadResearchInfo(r);
-                        LoadResearchParameters(r);
-                        LoadGenerationParameters(r);
-                        LoadEnsembleResults(r);
-                    }
-                    catch (SystemException ex)
-                    {
-                        Console.WriteLine(ex.Data);
-                    }
+                    LoadResearchInfo(r);
+                    LoadResearchParameters(r);
+                    LoadGenerationParameters(r);
+                    LoadEnsembleResults(r);
                 }
             }
 
@@ -166,21 +159,14 @@ namespace Storage
                 r = new ResearchResult();
                 using (reader = XmlReader.Create(name))
                 {
-                    try
-                    {
-                        while (reader.Read() &&
-                            (reader.NodeType != XmlNodeType.Element ||
-                            reader.Name == "Research")) { }
+                    while (reader.Read() &&
+                        (reader.NodeType != XmlNodeType.Element ||
+                        reader.Name == "Research")) { }
 
-                        LoadResearchInfo(r);
-                        LoadResearchParameters(r);
-                        LoadGenerationParameters(r);
-                        LoadEnsembleResults(r);
-                    }
-                    catch (SystemException ex)
-                    {
-                        Console.WriteLine(ex.Data);
-                    }
+                    LoadResearchInfo(r);
+                    LoadResearchParameters(r);
+                    LoadGenerationParameters(r);
+                    LoadEnsembleResults(r);
                 }
             }
 
@@ -302,11 +288,11 @@ namespace Storage
         {
             Debug.Assert(value is SortedDictionary<Double, Double>);
             SortedDictionary<Double, Double> l = value as SortedDictionary<Double, Double>;
-            foreach (Double d in l.Keys)
+            foreach (KeyValuePair<Double, Double> d in l)
             {
                 writer.WriteStartElement("pair");
-                writer.WriteAttributeString(info.XAxisName, d.ToString());
-                writer.WriteAttributeString(info.YAxisName, l[d].ToString());
+                writer.WriteAttributeString(info.XAxisName, d.Key.ToString());
+                writer.WriteAttributeString(info.YAxisName, d.Value.ToString());
                 writer.WriteEndElement();
             }
         }
@@ -324,8 +310,8 @@ namespace Storage
             SortedDictionary<Double, Double> l = value as SortedDictionary<Double, Double>;
             using (StreamWriter file = new StreamWriter(fileName))
             {
-                foreach (Double d in l.Keys)
-                    file.WriteLine(d.ToString() + " " + l[d].ToString());
+                foreach (KeyValuePair<Double, Double> d in l)
+                    file.WriteLine(d.Key.ToString() + " " + d.Value.ToString());
             }
         }
 

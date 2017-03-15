@@ -47,11 +47,11 @@ namespace RandNetStat
             }
         }
 
-        public double ThickeningValue
+        public int ThickeningValue
         {
             get
             {
-                return double.Parse(thickeningValueTxt.Text);
+                return int.Parse(thickeningValueTxt.Text);
             }
             set
             {

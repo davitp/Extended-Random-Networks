@@ -20,6 +20,7 @@ namespace NetworkModel
     /// </summary>
     public class NonHierarchicContainer : INetworkContainer
     {
+        #region SubTrees
         //------------------Aram----------------------------------
         public struct Edge
         {
@@ -69,6 +70,8 @@ namespace NetworkModel
             return e.Id >= m;
         }
         //------------------------------------------------------------------
+        #endregion
+
         private int size = 0;
         private SortedDictionary<int, List<int>> neighbourship;
         private List<int> degrees;

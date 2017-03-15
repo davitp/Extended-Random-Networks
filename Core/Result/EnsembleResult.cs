@@ -215,12 +215,12 @@ namespace Core.Result
             {
                 Debug.Assert(res.Result[option] is SortedDictionary<Double, Double>);
                 SortedDictionary<Double, Double> d = res.Result[option] as SortedDictionary<Double, Double>;
-                foreach (double k in d.Keys)
+                foreach (KeyValuePair<double, double> k in d)
                 {
-                    if (temp.ContainsKey(k))
-                        temp[k] += d[k];
+                    if (temp.ContainsKey(k.Key))
+                        temp[k.Key] += k.Value;
                     else
-                        temp.Add(k, d[k]);
+                        temp.Add(k.Key, k.Value);
                 }
             }
             r.Result.Add(option, temp);
@@ -236,12 +236,12 @@ namespace Core.Result
                 Result.Add(option, new SortedDictionary<Double, Double>());
             Debug.Assert(Result[option] is SortedDictionary<Double, Double>);
             SortedDictionary<Double, Double> temp = Result[option] as SortedDictionary<Double, Double>;
-            foreach (double k in d.Keys)
+            foreach (KeyValuePair<double, double> k in d)
             {
-                if (temp.ContainsKey(k))
-                    temp[k] = CalculateNextAverageValue(temp[k], d[k]);
+                if (temp.ContainsKey(k.Key))
+                    temp[k.Key] = CalculateNextAverageValue(temp[k.Key], k.Value);
                 else
-                    temp.Add(k, d[k]);
+                    temp.Add(k.Key, k.Value);
             }
         }
 
@@ -307,12 +307,12 @@ namespace Core.Result
             {
                 Debug.Assert(res.Result[option] is SortedDictionary<Double, Double>);
                 SortedDictionary<Double, Double> d = res.Result[option] as SortedDictionary<Double, Double>;
-                foreach (double k in d.Keys)
+                foreach (KeyValuePair<double, double> k in d)
                 {
-                    if (temp.ContainsKey(k))
-                        temp[k] += Math.Round(d[k] / results.Count, 4);
+                    if (temp.ContainsKey(k.Key))
+                        temp[k.Key] += Math.Round(k.Value / results.Count, 4);
                     else
-                        temp.Add(k, Math.Round(d[k] / results.Count, 4));
+                        temp.Add(k.Key, Math.Round(k.Value / results.Count, 4));
                 }
             }
             r.Result.Add(option, temp);
@@ -327,12 +327,12 @@ namespace Core.Result
             SortedDictionary<Double, Double> temp = Result[option] as SortedDictionary<Double, Double>;
             Debug.Assert(result.Result[option] is SortedDictionary<Double, Double>);
             SortedDictionary<Double, Double> d = result.Result[option] as SortedDictionary<Double, Double>;
-            foreach (double k in d.Keys)
+            foreach (KeyValuePair<double, double> k in d)
             {
-                if (temp.ContainsKey(k))
-                    temp[k] = CalculateNextAverageValue(temp[k], d[k]);
+                if (temp.ContainsKey(k.Key))
+                    temp[k.Key] = CalculateNextAverageValue(temp[k.Key], k.Value);
                 else
-                    temp.Add(k, d[k]);
+                    temp.Add(k.Key, k.Value);
             }
         }
 

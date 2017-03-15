@@ -68,10 +68,7 @@ namespace Manager
                     {
                         threads[i].Abort();
                     }
-                    catch (ThreadAbortException ex)
-                    {
-                        Console.WriteLine(ex.Message);
-                    }
+                    catch (ThreadAbortException ex) { }
                     finally
                     {
                         foreach (AutoResetEvent handle in waitHandles)

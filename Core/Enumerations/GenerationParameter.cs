@@ -18,7 +18,7 @@ namespace Core.Enumerations
     {
         [GenerationParameterInfo("Number of vertices", 
             "The initial number of vertices in the network.", 
-            typeof(UInt32), "10")]
+            typeof(UInt32), "24")]
         Vertices,
 
         [GenerationParameterInfo("Connectivity probability", 
@@ -56,13 +56,8 @@ namespace Core.Enumerations
             typeof(Double), "0.1")]
         Mu,
 
-        [GenerationParameterInfo("Adjacency matrix",
-            "Adjacency matrix and branches of the networks.",
-            typeof(MatrixPath), null)]
-        AdjacencyMatrix,
-
-        [GenerationParameterInfo("",
-            "",
+        [GenerationParameterInfo("M0",
+            "Count of nodes on zero level.",
             typeof(UInt32), "3")]
         ZeroLevelNodesCount,
 
@@ -71,9 +66,14 @@ namespace Core.Enumerations
             typeof(Double), "0.1")]
         Alpha,
 
-        [GenerationParameterInfo("",
-            "",
+        [GenerationParameterInfo("b",
+            "Count of blocks.",
             typeof(UInt32), "2")]
         BlocksCount,
+
+        [GenerationParameterInfo("Adjacency matrix",
+            "Adjacency matrix and branches of the networks.",
+            typeof(MatrixPath), null)]
+        AdjacencyMatrix
     }
 }

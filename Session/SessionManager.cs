@@ -265,7 +265,7 @@ namespace Session
             {
                 return AvailableModelTypes(existingResearches[id].GetType());
             }
-            catch(KeyNotFoundException)
+            catch (KeyNotFoundException)
             {
                 throw new CoreException("Specified research does not exists.");
             }

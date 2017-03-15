@@ -214,7 +214,141 @@ namespace NetworkModel
             }
             return connectedSubGraphDic;
         }
+
+        #region Complete
+        //-----------------------------Artur-------------------------------------------------------
+        protected override SortedDictionary<double, double> CalculateCompleteComponentDistribution()
+        {
+            SortedDictionary<double, double> result = new SortedDictionary<double, double>();
+
+            /*SortedDictionary<int, List<List<int>>> subGraphs = bronKerbosch();
+            SortedDictionary<int, List<List<int>>> distribution = new SortedDictionary<int, List<List<int>>>();
+
+            foreach (int i in subGraphs.Keys)
+            {
+                distribution.Add(i, subGraphs[i]);
+            }
+
+            for (int i = (int)container.Size; i >= 2; i--)
+            {
+                List<List<int>> sets = distribution[i];
+                foreach (List<int> set in sets)
+                {
+                    List<List<int>> subset = allSubsetsWithLessByOnePower(set);
+                    List<List<int>> sets1 = distribution[i - 1];
+                    if (subset != null)
+                    {
+                        foreach (List<int> sub in subset)
+                        {
+                            sets1.Add(sub);
+                        }
+                    }
+                    distribution[i - 1] = sets1;
+                }
+            }*/
+            
+            return result;
+        }
+
+        /*private SortedDictionary<int, List<List<int>>> bronKerbosch()
+        {
+            List<int> r = new List<int>();
+
+            List<int> p = new List<int>();
+            for (int v = 1; v <= container.Size; v++)
+            {
+                p.Add(v);
+            }
+
+            List<int> x = new List<int>();
+
+            SortedDictionary<int, List<List<int>>> distribution = new SortedDictionary<int, List<List<int>>>();
+
+            bronKerbosch(distribution, 0, r, p, x);
+
+            return distribution;
+        }
+
+        private void bronKerbosch(SortedDictionary<int, List<List<int>>> distribution, int recStep,
+            List<int> r, List<int> p, List<int> x)
+        {
+            // If p and x are both empty:
+            if (p.Count == 0 && x.Count == 0)
+            {
+                // Report r as a maximal clique
+                List<List<int>> d = distribution.computeIfAbsent(r.Count, k-> new HashSet<>());
+                d.Add(r);
+                return;
+            }
+
+            // for each vertex v in p:
+            List<int> vertices = p;
+            foreach (int v in vertices)
+            {
+                // bronKerbosch(r ⋃ {v}, p ⋂ n(v), x ⋂ n(v))
+                List<int> nv = container.Neighbourship[v];
+                bronKerbosch(distribution, recStep + 1, union(r, v), intersect(p, nv), intersect(x, nv));
+
+                // p = p \ {v}
+                p = subtract(p, v);
+                // x = x ⋃ {v}
+                x = union(x, v);
+            }
+        }
+
+        private List<int> intersect(List<int> first, List<int> second)
+        {
+            List<int> result = new List<int>();
+
+            foreach (int item in first)
+            {
+                if (second.Contains(item))
+                {
+                    result.Add(item);
+                }
+            }
+
+            return result;
+        }
+
+        private List<int> union(List<int> items, int item)
+        {
+            List<int> result = new List<int>(items);
+
+            result.Add(item);
+
+            return result;
+        }
+
+        private List<int> subtract(List<int> items, int item)
+        {
+            List<int> result = new List<int>(items);
+
+            result.Remove(item);
+
+            return result;
+        }
+
+        private List<List<int>> allSubsetsWithLessByOnePower(List<int> set)
+        {
+            if (set.Count == 0) return null;
+            
+            List<List<int>> subsets = new List<List<int>>();
+            List<int> list = new List<int>(set);
+
+            for (int i = 0; i < list.Count; i++)
+            {
+                int item = list[i];
+                list.Remove(i);
+                subsets.Add(new List<int>(list));
+                list.Insert(i, item);
+            }
+
+            return subsets;
+        }*/
+
         //-----------------------------Aram--------------------------------------------------------------
+        #endregion
 
         protected override SortedDictionary<double, double> CalculateSubtreeDistribution()
         {

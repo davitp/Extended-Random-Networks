@@ -96,10 +96,86 @@ namespace RandNetStat
 
         private void InitializeValues(Series s)
         {
-            // TODO calculate values using statistics options
-            // if options are not changed maybe no set values?
-            foreach (Double d in values.Keys)
-                s.Points.Add(new DataPoint(d, values[d]));
+            s.Points.Clear();
+            SortedDictionary<Double, Double> result = new SortedDictionary<double, double>();
+            ApplyThickening(ref result);
+            ApplyApproximation(ref result);
+            foreach (KeyValuePair<double, double> d in result)
+                s.Points.Add(new DataPoint(d.Key, d.Value));
+        }
+
+        private void ApplyThickening(ref SortedDictionary<Double, Double> v)
+        {
+            int delta = 0;
+            switch(statisticsOptions.ThickeningType)
+            {
+                case ThickeningType.None:
+                    v = values;
+                    return;
+                case ThickeningType.Delta:
+                    delta = statisticsOptions.ThickeningValue;
+                    break;
+                case ThickeningType.Percent:
+                    delta = (int)(values.Count() * statisticsOptions.ThickeningValue / 100.0);
+                    break;
+                default:
+                    Debug.Assert(false);
+                    return;
+            }
+            
+            int currentStep = 0, step = delta;
+            double sum = 0;
+            foreach (KeyValuePair<Double, Double> d in values)
+            {
+                if (currentStep < delta)
+                {
+                    sum += d.Value;
+                    ++currentStep;
+                }
+                else
+                {
+                    v.Add(step, sum / delta);
+                    currentStep = 0;
+                    sum = 0;
+                    step += delta;
+                }
+            }
+            
+            v.Add(values.Count(), sum / ((values.Count() % delta == 0) ? delta : values.Count() % delta));
+        }
+
+        private void ApplyApproximation(ref SortedDictionary<Double, Double> v)
+        {
+            if (statisticsOptions.ApproximationType == ApproximationType.None)
+                return;
+
+            SortedDictionary<Double, Double> t = new SortedDictionary<double, double>(v);
+            v.Clear();
+            foreach (KeyValuePair<double, double> d in t)
+                ApplyApproximation(ref v, d.Key, d.Value);
+        }
+
+        private void ApplyApproximation(ref SortedDictionary<Double, Double> v, double x, double y)
+        {
+            switch (statisticsOptions.ApproximationType)
+            {
+                case ApproximationType.Degree:
+                    x = (x == 0) ? x : Math.Log(x);
+                    y = (y == 0) ? y : Math.Log(y);
+                    break;
+                case ApproximationType.Exponential:
+                    y = (y == 0) ? y : Math.Log(y);
+                    break;
+                case ApproximationType.Gaus:
+                    x *= x;
+                    y = (y == 0) ? y : Math.Log(y);
+                    break;
+                default:
+                    Debug.Assert(false);
+                    return;
+            }
+            Debug.Assert(!Double.IsInfinity(x) && !Double.IsInfinity(y));
+            v.Add(x, y);
         }
 
         #endregion
