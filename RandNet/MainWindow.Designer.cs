@@ -84,6 +84,10 @@
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenu = new System.Windows.Forms.MenuStrip();
             this.statisticAnalyzerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.runToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.classicalTestsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.regularHierarchicTestsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.nonRegularHierarchicTestsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -99,10 +103,8 @@
             this.statusProgress = new System.Windows.Forms.ProgressBar();
             this.startstop = new System.Windows.Forms.Button();
             this.generalPanel = new System.Windows.Forms.Panel();
-            this.runToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.classicalTestsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.regularHierarchicTestsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.nonRegularHierarchicTestsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.activationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.activationToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.researchesTable)).BeginInit();
             this.researchTableCSM.SuspendLayout();
             this.parametersGrp.SuspendLayout();
@@ -127,9 +129,9 @@
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             this.researchesTable.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            this.researchesTable.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.researchesTable.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -270,7 +272,7 @@
             this.deleteResearch,
             this.cloneResearch});
             this.researchTableCSM.Name = "contextMenuStrip1";
-            this.researchTableCSM.Size = new System.Drawing.Size(159, 92);
+            this.researchTableCSM.Size = new System.Drawing.Size(159, 114);
             // 
             // createResearch
             // 
@@ -279,7 +281,8 @@
             this.evolutionNewResearch,
             this.percolationNewResearch,
             this.collectionToolStripMenuItem,
-            this.structuralToolStripMenuItem1});
+            this.structuralToolStripMenuItem1,
+            this.activationToolStripMenuItem1});
             this.createResearch.Name = "createResearch";
             this.createResearch.Size = new System.Drawing.Size(158, 22);
             this.createResearch.Text = "Create Research";
@@ -287,35 +290,35 @@
             // basicNewResearch
             // 
             this.basicNewResearch.Name = "basicNewResearch";
-            this.basicNewResearch.Size = new System.Drawing.Size(134, 22);
+            this.basicNewResearch.Size = new System.Drawing.Size(152, 22);
             this.basicNewResearch.Text = "Basic";
             this.basicNewResearch.Click += new System.EventHandler(this.basicToolStripMenuItem_Click);
             // 
             // evolutionNewResearch
             // 
             this.evolutionNewResearch.Name = "evolutionNewResearch";
-            this.evolutionNewResearch.Size = new System.Drawing.Size(134, 22);
+            this.evolutionNewResearch.Size = new System.Drawing.Size(152, 22);
             this.evolutionNewResearch.Text = "Evolution";
             this.evolutionNewResearch.Click += new System.EventHandler(this.evolutionToolStripMenuItem_Click);
             // 
             // percolationNewResearch
             // 
             this.percolationNewResearch.Name = "percolationNewResearch";
-            this.percolationNewResearch.Size = new System.Drawing.Size(134, 22);
+            this.percolationNewResearch.Size = new System.Drawing.Size(152, 22);
             this.percolationNewResearch.Text = "Percolation";
             this.percolationNewResearch.Click += new System.EventHandler(this.percolationToolStripMenuItem_Click);
             // 
             // collectionToolStripMenuItem
             // 
             this.collectionToolStripMenuItem.Name = "collectionToolStripMenuItem";
-            this.collectionToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.collectionToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.collectionToolStripMenuItem.Text = "Collection";
             this.collectionToolStripMenuItem.Click += new System.EventHandler(this.basicCollectionToolStripMenuItem_Click);
             // 
             // structuralToolStripMenuItem1
             // 
             this.structuralToolStripMenuItem1.Name = "structuralToolStripMenuItem1";
-            this.structuralToolStripMenuItem1.Size = new System.Drawing.Size(134, 22);
+            this.structuralToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
             this.structuralToolStripMenuItem1.Text = "Structural";
             this.structuralToolStripMenuItem1.Click += new System.EventHandler(this.structuralToolStripMenuItem_Click);
             // 
@@ -342,8 +345,8 @@
             // 
             // parametersGrp
             // 
-            this.parametersGrp.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.parametersGrp.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.parametersGrp.Controls.Add(this.parametersTable);
             this.parametersGrp.Location = new System.Drawing.Point(3, 6);
             this.parametersGrp.Margin = new System.Windows.Forms.Padding(0);
@@ -441,7 +444,8 @@
             this.evolutionToolStripMenuItem,
             this.percolationToolStripMenuItem,
             this.basicCollectionToolStripMenuItem,
-            this.structuralToolStripMenuItem});
+            this.structuralToolStripMenuItem,
+            this.activationToolStripMenuItem});
             this.createResearchToolStripMenuItem.Name = "createResearchToolStripMenuItem";
             this.createResearchToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
             this.createResearchToolStripMenuItem.Text = "&Create Research";
@@ -449,35 +453,35 @@
             // basicToolStripMenuItem
             // 
             this.basicToolStripMenuItem.Name = "basicToolStripMenuItem";
-            this.basicToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.basicToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.basicToolStripMenuItem.Text = "Basic";
             this.basicToolStripMenuItem.Click += new System.EventHandler(this.basicToolStripMenuItem_Click);
             // 
             // evolutionToolStripMenuItem
             // 
             this.evolutionToolStripMenuItem.Name = "evolutionToolStripMenuItem";
-            this.evolutionToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.evolutionToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.evolutionToolStripMenuItem.Text = "Evolution";
             this.evolutionToolStripMenuItem.Click += new System.EventHandler(this.evolutionToolStripMenuItem_Click);
             // 
             // percolationToolStripMenuItem
             // 
             this.percolationToolStripMenuItem.Name = "percolationToolStripMenuItem";
-            this.percolationToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.percolationToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.percolationToolStripMenuItem.Text = "Percolation";
             this.percolationToolStripMenuItem.Click += new System.EventHandler(this.percolationToolStripMenuItem_Click);
             // 
             // basicCollectionToolStripMenuItem
             // 
             this.basicCollectionToolStripMenuItem.Name = "basicCollectionToolStripMenuItem";
-            this.basicCollectionToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.basicCollectionToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.basicCollectionToolStripMenuItem.Text = "Collection";
             this.basicCollectionToolStripMenuItem.Click += new System.EventHandler(this.basicCollectionToolStripMenuItem_Click);
             // 
             // structuralToolStripMenuItem
             // 
             this.structuralToolStripMenuItem.Name = "structuralToolStripMenuItem";
-            this.structuralToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.structuralToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.structuralToolStripMenuItem.Text = "Structural";
             this.structuralToolStripMenuItem.Click += new System.EventHandler(this.structuralToolStripMenuItem_Click);
             // 
@@ -561,6 +565,37 @@
             this.statisticAnalyzerToolStripMenuItem.Text = "&Statistic Analyzer";
             this.statisticAnalyzerToolStripMenuItem.Click += new System.EventHandler(this.statisticAnalyzerToolStripMenuItem_Click);
             // 
+            // runToolStripMenuItem
+            // 
+            this.runToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.classicalTestsToolStripMenuItem,
+            this.regularHierarchicTestsToolStripMenuItem,
+            this.nonRegularHierarchicTestsToolStripMenuItem});
+            this.runToolStripMenuItem.Name = "runToolStripMenuItem";
+            this.runToolStripMenuItem.Size = new System.Drawing.Size(40, 20);
+            this.runToolStripMenuItem.Text = "&Run";
+            // 
+            // classicalTestsToolStripMenuItem
+            // 
+            this.classicalTestsToolStripMenuItem.Name = "classicalTestsToolStripMenuItem";
+            this.classicalTestsToolStripMenuItem.Size = new System.Drawing.Size(236, 22);
+            this.classicalTestsToolStripMenuItem.Text = "&Classical Tests...";
+            this.classicalTestsToolStripMenuItem.Click += new System.EventHandler(this.classicalTestsToolStripMenuItem_Click);
+            // 
+            // regularHierarchicTestsToolStripMenuItem
+            // 
+            this.regularHierarchicTestsToolStripMenuItem.Name = "regularHierarchicTestsToolStripMenuItem";
+            this.regularHierarchicTestsToolStripMenuItem.Size = new System.Drawing.Size(236, 22);
+            this.regularHierarchicTestsToolStripMenuItem.Text = "&Regular Hierarchic Tests...";
+            this.regularHierarchicTestsToolStripMenuItem.Click += new System.EventHandler(this.regularHierarchicTestsToolStripMenuItem_Click);
+            // 
+            // nonRegularHierarchicTestsToolStripMenuItem
+            // 
+            this.nonRegularHierarchicTestsToolStripMenuItem.Name = "nonRegularHierarchicTestsToolStripMenuItem";
+            this.nonRegularHierarchicTestsToolStripMenuItem.Size = new System.Drawing.Size(236, 22);
+            this.nonRegularHierarchicTestsToolStripMenuItem.Text = "&Non Regular Hierarchic Tests...";
+            this.nonRegularHierarchicTestsToolStripMenuItem.Click += new System.EventHandler(this.nonRegularHierarchicTestsToolStripMenuItem_Click);
+            // 
             // dataGridViewTextBoxColumn1
             // 
             this.dataGridViewTextBoxColumn1.HeaderText = "Name";
@@ -611,9 +646,9 @@
             // 
             // analyzeOptionsGrp
             // 
-            this.analyzeOptionsGrp.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.analyzeOptionsGrp.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.analyzeOptionsGrp.Controls.Add(this.analyzeOptionsTable);
             this.analyzeOptionsGrp.Location = new System.Drawing.Point(3, 244);
             this.analyzeOptionsGrp.Margin = new System.Windows.Forms.Padding(0);
@@ -698,8 +733,8 @@
             // 
             // panel2
             // 
-            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.BackColor = System.Drawing.SystemColors.Control;
             this.panel2.Controls.Add(this.statusProgress);
             this.panel2.Controls.Add(this.startstop);
@@ -732,9 +767,9 @@
             // 
             // generalPanel
             // 
-            this.generalPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.generalPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.generalPanel.BackColor = System.Drawing.SystemColors.HotTrack;
             this.generalPanel.Controls.Add(this.topSplitLayout);
             this.generalPanel.Location = new System.Drawing.Point(2, 24);
@@ -742,36 +777,19 @@
             this.generalPanel.Size = new System.Drawing.Size(1264, 664);
             this.generalPanel.TabIndex = 36;
             // 
-            // runToolStripMenuItem
+            // activationToolStripMenuItem
             // 
-            this.runToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.classicalTestsToolStripMenuItem,
-            this.regularHierarchicTestsToolStripMenuItem,
-            this.nonRegularHierarchicTestsToolStripMenuItem});
-            this.runToolStripMenuItem.Name = "runToolStripMenuItem";
-            this.runToolStripMenuItem.Size = new System.Drawing.Size(40, 20);
-            this.runToolStripMenuItem.Text = "&Run";
+            this.activationToolStripMenuItem.Name = "activationToolStripMenuItem";
+            this.activationToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.activationToolStripMenuItem.Text = "Activation";
+            this.activationToolStripMenuItem.Click += new System.EventHandler(this.activationToolStripMenuItem_Click);
             // 
-            // classicalTestsToolStripMenuItem
+            // activationToolStripMenuItem1
             // 
-            this.classicalTestsToolStripMenuItem.Name = "classicalTestsToolStripMenuItem";
-            this.classicalTestsToolStripMenuItem.Size = new System.Drawing.Size(236, 22);
-            this.classicalTestsToolStripMenuItem.Text = "&Classical Tests...";
-            this.classicalTestsToolStripMenuItem.Click += new System.EventHandler(this.classicalTestsToolStripMenuItem_Click);
-            // 
-            // regularHierarchicTestsToolStripMenuItem
-            // 
-            this.regularHierarchicTestsToolStripMenuItem.Name = "regularHierarchicTestsToolStripMenuItem";
-            this.regularHierarchicTestsToolStripMenuItem.Size = new System.Drawing.Size(236, 22);
-            this.regularHierarchicTestsToolStripMenuItem.Text = "&Regular Hierarchic Tests...";
-            this.regularHierarchicTestsToolStripMenuItem.Click += new System.EventHandler(this.regularHierarchicTestsToolStripMenuItem_Click);
-            // 
-            // nonRegularHierarchicTestsToolStripMenuItem
-            // 
-            this.nonRegularHierarchicTestsToolStripMenuItem.Name = "nonRegularHierarchicTestsToolStripMenuItem";
-            this.nonRegularHierarchicTestsToolStripMenuItem.Size = new System.Drawing.Size(236, 22);
-            this.nonRegularHierarchicTestsToolStripMenuItem.Text = "&Non Regular Hierarchic Tests...";
-            this.nonRegularHierarchicTestsToolStripMenuItem.Click += new System.EventHandler(this.nonRegularHierarchicTestsToolStripMenuItem_Click);
+            this.activationToolStripMenuItem1.Name = "activationToolStripMenuItem1";
+            this.activationToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.activationToolStripMenuItem1.Text = "Activation";
+            this.activationToolStripMenuItem1.Click += new System.EventHandler(this.activationToolStripMenuItem_Click);
             // 
             // MainWindow
             // 
@@ -869,6 +887,8 @@
         private System.Windows.Forms.ToolStripMenuItem classicalTestsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem regularHierarchicTestsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem nonRegularHierarchicTestsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem activationToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem activationToolStripMenuItem1;
     }
 }
 

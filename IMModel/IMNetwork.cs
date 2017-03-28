@@ -15,16 +15,12 @@ namespace IMModel
     [RequiredGenerationParameter(GenerationParameter.Alpha)]
     [RequiredGenerationParameter(GenerationParameter.ZeroLevelNodesCount)]
     [RequiredGenerationParameter(GenerationParameter.BlocksCount)]
-    [AvailableAnalyzeOption(
-          AnalyzeOption.AvgClusteringCoefficient
+    [AvailableAnalyzeOption(AnalyzeOption.AvgClusteringCoefficient
         | AnalyzeOption.AvgDegree
         | AnalyzeOption.AvgPathLength
         | AnalyzeOption.ClusteringCoefficientDistribution
         | AnalyzeOption.ClusteringCoefficientPerVertex
         | AnalyzeOption.ConnectedComponentDistribution
-        | AnalyzeOption.CompleteComponentDistribution
-        | AnalyzeOption.SubtreeDistribution
-        | AnalyzeOption.CycleDistribution
         | AnalyzeOption.Cycles3
         | AnalyzeOption.Cycles4
         | AnalyzeOption.DegreeDistribution
@@ -33,6 +29,8 @@ namespace IMModel
         | AnalyzeOption.EigenDistanceDistribution
         | AnalyzeOption.EigenValues
         | AnalyzeOption.TriangleByVertexDistribution
+        | AnalyzeOption.Dr
+        | AnalyzeOption.ActivePart
         )]
     public class IMNetwork : AbstractNetwork
     {

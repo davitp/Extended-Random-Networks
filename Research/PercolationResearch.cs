@@ -24,27 +24,22 @@ namespace Research
     [AvailableGenerationType(GenerationType.Static)]
     [RequiredResearchParameter(ResearchParameter.ProbabilityMax)]
     [RequiredResearchParameter(ResearchParameter.ProbabilityDelta)]
-    [AvailableAnalyzeOption(
-        AnalyzeOption.AvgClusteringCoefficient |
-        AnalyzeOption.AvgDegree |
-        AnalyzeOption.AvgPathLength |
-        AnalyzeOption.ClusteringCoefficientDistribution |
-        AnalyzeOption.ClusteringCoefficientPerVertex |
-        AnalyzeOption.CompleteComponentDistribution |
-        AnalyzeOption.ConnectedComponentDistribution |
-        AnalyzeOption.CycleDistribution |
-        AnalyzeOption.Cycles3 |
-        AnalyzeOption.Cycles4 |
-        AnalyzeOption.Cycles5 |
-        AnalyzeOption.DegreeDistribution |
-        AnalyzeOption.Diameter |
-        AnalyzeOption.DistanceDistribution |
-        AnalyzeOption.EigenDistanceDistribution |
-        AnalyzeOption.EigenValues |
-        AnalyzeOption.TriangleByVertexDistribution)] //|
-    //AnalyzeOption.DegreeCentrality |
-    //AnalyzeOption.BetweennessCentrality |
-    //AnalyzeOption.ClosenessCentrality)]
+    [AvailableAnalyzeOption(AnalyzeOption.AvgClusteringCoefficient
+        | AnalyzeOption.AvgDegree
+        | AnalyzeOption.AvgPathLength
+        | AnalyzeOption.ClusteringCoefficientDistribution
+        | AnalyzeOption.ClusteringCoefficientPerVertex
+        | AnalyzeOption.ConnectedComponentDistribution
+        | AnalyzeOption.Cycles3
+        | AnalyzeOption.Cycles4
+        | AnalyzeOption.DegreeDistribution
+        | AnalyzeOption.Diameter
+        | AnalyzeOption.DistanceDistribution
+        | AnalyzeOption.EigenDistanceDistribution
+        | AnalyzeOption.EigenValues
+        | AnalyzeOption.TriangleByVertexDistribution
+        | AnalyzeOption.Dr
+        )]
     public class PercolationResearch : AbstractResearch
     {
         private bool isCanceled = false;

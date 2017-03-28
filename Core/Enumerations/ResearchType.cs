@@ -36,6 +36,11 @@ namespace Core.Enumerations
         [ResearchTypeInfo("Structural research",
             "",
             "Research.StructuralResearch, Research")]
-        Structural
+        Structural,
+
+        [ResearchTypeInfo("Activation research",
+            "",
+            "Research.ActivationResearch, Research")]
+        Activation
     }
 }

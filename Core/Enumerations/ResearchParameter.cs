@@ -45,6 +45,21 @@ namespace Core.Enumerations
             typeof(Double), "0.01")]
         ProbabilityDelta,
 
+        [ResearchParameterInfo("Mu",
+            "Mu",
+            typeof(Double), "0.1")]
+        Mu,
+
+        [ResearchParameterInfo("Lambda",
+            "Lambda",
+            typeof(Double), "0.1")]
+        Lambda,
+
+        [ResearchParameterInfo("Count of activation steps",
+            "Count of activation steps",
+            typeof(UInt32), "10")]
+        ActivationStepCount,
+
         [ResearchParameterInfo("Research type",
             "Research type for each item",
             typeof(ResearchType), "BasicResearch")]

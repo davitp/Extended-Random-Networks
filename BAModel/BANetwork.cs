@@ -18,27 +18,23 @@ namespace BAModel
     [RequiredGenerationParameter(GenerationParameter.Edges)]
     [RequiredGenerationParameter(GenerationParameter.Probability)]
     [RequiredGenerationParameter(GenerationParameter.StepCount)]
-    [AvailableAnalyzeOption(AnalyzeOption.AvgClusteringCoefficient |
-        AnalyzeOption.AvgDegree |
-        AnalyzeOption.AvgPathLength |
-        AnalyzeOption.ClusteringCoefficientDistribution |
-        AnalyzeOption.ClusteringCoefficientPerVertex |
-        AnalyzeOption.ConnectedComponentDistribution |
-        AnalyzeOption.CompleteComponentDistribution |
-        AnalyzeOption.SubtreeDistribution |
-        AnalyzeOption.CycleDistribution |
-        AnalyzeOption.Cycles3 |
-        AnalyzeOption.Cycles4 |
-        AnalyzeOption.DegreeDistribution |
-        AnalyzeOption.Diameter |
-        AnalyzeOption.DistanceDistribution |
-        AnalyzeOption.EigenDistanceDistribution |
-        AnalyzeOption.EigenValues |
-        AnalyzeOption.TriangleByVertexDistribution |
-        AnalyzeOption.Dr)] // |
-        //AnalyzeOption.DegreeCentrality |
-        //AnalyzeOption.BetweennessCentrality |
-        //AnalyzeOption.ClosenessCentrality)]
+    [AvailableAnalyzeOption(AnalyzeOption.AvgClusteringCoefficient
+        | AnalyzeOption.AvgDegree
+        | AnalyzeOption.AvgPathLength 
+        | AnalyzeOption.ClusteringCoefficientDistribution
+        | AnalyzeOption.ClusteringCoefficientPerVertex
+        | AnalyzeOption.ConnectedComponentDistribution
+        | AnalyzeOption.Cycles3
+        | AnalyzeOption.Cycles4
+        | AnalyzeOption.DegreeDistribution
+        | AnalyzeOption.Diameter
+        | AnalyzeOption.DistanceDistribution
+        | AnalyzeOption.EigenDistanceDistribution
+        | AnalyzeOption.EigenValues
+        | AnalyzeOption.TriangleByVertexDistribution
+        | AnalyzeOption.Dr
+        | AnalyzeOption.ActivePart
+        )]
     public class BANetwork : AbstractNetwork
     {
         public BANetwork(String rName,

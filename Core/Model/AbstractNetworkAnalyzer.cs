@@ -82,14 +82,11 @@ namespace Core.Model
                     return CalculateDegreeCentrality();
                 case AnalyzeOption.Dr:
                     return CalculateDr();
+                case AnalyzeOption.ActivePart:
+                    return CalculateActivePart();
                 default:
                     return null;
             }
-        }
-
-        protected virtual Double CalculateDr()
-        {
-            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -318,6 +315,16 @@ namespace Core.Model
         /// </summary>
         /// <returns></returns>
         protected virtual List<Double> CalculateBetweennessCentrality()
+        {
+            throw new NotImplementedException();
+        }
+
+        protected virtual Double CalculateDr()
+        {
+            throw new NotImplementedException();
+        }
+
+        protected virtual Double CalculateActivePart()
         {
             throw new NotImplementedException();
         }

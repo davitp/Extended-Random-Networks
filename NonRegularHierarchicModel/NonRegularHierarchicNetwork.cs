@@ -16,20 +16,22 @@ namespace NonRegularHierarchicModel
     [RequiredGenerationParameter(GenerationParameter.Vertices)]
     [RequiredGenerationParameter(GenerationParameter.BranchingIndex)]
     [RequiredGenerationParameter(GenerationParameter.Mu)]
-    [AvailableAnalyzeOption(AnalyzeOption.AvgClusteringCoefficient |
-        AnalyzeOption.AvgDegree |
-        AnalyzeOption.AvgPathLength |
-        AnalyzeOption.ClusteringCoefficientDistribution |
-        AnalyzeOption.ClusteringCoefficientPerVertex |
-        AnalyzeOption.ConnectedComponentDistribution |
-        AnalyzeOption.Cycles3 |
-        AnalyzeOption.Cycles4 |
-        AnalyzeOption.DegreeDistribution |
-        AnalyzeOption.Diameter | 
-        AnalyzeOption.DistanceDistribution |
-        AnalyzeOption.EigenValues |
-        AnalyzeOption.EigenDistanceDistribution |
-        AnalyzeOption.TriangleByVertexDistribution)]
+    [AvailableAnalyzeOption(AnalyzeOption.AvgClusteringCoefficient
+        | AnalyzeOption.AvgDegree
+        | AnalyzeOption.AvgPathLength
+        | AnalyzeOption.ClusteringCoefficientDistribution
+        | AnalyzeOption.ClusteringCoefficientPerVertex
+        | AnalyzeOption.ConnectedComponentDistribution
+        | AnalyzeOption.Cycles3
+        | AnalyzeOption.Cycles4
+        | AnalyzeOption.DegreeDistribution
+        | AnalyzeOption.Diameter
+        | AnalyzeOption.DistanceDistribution
+        | AnalyzeOption.EigenDistanceDistribution
+        | AnalyzeOption.EigenValues
+        | AnalyzeOption.TriangleByVertexDistribution
+        | AnalyzeOption.ActivePart
+        )]
     public class NonRegularHierarchicNetwork : AbstractNetwork
     {
         public NonRegularHierarchicNetwork(String rName,

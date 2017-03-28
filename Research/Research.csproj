@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActivationResearch.cs" />
     <Compile Include="CollectionResearch.cs" />
     <Compile Include="BasicResearch.cs" />
     <Compile Include="PercolationResearch.cs" />

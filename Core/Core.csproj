@@ -81,6 +81,7 @@
     <Compile Include="Events\NetworkEventArgs.cs" />
     <Compile Include="Events\ResearchEventArgs.cs" />
     <Compile Include="Exceptions\CoreException.cs" />
+    <Compile Include="Model\AbstractContainer.cs" />
     <Compile Include="Model\AbstractHierarchicContainer.cs" />
     <Compile Include="Model\AbstractNetworkAnalyzer.cs" />
     <Compile Include="Model\INetworkAnalyzer.cs" />

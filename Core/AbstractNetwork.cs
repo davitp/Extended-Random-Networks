@@ -227,7 +227,7 @@ namespace Core
                 networkAnalyzer.Container = networkGenerator.Container;
                 support = (networkAnalyzer.CalculateEdgesCount() > 10000000);
             }
-            else support = (networkGenerator.Container.Size > 10000);
+            else support = (networkGenerator.Container.Size > 30000);
 
             if (support)
             {

@@ -97,9 +97,9 @@ namespace IMModel
             for (UInt32 i = 0; i < 2 * size; ++i)
             {
                 if (i < size)
-                    firstBlock[i] = ++node;
+                    firstBlock[i] = node++;
                 else
-                    secondBlock[i - size] = ++node;
+                    secondBlock[i - size] = node++;
             }
 
             return firstBlock;

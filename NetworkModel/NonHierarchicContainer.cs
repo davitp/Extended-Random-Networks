@@ -19,7 +19,7 @@ namespace NetworkModel
     /// <summary>
     /// Implementation of non hierarchic network's container.
     /// </summary>
-    public class NonHierarchicContainer : INetworkContainer
+    public class NonHierarchicContainer : AbstractContainer
     {
         #region SubTrees
         //------------------Aram----------------------------------
@@ -108,7 +108,7 @@ namespace NetworkModel
             return existingEdges;
         }
 
-        public UInt32 Size
+        public override UInt32 Size
         {
             get { return (UInt32)size; }
             set
@@ -144,7 +144,7 @@ namespace NetworkModel
             get { return neighbourship; }
         }
 
-        public void SetMatrix(ArrayList matrix)
+        public override void SetMatrix(ArrayList matrix)
         {
             Size = (uint)matrix.Count;
             ArrayList neighbourshipOfVertex = new ArrayList();
@@ -155,7 +155,7 @@ namespace NetworkModel
             }
         }
 
-        public bool[,] GetMatrix()
+        public override bool[,] GetMatrix()
         {
             bool[,] matrix = new bool[neighbourship.Count, neighbourship.Count];
 
@@ -175,7 +175,7 @@ namespace NetworkModel
             return matrix;
         }
 
-        public List<KeyValuePair<int, int>> GetNeighbourship()
+        public override List<KeyValuePair<int, int>> GetNeighbourship()
         {
             List<KeyValuePair<int, int>> n = new List<KeyValuePair<int, int>>();
             foreach (int i in neighbourship.Keys)

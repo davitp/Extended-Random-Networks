@@ -68,6 +68,11 @@ namespace RandNet
             ShowCreateResearchDialog(ResearchType.Structural);
         }
 
+        private void activationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ShowCreateResearchDialog(ResearchType.Activation);
+        }
+
         private void editResearch_Click(object sender, EventArgs e)
         {
             Debug.Assert(researchesTable.SelectedRows.Count == 1);

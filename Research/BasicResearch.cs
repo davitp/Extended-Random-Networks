@@ -24,29 +24,22 @@ namespace Research
     [AvailableModelType(ModelType.IM)]
     [AvailableGenerationType(GenerationType.Random)]
     [AvailableGenerationType(GenerationType.Static)]
-    [AvailableAnalyzeOption(
-        AnalyzeOption.AvgClusteringCoefficient |
-        AnalyzeOption.AvgDegree |
-        AnalyzeOption.AvgPathLength |
-        AnalyzeOption.ClusteringCoefficientDistribution |
-        AnalyzeOption.ClusteringCoefficientPerVertex |
-        AnalyzeOption.CompleteComponentDistribution |
-        AnalyzeOption.ConnectedComponentDistribution |
-        AnalyzeOption.SubtreeDistribution |
-        AnalyzeOption.CycleDistribution |
-        AnalyzeOption.Cycles3 |
-        AnalyzeOption.Cycles4 |
-        AnalyzeOption.Cycles5 |
-        AnalyzeOption.DegreeDistribution |
-        AnalyzeOption.Diameter |
-        AnalyzeOption.DistanceDistribution |
-        AnalyzeOption.EigenDistanceDistribution |
-        AnalyzeOption.EigenValues |
-        AnalyzeOption.TriangleByVertexDistribution |
-        AnalyzeOption.Dr)] //|
-        //AnalyzeOption.DegreeCentrality |
-        //AnalyzeOption.BetweennessCentrality |
-        //AnalyzeOption.ClosenessCentrality)]
+    [AvailableAnalyzeOption(AnalyzeOption.AvgClusteringCoefficient
+        | AnalyzeOption.AvgDegree 
+        | AnalyzeOption.AvgPathLength
+        | AnalyzeOption.ClusteringCoefficientDistribution
+        | AnalyzeOption.ClusteringCoefficientPerVertex
+        | AnalyzeOption.ConnectedComponentDistribution
+        | AnalyzeOption.Cycles3
+        | AnalyzeOption.Cycles4
+        | AnalyzeOption.DegreeDistribution
+        | AnalyzeOption.Diameter
+        | AnalyzeOption.DistanceDistribution
+        | AnalyzeOption.EigenDistanceDistribution
+        | AnalyzeOption.EigenValues
+        | AnalyzeOption.TriangleByVertexDistribution
+        | AnalyzeOption.Dr
+        )]
     public class BasicResearch : AbstractResearch
     {
         /// <summary>
