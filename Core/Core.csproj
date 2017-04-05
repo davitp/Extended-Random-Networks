@@ -81,7 +81,7 @@
     <Compile Include="Events\NetworkEventArgs.cs" />
     <Compile Include="Events\ResearchEventArgs.cs" />
     <Compile Include="Exceptions\CoreException.cs" />
-    <Compile Include="Model\AbstractContainer.cs" />
+    <Compile Include="Model\AbstractNetworkContainer.cs" />
     <Compile Include="Model\AbstractHierarchicContainer.cs" />
     <Compile Include="Model\AbstractNetworkAnalyzer.cs" />
     <Compile Include="Model\INetworkAnalyzer.cs" />
@@ -104,6 +104,21 @@
     <None Include="Class Diagram\Interfaces.cd" />
     <None Include="Class Diagram\Result.cd" />
     <None Include="Class Diagram\SettingsAndUtility.cd" />
+    <None Include="Packages\QuickGraph\QuickGraph.3.6.61119.7.nupkg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Packages\QuickGraph\lib\net4\CodeContracts\QuickGraph.Contracts.dll" />
+    <Content Include="Packages\QuickGraph\lib\net4\CodeContracts\QuickGraph.Data.Contracts.dll" />
+    <Content Include="Packages\QuickGraph\lib\net4\CodeContracts\QuickGraph.Graphviz.Contracts.dll" />
+    <Content Include="Packages\QuickGraph\lib\net4\CodeContracts\QuickGraph.Serialization.Contracts.dll" />
+    <Content Include="Packages\QuickGraph\lib\net4\QuickGraph.Data.dll" />
+    <Content Include="Packages\QuickGraph\lib\net4\QuickGraph.Data.XML" />
+    <Content Include="Packages\QuickGraph\lib\net4\QuickGraph.dll" />
+    <Content Include="Packages\QuickGraph\lib\net4\QuickGraph.Graphviz.dll" />
+    <Content Include="Packages\QuickGraph\lib\net4\QuickGraph.Graphviz.XML" />
+    <Content Include="Packages\QuickGraph\lib\net4\QuickGraph.Serialization.dll" />
+    <Content Include="Packages\QuickGraph\lib\net4\QuickGraph.Serialization.XML" />
+    <Content Include="Packages\QuickGraph\lib\net4\QuickGraph.XML" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -19,7 +19,7 @@ namespace NetworkModel
     /// <summary>
     /// Implementation of non hierarchic network's container.
     /// </summary>
-    public class NonHierarchicContainer : AbstractContainer
+    public class NonHierarchicContainer : AbstractNetworkContainer
     {
         #region SubTrees
         //------------------Aram----------------------------------

@@ -434,7 +434,7 @@ namespace NetworkModel
             double avg = 0;
             uint d = 0, uWay = 0;
             int k = 0;
-
+            
             for (int i = 0; i < container.Size; ++i)
             {
                 for (int j = i + 1; j < container.Size; ++j)

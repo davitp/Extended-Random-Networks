@@ -13,7 +13,7 @@ namespace NetworkModel
     /// <summary>
     /// 
     /// </summary>
-    public class QuickGraphContainer : AbstractContainer 
+    public class QuickGraphContainer : AbstractNetworkContainer 
     {
         private UndirectedGraph<int, UndirectedEdge<int>> graph;
 

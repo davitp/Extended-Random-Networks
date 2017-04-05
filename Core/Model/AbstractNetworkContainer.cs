@@ -7,7 +7,7 @@ using System.Diagnostics;
 
 namespace Core.Model
 {
-    public abstract class AbstractContainer : INetworkContainer
+    public abstract class AbstractNetworkContainer : INetworkContainer
     {
         public abstract UInt32 Size { get; set; }
 

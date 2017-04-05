@@ -3,12 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Diagnostics;
 
 using Core.Model;
 
 namespace NetworkModel
 {
-    public class MatrixContainer : AbstractContainer
+    public class MatrixContainer : AbstractNetworkContainer
     {
         private List<BitArray> graph;
         private SortedDictionary<double, double> degrees;
@@ -79,6 +80,8 @@ namespace NetworkModel
         /// <param name="j">Second vertex number.</param>
         public void AddConnection(int i, int j)
         {
+            Debug.Assert(i < Size);
+            Debug.Assert(j < Size);
             if (i == j || AreConnected(i, j))
                 return;
             if (i < j)
@@ -92,6 +95,7 @@ namespace NetworkModel
 
         private void AddDegreeToVertex(int i)
         {
+            Debug.Assert(i < Size);
             if (degrees.ContainsKey(i))
                 ++degrees[i];
             else
@@ -100,6 +104,8 @@ namespace NetworkModel
 
         public bool AreConnected(int i, int j)
         {
+            Debug.Assert(i < Size);
+            Debug.Assert(j < Size);
             if (i == j)
                 return false;
             return i < j ? graph[i][j - i - 1] : graph[j][i - j - 1];
@@ -107,14 +113,16 @@ namespace NetworkModel
 
         public int GetVertexDegree(int i)
         {
+            Debug.Assert(i < Size);
             return (int)(degrees.ContainsKey(i) ? degrees[i] : 0);
         }
 
         public List<int> GetAdjacentEdges(int i)
         {
+            Debug.Assert(i < Size);
             List<int> r = new List<int>();
             for (int j = 0; j < graph[i].Count; ++j)
-                if (graph[i][j])
+                if (AreConnected(i, j))
                     r.Add(i + j + 1);
             return r;
         }
