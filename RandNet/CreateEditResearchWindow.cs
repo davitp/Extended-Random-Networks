@@ -309,6 +309,7 @@ namespace RandNet
             {
                 case StorageType.XMLStorage:
                 case StorageType.ExcelStorage:
+                case StorageType.TXTStorage:
                     return RandNetSettings.StorageDirectory;
                 case StorageType.SQLStorage:
                     return null; //Settings.ConnectionString;

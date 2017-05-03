@@ -45,6 +45,7 @@
     <Compile Include="ExcelResultStorage.cs" />
     <Compile Include="SQLResultStorage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TXTResultStorage.cs" />
     <Compile Include="XMLResultStorage.cs" />
   </ItemGroup>
   <ItemGroup>

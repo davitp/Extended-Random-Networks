@@ -111,7 +111,7 @@ namespace Storage
                         researchInfos.Add(DoubleResearchInfo);
                         existingFileNames.Add(DoubleResearchInfo.ResearchID, fileName);
                     }
-                    catch (SystemException)
+                    catch (SystemException ex)
                     {
                         continue;
                     }

@@ -438,7 +438,7 @@ namespace Storage
             using (StreamWriter file = new StreamWriter(fileName))
             {
                 foreach (KeyValuePair<Double, Double> d in l)
-                    file.WriteLine(d.Key.ToString() + " " + d.Value.ToString());
+                    file.WriteLine(d.Key + " " + d.Value);
             }
         }
 

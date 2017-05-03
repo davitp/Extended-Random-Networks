@@ -68,10 +68,18 @@ namespace Core.Enumerations
 
         [AnalyzeOptionInfo("ActivePart",
             "Active Part",
-            OptionType.Global,
+            OptionType.ValueList,
             "",
             "")]
         ActivePart = 0x100,
+		
+		// TODO change value
+        [AnalyzeOptionInfo("ActivePart1",
+            "Active Part 1",
+            OptionType.ValueList,
+            "",
+            "")]
+        ActivePart1 = 0x4000000,
 
         // Eigenvalues spectra properties. //
 

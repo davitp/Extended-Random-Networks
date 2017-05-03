@@ -45,10 +45,11 @@ namespace Core.Enumerations
             typeof(Double), "0.01")]
         ProbabilityDelta,
 
-        [ResearchParameterInfo("Mu",
+        // TODO think about - gui requires not to have the same name for research and generation parameters?!
+        [ResearchParameterInfo("ActiveMu",
             "Mu",
             typeof(Double), "0.1")]
-        Mu,
+        ActiveMu,
 
         [ResearchParameterInfo("Lambda",
             "Lambda",

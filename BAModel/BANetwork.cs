@@ -34,6 +34,7 @@ namespace BAModel
         | AnalyzeOption.TriangleByVertexDistribution
         | AnalyzeOption.Dr
         | AnalyzeOption.ActivePart
+        | AnalyzeOption.ActivePart1
         )]
     public class BANetwork : AbstractNetwork
     {

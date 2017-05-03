@@ -84,6 +84,8 @@ namespace Core.Model
                     return CalculateDr();
                 case AnalyzeOption.ActivePart:
                     return CalculateActivePart();
+                case AnalyzeOption.ActivePart1:
+                    return CalculateActivePart1();
                 default:
                     return null;
             }
@@ -324,7 +326,12 @@ namespace Core.Model
             throw new NotImplementedException();
         }
 
-        protected virtual Double CalculateActivePart()
+        protected virtual List<Double> CalculateActivePart()
+        {
+            throw new NotImplementedException();
+        }
+
+        protected virtual List<Double> CalculateActivePart1()
         {
             throw new NotImplementedException();
         }

@@ -56,7 +56,7 @@ namespace Core.Model
         /// 
         /// </summary>
         /// <returns></returns>
-        public int GetActivaNodesCount()
+        public int GetActiveNodesCount()
         {
             Debug.Assert(activeNodes != null);
             int c = 0;

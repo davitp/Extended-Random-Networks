@@ -34,6 +34,7 @@ namespace WSModel
         | AnalyzeOption.TriangleByVertexDistribution
         | AnalyzeOption.Dr
         | AnalyzeOption.ActivePart
+        | AnalyzeOption.ActivePart1
         )]
     public class WSNetwork : AbstractNetwork
     {

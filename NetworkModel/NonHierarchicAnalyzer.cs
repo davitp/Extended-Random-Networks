@@ -837,6 +837,121 @@ namespace NetworkModel
             }
             
         }
+		
+		protected override List<Double> CalculateActivePart()
+        {
+            List<Double> ActiveParts = new List<Double>();
+
+            UInt32 Time = Convert.ToUInt32(network.ResearchParameterValues[ResearchParameter.ActivationStepCount]);
+            Double Mu = Convert.ToDouble(network.ResearchParameterValues[ResearchParameter.ActiveMu]);
+            Double Lambda = Convert.ToDouble(network.ResearchParameterValues[ResearchParameter.Lambda]);
+
+            Double P = Lambda/(Lambda + Mu);
+            Int32 t = 0;
+            RNGCrypto Rand = new RNGCrypto();
+            while (t <= Time && DoesActiveNodeExist())
+            {
+                Int32 RandomActiveNode = GetRandomActiveNodeIndex(Rand);
+                if (Rand.NextDouble() <= P)
+                {
+                    Int32 RandomPassiveNode = GetRandomIndex(GetVertexPassiveNeighbours(RandomActiveNode), Rand);
+                    container.SetActiveStatus(RandomPassiveNode, true);
+                }
+                else
+                {
+                    container.SetActiveStatus(RandomActiveNode, false);
+                }
+
+                t++;
+                Int32 ActiveNodesCount = container.GetActiveNodesCount();
+                Double ActivePart = ActiveNodesCount / container.Size;
+                ActiveParts.Add(ActivePart);
+            }
+
+            return ActiveParts;
+        }
+
+        protected override List<Double> CalculateActivePart1()
+        {
+            List<Double> ActiveParts = new List<Double>();
+
+            UInt32 Time = Convert.ToUInt32(network.ResearchParameterValues[ResearchParameter.ActivationStepCount]);
+            Double Mu = Convert.ToDouble(network.ResearchParameterValues[ResearchParameter.ActiveMu]);
+            Double Lambda = Convert.ToDouble(network.ResearchParameterValues[ResearchParameter.Lambda]);
+
+            Double P = Lambda / (Lambda + Mu);
+            Int32 t = 0;
+            RNGCrypto Rand = new RNGCrypto();
+            while (t <= Time && DoesActiveNodeExist())
+            {
+                Int32 RandomActiveNode = GetRandomActiveNodeIndex(Rand);
+                if (Rand.NextDouble() <= P)
+                {
+                    Double r = Rand.NextDouble();
+                    if (r < Lambda)
+                    {
+                        List<Int32> PassiveNeighbours = GetVertexPassiveNeighbours(RandomActiveNode);
+                        PassiveNeighbours.ForEach(x => container.SetActiveStatus(x, true));
+                    }
+                }
+                else
+                {
+                    container.SetActiveStatus(RandomActiveNode, false);
+                }
+
+                t++;
+                Int32 ActiveNodesCount = container.GetActiveNodesCount();
+                Double ActivePart = ActiveNodesCount / container.Size;
+                ActiveParts.Add(ActivePart);
+            }
+
+            return ActiveParts;
+        }
+
+
+        private Boolean DoesActiveNodeExist()
+        {
+            return container.GetActiveNodesCount() != 0;
+        }
+
+        private Int32 GetRandomActiveNodeIndex(RNGCrypto Rand)
+        {
+            if (DoesActiveNodeExist())
+            {
+                List<Int32> ActiveIndexes = new List<Int32>();
+
+                for (int i = 0; i < container.Size; ++i)
+                {
+                    if (container.GetActiveStatus(i))
+                    {
+                        ActiveIndexes.Add(i);
+                    }
+                }
+
+                return GetRandomIndex(ActiveIndexes, Rand);
+            }
+
+            return -1;
+        }
+
+        private List<Int32> GetVertexPassiveNeighbours(Int32 Vertex)
+        {
+            List<Int32> PassiveNeighbours = new List<Int32>();
+            for (int i = 0; i < container.Size && i != Vertex; ++i)
+            {
+                if (container.AreConnected(Vertex, i) && !container.GetActiveStatus(i))
+                {
+                    PassiveNeighbours.Add(i);
+                }
+            }
+
+            return PassiveNeighbours;
+        }
+
+        private Int32 GetRandomIndex(List<Int32> list, RNGCrypto Rand)
+        {
+            return list.OrderBy(x => Rand.Next()).FirstOrDefault();
+        }
 
         /*protected override SortedDictionary<Double, Double> CalculateEigenVectorCentrality()
         {
