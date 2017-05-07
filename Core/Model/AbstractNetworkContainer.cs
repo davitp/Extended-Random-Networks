@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Diagnostics;
+using RandomNumberGeneration;
 
 namespace Core.Model
 {
@@ -16,7 +17,9 @@ namespace Core.Model
         public abstract List<KeyValuePair<int, int>> GetNeighbourship();
 
         private BitArray activeNodes = null;
-        
+
+        public BitArray GetActiveStatuses() => activeNodes;
+
         /// <summary>
         /// 
         /// </summary>
@@ -25,6 +28,23 @@ namespace Core.Model
         {
             Debug.Assert(act.Count == Size);
             activeNodes = act;
+        }
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        public void RandomActivating()
+        {
+            RNGCrypto rand = new RNGCrypto();
+            Int32 r = rand.Next();
+            activeNodes = new BitArray((Int32)Size, false);
+            for (Int32 i = 0; i < Size; ++i)
+            {
+                if (r >= rand.Next())
+                {
+                    activeNodes[i] = true;
+                }
+            }
         }
 
         /// <summary>
@@ -35,7 +55,7 @@ namespace Core.Model
         public void SetActiveStatus(int i, bool a)
         {
             Debug.Assert(activeNodes != null);
-            Debug.Assert(i > 0 && i < activeNodes.Count);
+            Debug.Assert(i >= 0 && i < activeNodes.Count);
             if (a != activeNodes[i])
                 activeNodes[i] = a;
         }
@@ -48,7 +68,7 @@ namespace Core.Model
         public bool GetActiveStatus(int i)
         {
             Debug.Assert(activeNodes != null);
-            Debug.Assert(i > 0 && i < activeNodes.Count);
+            Debug.Assert(i >= 0 && i < activeNodes.Count);
             return activeNodes[i];
         }
 
@@ -61,7 +81,12 @@ namespace Core.Model
             Debug.Assert(activeNodes != null);
             int c = 0;
             for (int i = 0; i < activeNodes.Count; ++i)
-                ++c;
+            {
+                if (activeNodes[i])
+                {
+                    c++;
+                }
+            }
             return c;
         }
     }

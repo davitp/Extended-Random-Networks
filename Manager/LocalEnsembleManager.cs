@@ -85,6 +85,7 @@ namespace Manager
             {
                 networks[i] = AbstractNetwork.CreateNetworkByType(ModelType,
                     ResearchName,
+                    ResearchType,
                     GenerationType,
                     ResearchParamaterValues,
                     GenerationParameterValues,

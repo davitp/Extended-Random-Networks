@@ -8,7 +8,7 @@ using Core.Attributes;
 using Core.Enumerations;
 using NetworkModel;
 
-namespace IMModel
+namespace HMNModel
 {
     [RequiredGenerationParameter(GenerationParameter.Vertices)]
     [RequiredGenerationParameter(GenerationParameter.Probability)]
@@ -30,17 +30,19 @@ namespace IMModel
         | AnalyzeOption.EigenValues
         | AnalyzeOption.TriangleByVertexDistribution
         | AnalyzeOption.Dr
-        | AnalyzeOption.ActivePart
+        | AnalyzeOption.ActivePartA
+        | AnalyzeOption.ActivePartB
         )]
-    public class IMNetwork : AbstractNetwork
+    public class HMNetwork : AbstractNetwork
     {
-        public IMNetwork(String rName,
+        public HMNetwork(String rName,
+            ResearchType rType,
             GenerationType gType,
             Dictionary<ResearchParameter, object> rParams,
             Dictionary<GenerationParameter, object> genParams,
-            AnalyzeOption analyzeOpts) : base(rName, gType, rParams, genParams, analyzeOpts)
+            AnalyzeOption analyzeOpts) : base(rName, rType, gType, rParams, genParams, analyzeOpts)
         {
-            networkGenerator = new IMNetworkGenerator();
+            networkGenerator = new HMNetworkGenerator();
             networkAnalyzer = new NonHierarchicAnalyzer(this);
         }
     }

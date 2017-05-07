@@ -249,7 +249,7 @@ namespace NetworkModel
                     {
                         count += NeighbourshipCount(p, prev);
                         prev.Add(p);
-                        f(p, tmplst);
+                        ReFillList(p, tmplst);
                     }
 
                     foreach (int q in curlst)
@@ -312,7 +312,7 @@ namespace NetworkModel
             return temp.Count;
         }
 
-        private void f(int i, List<int> lst)
+        private void ReFillList(int i, List<int> lst)
         {
             for (int j = 0; j < container.Size; ++j)
             {
@@ -434,7 +434,7 @@ namespace NetworkModel
             double avg = 0;
             uint d = 0, uWay = 0;
             int k = 0;
-            
+
             for (int i = 0; i < container.Size; ++i)
             {
                 for (int j = i + 1; j < container.Size; ++j)

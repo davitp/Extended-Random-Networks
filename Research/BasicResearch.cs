@@ -21,7 +21,7 @@ namespace Research
     [AvailableModelType(ModelType.WS)]
     [AvailableModelType(ModelType.RegularHierarchic)]
     [AvailableModelType(ModelType.NonRegularHierarchic)]
-    [AvailableModelType(ModelType.IM)]
+    [AvailableModelType(ModelType.HMN)]
     [AvailableGenerationType(GenerationType.Random)]
     [AvailableGenerationType(GenerationType.Static)]
     [AvailableAnalyzeOption(AnalyzeOption.AvgClusteringCoefficient

@@ -82,10 +82,10 @@ namespace Core.Model
                     return CalculateDegreeCentrality();
                 case AnalyzeOption.Dr:
                     return CalculateDr();
-                case AnalyzeOption.ActivePart:
-                    return CalculateActivePart();
-                case AnalyzeOption.ActivePart1:
-                    return CalculateActivePart1();
+                case AnalyzeOption.ActivePartA:
+                    return CalculateActivePartA();
+                case AnalyzeOption.ActivePartB:
+                    return CalculateActivePartB();
                 default:
                     return null;
             }
@@ -326,12 +326,12 @@ namespace Core.Model
             throw new NotImplementedException();
         }
 
-        protected virtual List<Double> CalculateActivePart()
+        protected virtual SortedDictionary<Double, Double> CalculateActivePartA()
         {
             throw new NotImplementedException();
         }
 
-        protected virtual List<Double> CalculateActivePart1()
+        protected virtual SortedDictionary<Double, Double> CalculateActivePartB()
         {
             throw new NotImplementedException();
         }

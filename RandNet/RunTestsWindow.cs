@@ -165,6 +165,7 @@ namespace RandNet
             opts &= ~AnalyzeOption.EigenDistanceDistribution;
             opts &= ~AnalyzeOption.CycleDistribution;
             AbstractNetwork n = AbstractNetwork.CreateNetworkByType(ModelType, "",
+                ResearchType.Basic,
                 GenerationType.Static, 
                 new Dictionary<ResearchParameter,object>(),
                 gp,

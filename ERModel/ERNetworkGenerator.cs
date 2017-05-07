@@ -47,6 +47,7 @@ namespace ERModel
         public void StaticGeneration(MatrixInfoToRead matrixInfo)
         {
             container.SetMatrix(matrixInfo.Matrix);
+            container.SetActivStatuses(matrixInfo.ActiveStates);
         }
 
         private RNGCrypto rand = new RNGCrypto();

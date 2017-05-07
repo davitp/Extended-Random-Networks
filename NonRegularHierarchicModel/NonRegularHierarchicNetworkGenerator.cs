@@ -51,6 +51,7 @@ namespace NonRegularHierarchicModel
         {
             container.SetBranches(matrixInfo.Branches);
             container.SetMatrix(matrixInfo.Matrix);
+            container.SetActivStatuses(matrixInfo.ActiveStates);
         }
 
         private RNGCrypto rand = new RNGCrypto();

@@ -206,6 +206,7 @@ namespace NetworkModel
                     MatrixInfoToWrite matrixInfo = new MatrixInfoToWrite();
                     matrixInfo.Matrix = GetMatrix();
                     matrixInfo.Branches = null;
+                    matrixInfo.ActiveStates = GetActiveStatuses();
                     FileManager.Write(matrixInfo, fPath);
                 }
                 else if (RandNetSettings.TracingType == TracingType.Neighbourship)
@@ -213,6 +214,7 @@ namespace NetworkModel
                     NeighbourshipInfoToWrite neighbourshipInfo = new NeighbourshipInfoToWrite();
                     neighbourshipInfo.Neighbourship = GetNeighbourship();
                     neighbourshipInfo.Branches = null;
+                    neighbourshipInfo.ActiveStates = GetActiveStatuses();
                     FileManager.Write(neighbourshipInfo, fPath);
                 }
             }

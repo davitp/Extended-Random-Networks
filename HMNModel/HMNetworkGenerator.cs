@@ -11,13 +11,13 @@ using Core.Exceptions;
 using NetworkModel;
 using RandomNumberGeneration;
 
-namespace IMModel
+namespace HMNModel
 {
-    class IMNetworkGenerator : INetworkGenerator
+    class HMNetworkGenerator : INetworkGenerator
     {
         private NonHierarchicContainer container;
 
-        public IMNetworkGenerator()
+        public HMNetworkGenerator()
         {
             container = new NonHierarchicContainer();
             rand = new RNGCrypto();
@@ -41,8 +41,10 @@ namespace IMModel
             bool pb = (probability < 0 || probability > 1);
             bool a = (alpha < 0 || alpha > 1);
 
-            if (pb || blocksCount != 2 || a || !(IsPowerOfTwo(numberOfVertices/zeroLevelNodesCount)))
+            if (pb || a || !(IsPowerOfN(numberOfVertices/zeroLevelNodesCount, blocksCount)))
+            {
                 throw new InvalidGenerationParameters();
+            }
 
             container.Size = numberOfVertices;
             Generate(numberOfVertices, zeroLevelNodesCount, blocksCount, probability, alpha);
@@ -51,14 +53,25 @@ namespace IMModel
         public void StaticGeneration(MatrixInfoToRead matrixInfo)
         {
             container.SetMatrix(matrixInfo.Matrix);
+            container.SetActivStatuses(matrixInfo.ActiveStates);
         }
 
         private RNGCrypto rand;
         private uint node { get; set; }
 
-        private bool IsPowerOfTwo(UInt32 x)
+        private bool IsPowerOfN(UInt32 x, UInt32 n)
         {
-            return (x != 0) && ((x & (x - 1)) == 0);
+            if (x == 1)
+            {
+                return true;
+            }
+
+            if (x % n != 0)
+            {
+                return false;
+            }
+
+            return IsPowerOfN(x / n, n);
         }
 
         private void GenerateFullGraph(Int32[] nodes)
@@ -90,19 +103,21 @@ namespace IMModel
             }
         }
 
-        private UInt32[] GetTwoBlocksFromContainer(UInt32 startIndex, UInt32 size, out UInt32[] secondBlock)
+        private List<UInt32[]> GetBlocksFromNetwork(UInt32 count, UInt32 size)
         {
-            UInt32[] firstBlock = new UInt32[size];
-            secondBlock = new UInt32[size];
-            for (UInt32 i = 0; i < 2 * size; ++i)
+            UInt32[] block = null;
+            List<UInt32[]> Blocks = new List<UInt32[]>();
+            for (UInt32 j = 1; j <= count; j++)
             {
-                if (i < size)
-                    firstBlock[i] = node++;
-                else
-                    secondBlock[i - size] = node++;
+                block = new UInt32[size];
+                for (UInt32 i = 0; i < size; ++i)
+                {
+                    block[i] = node++;
+                }
+                Blocks.Add(block);
             }
 
-            return firstBlock;
+            return Blocks;
         }
 
         private void Generate(UInt32 numberOfVertices, UInt32 zeroLevelNodesCount,
@@ -126,17 +141,18 @@ namespace IMModel
 
             while (levelsCount > 0)
             {
-                UInt32[] secondBlock;
+                List<UInt32[]> blocks = null;
                 double levelP = alpha * Math.Pow(probability, level);
+                UInt32 size = Convert.ToUInt32(Math.Pow(blocksCount, level - 1) * zeroLevelNodesCount);
                 node = 0;
-                for (UInt32 i = 0; i < container.Size; i += 2 * Convert.ToUInt32(Math.Pow(2, level - 1) * zeroLevelNodesCount))
+                for (UInt32 i = 0; i < container.Size; i += blocksCount * size)
                 {
+                    blocks = GetBlocksFromNetwork(blocksCount, size);
 
-                    TwoBlocksProbablyConnection(levelP,
-                                                GetTwoBlocksFromContainer(i, 
-                                                                          Convert.ToUInt32(Math.Pow(2, level-1) * zeroLevelNodesCount),
-                                                                          out secondBlock),
-                                                secondBlock);
+                    for (int j = 1; j < blocks.Count; ++j)
+                    {
+                        TwoBlocksProbablyConnection(levelP, blocks[0], blocks[j]);
+                    }
                 }
 
                 --levelsCount;

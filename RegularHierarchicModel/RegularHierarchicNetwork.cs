@@ -30,15 +30,17 @@ namespace RegularHierarchicModel
         | AnalyzeOption.EigenDistanceDistribution
         | AnalyzeOption.EigenValues
         | AnalyzeOption.TriangleByVertexDistribution
-        | AnalyzeOption.ActivePart
+        | AnalyzeOption.ActivePartA
+        | AnalyzeOption.ActivePartB
         )]
     public class RegularHierarchicNetwork : AbstractNetwork
     {
         public RegularHierarchicNetwork(String rName,
+            ResearchType rType,
             GenerationType gType,
             Dictionary<ResearchParameter, object> rParams,
             Dictionary<GenerationParameter, object> genParams,
-            AnalyzeOption analyzeOpts) : base(rName, gType, rParams, genParams, analyzeOpts)
+            AnalyzeOption analyzeOpts) : base(rName, rType, gType, rParams, genParams, analyzeOpts)
         {
             networkGenerator = new RegularHierarchicNetworkGenerator();
             networkAnalyzer = new RegularHierarchicNetworkAnalyzer(this);

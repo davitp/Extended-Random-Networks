@@ -122,7 +122,7 @@ namespace NetworkModel
             Debug.Assert(i < Size);
             List<int> r = new List<int>();
             for (int j = 0; j < graph[i].Count; ++j)
-                if (AreConnected(i, j))
+                if (graph[i][j])
                     r.Add(i + j + 1);
             return r;
         }

@@ -38,6 +38,7 @@ namespace Core.Utility
                 r.fileName = fileName;
                 r.Matrix = ReadMatrix(fileName, size);
                 r.Branches = ReadBranches(fileName.Substring(0, fileName.Length - 4) + ".branches");
+                r.ActiveStates = ReadActiveStates(fileName.Substring(0, fileName.Length - 4) + ".actives", size);
             }
 
             return r;
@@ -162,6 +163,8 @@ namespace Core.Utility
             WriteMatrix(matrixInfo.Matrix, filePath);
             if (matrixInfo.Branches != null)
                 WriteBranches(matrixInfo.Branches, filePath);
+            if (matrixInfo.ActiveStates != null)
+                WriteActiveStates(matrixInfo.ActiveStates, filePath);
         }
 
         /// <summary>
@@ -178,6 +181,8 @@ namespace Core.Utility
             WriteNeighbourship(neighbourshipInfo.Neighbourship, filePath);
             if (neighbourshipInfo.Branches != null)
                 WriteBranches(neighbourshipInfo.Branches, filePath);
+            if (neighbourshipInfo.ActiveStates != null)
+                WriteActiveStates(neighbourshipInfo.ActiveStates, filePath);
         }
 
         private static ArrayList ReadMatrix(String filePath, int size)
@@ -314,6 +319,54 @@ namespace Core.Utility
             else return null;
         }
 
+        private static BitArray ReadActiveStates(String filePath, int size)
+        {
+            if (size == 0)
+                throw new ActiveStatesFormatException();
+            Debug.Assert(Path.GetExtension(filePath) == ".actives");
+            if (File.Exists(filePath))
+            {
+                BitArray activeStates = new BitArray(size);
+                try
+                {
+                    using (StreamReader streamreader =
+                        new StreamReader(filePath, System.Text.Encoding.Default))
+                    {
+                        string contents;
+                        while ((contents = streamreader.ReadLine()) != null)
+                        {
+                            string[] split = System.Text.RegularExpressions.Regex.Split(contents,
+                                "\\s+", System.Text.RegularExpressions.RegexOptions.None);
+                            if (split.Count() != 1 && split.Count() != 2)
+                                throw new ActiveStatesFormatException();
+                            if (split.Count() == 1)
+                            {
+                                int i = int.Parse(split[0]);
+                                if(i >= size)
+                                    throw new ActiveStatesFormatException();
+                                activeStates[i] = true;
+                            } else
+                            {
+                                int i = int.Parse(split[0]);
+                                int j = int.Parse(split[1]);
+                                if (i >= size || j >= size || i >= j)
+                                    throw new ActiveStatesFormatException();
+                                for (int l = i; l <= j; ++l)
+                                    activeStates[l] = true;
+                            }
+                        }
+                    }
+                }
+                catch (SystemException)
+                {
+                    throw new ActiveStatesFormatException();
+                }
+
+                return activeStates;
+            }
+            else return null;
+        }
+
         private static void WriteMatrix(bool[,] matrix, String filePath)
         {
             using (StreamWriter file = new StreamWriter(filePath + ".txt"))
@@ -357,6 +410,31 @@ namespace Core.Utility
                         writer.Write(" ");
                     }
                     writer.WriteLine();
+                }
+            }
+        }
+
+        private static void WriteActiveStates(BitArray activeStates, String filePath)
+        {
+            using (StreamWriter writer = new StreamWriter(filePath + ".actives"))
+            {
+                for(int i = 0; i < activeStates.Length - 1; ++i)
+                {
+                    if (!activeStates[i])
+                        continue;
+                    if (activeStates[i] && !activeStates[i + 1])
+                    {
+                        writer.WriteLine(i);
+                        ++i;
+                        continue;
+                    }
+                    int j = i + 1;
+                    while (j < activeStates.Length && activeStates[j])
+                        ++j;
+                    writer.Write(i);
+                    writer.Write(" ");
+                    writer.WriteLine(j - 1);
+                    i = j;            
                 }
             }
         }

@@ -48,6 +48,7 @@ namespace WSModel
         public void StaticGeneration(MatrixInfoToRead matrixInfo)
         {
             container.SetMatrix(matrixInfo.Matrix);
+            container.SetActivStatuses(matrixInfo.ActiveStates);
         }
 
         private int currentId = 0;

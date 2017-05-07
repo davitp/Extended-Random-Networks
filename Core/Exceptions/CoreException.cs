@@ -32,6 +32,14 @@ namespace Core.Exceptions
             base(info, context) { }
     }
 
+    public class ActiveStatesFormatException : CoreException
+    {
+        public ActiveStatesFormatException() : base("Input actives-file is not in correct format.") { }
+        public ActiveStatesFormatException(SerializationInfo info, StreamingContext context) :
+            base(info, context)
+        { }
+    }
+
     public class InvalidResearchParameters : CoreException
     {
         public InvalidResearchParameters() : base("Invalid research parameters.") { }

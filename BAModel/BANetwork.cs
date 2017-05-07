@@ -33,16 +33,17 @@ namespace BAModel
         | AnalyzeOption.EigenValues
         | AnalyzeOption.TriangleByVertexDistribution
         | AnalyzeOption.Dr
-        | AnalyzeOption.ActivePart
-        | AnalyzeOption.ActivePart1
+        | AnalyzeOption.ActivePartA
+        | AnalyzeOption.ActivePartB
         )]
     public class BANetwork : AbstractNetwork
     {
         public BANetwork(String rName,
+            ResearchType rType,
             GenerationType gType,
             Dictionary<ResearchParameter, object> rParams,
             Dictionary<GenerationParameter, object> genParams,
-            AnalyzeOption analyzeOpts) : base(rName, gType, rParams, genParams, analyzeOpts)
+            AnalyzeOption analyzeOpts) : base(rName, rType, gType, rParams, genParams, analyzeOpts)
         {
             networkGenerator = new BANetworkGenerator();
             networkAnalyzer = new NonHierarchicAnalyzer(this);

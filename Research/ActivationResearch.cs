@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Diagnostics;
 
 using Microsoft.Practices.EnterpriseLibrary.Logging;
 
@@ -15,21 +16,20 @@ using Core.Exceptions;
 namespace Research
 {
     /// <summary>
-    /// Basic research implementation.
+    /// Activation research implementation.
     /// </summary>
     [AvailableModelType(ModelType.ER)]
     [AvailableModelType(ModelType.BA)]
     [AvailableModelType(ModelType.WS)]
-    [AvailableModelType(ModelType.RegularHierarchic)]
-    [AvailableModelType(ModelType.NonRegularHierarchic)]
-    [AvailableModelType(ModelType.IM)]
+    [AvailableModelType(ModelType.HMN)]
     [RequiredResearchParameter(ResearchParameter.ActiveMu)]
     [RequiredResearchParameter(ResearchParameter.Lambda)]
     [RequiredResearchParameter(ResearchParameter.ActivationStepCount)]
-    //[AvailableGenerationType(GenerationType.Random)]  // TODO think about
+    [RequiredResearchParameter(ResearchParameter.TracingStepIncrement)]
+    [AvailableGenerationType(GenerationType.Random)]
     [AvailableGenerationType(GenerationType.Static)]
-    [AvailableAnalyzeOption(AnalyzeOption.ActivePart)]
-    //[AvailableAnalyzeOption(AnalyzeOption.ActivePart1)]
+    [AvailableAnalyzeOption(AnalyzeOption.ActivePartA
+        | AnalyzeOption.ActivePartB)]
     public class ActivationResearch : AbstractResearch
     {
         /// <summary>
@@ -52,43 +52,26 @@ namespace Research
         {
             currentManager.Cancel();
             StatusInfo = new ResearchStatusInfo(ResearchStatus.Stopped, StatusInfo.CompletedStepsCount);
+
             Logger.Write("Research ID - " + ResearchID.ToString() +
                 ". Research - " + ResearchName + ". STOPPED ACTIVATION RESEARCH.");
         }
 
-        public override ResearchType GetResearchType()
-        {
-            return ResearchType.Activation;
-        }
+        public override ResearchType GetResearchType() => ResearchType.Activation;
 
         public override int GetProcessStepsCount()
         {
-            // TODO
-            return 1;
-        }
-
-        protected override void ValidateResearchParameters()
-        {
-            if (!ResearchParameterValues.ContainsKey(ResearchParameter.Lambda) ||
-                !ResearchParameterValues.ContainsKey(ResearchParameter.ActiveMu) ||
-                !ResearchParameterValues.ContainsKey(ResearchParameter.ActivationStepCount)
-                )
+            Debug.Assert(ResearchParameterValues.ContainsKey(ResearchParameter.ActivationStepCount));
+            Debug.Assert(ResearchParameterValues.ContainsKey(ResearchParameter.TracingStepIncrement));
+            if (processStepCount == -1)
             {
-                Logger.Write("Research - " + ResearchName + ". Invalid research parameters.");
-                throw new InvalidResearchParameters();
+                int ev = (int)Convert.ToUInt32(ResearchParameterValues[ResearchParameter.ActivationStepCount]);
+                int tev = (int)Convert.ToUInt32(ResearchParameterValues[ResearchParameter.TracingStepIncrement]);
+                int cc = tev != 0 ? ev / tev : 0;
+                int t = (TracingPath != "") ? 2 : 1;
+                processStepCount = realizationCount * (t + (ev + 1) * GetAnalyzeOptionsCount() + cc) + 1;
             }
-
-            Double l = ((Double)ResearchParameterValues[ResearchParameter.Lambda]);
-            Double m = ((Double)ResearchParameterValues[ResearchParameter.ActiveMu]);
-            UInt32 t = ((UInt32)ResearchParameterValues[ResearchParameter.ActivationStepCount]);
-
-            if (l < 0 || l > 1 || m < 0 || m > 1 || t == 0)
-            {
-                Logger.Write("Research - " + ResearchName + ". Invalid research parameters.");
-                throw new InvalidResearchParameters();
-            }
-
-            Logger.Write("Research - " + ResearchName + ". Validated research parameters.");
+            return processStepCount;
         }
 
         private void RunCompleted(IAsyncResult res)
@@ -96,6 +79,30 @@ namespace Research
             realizationCount = currentManager.RealizationsDone;
             result.EnsembleResults.Add(currentManager.Result);
             SaveResearch();
+        }
+
+        protected override void ValidateResearchParameters()
+        {
+            if (!ResearchParameterValues.ContainsKey(ResearchParameter.ActivationStepCount) ||
+                !ResearchParameterValues.ContainsKey(ResearchParameter.Lambda) || 
+                !ResearchParameterValues.ContainsKey(ResearchParameter.ActiveMu) ||
+                !ResearchParameterValues.ContainsKey(ResearchParameter.TracingStepIncrement))
+            {
+                Logger.Write("Research - " + ResearchName + ". Invalid research parameters.");
+                throw new InvalidResearchParameters();
+            }
+
+            UInt32 Time = Convert.ToUInt32(ResearchParameterValues[ResearchParameter.ActivationStepCount]);
+            Double Lambda = Convert.ToDouble(ResearchParameterValues[ResearchParameter.Lambda]);
+            Double Mu = Convert.ToDouble(ResearchParameterValues[ResearchParameter.ActiveMu]);
+
+            if (Time <= 0 || Lambda > 1 || Lambda < 0 || Mu > 1 || Mu < 0)
+            {
+                Logger.Write("Research - " + ResearchName + ". Invalid research parameters.");
+                throw new InvalidResearchParameters();
+            }
+            
+            Logger.Write("Research - " + ResearchName + ". Validated research parameters.");
         }
 
         protected override void FillParameters(AbstractEnsembleManager m)

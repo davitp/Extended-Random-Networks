@@ -96,7 +96,12 @@
     <Compile Include="Settings\RandNetStatSettings.cs" />
     <Compile Include="Utility\FileManager.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\RandomNumberGeneration\RandomNumberGeneration.csproj">
+      <Project>{C64D64AC-5910-485F-9EE3-60E525952ECE}</Project>
+      <Name>RandomNumberGeneration</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <None Include="Class Diagram\Attributes.cd" />
     <None Include="Class Diagram\Enumerations.cd" />

@@ -24,6 +24,7 @@ namespace Core
     public abstract class AbstractNetwork
     {
         public String ResearchName { get; private set; }
+        public ResearchType ResearchType { get; private set; }
         public GenerationType GenerationType { get; private set; }
         public Dictionary<ResearchParameter, object> ResearchParameterValues { get; private set; }
         public Dictionary<GenerationParameter, object> GenerationParameterValues { get; private set; }
@@ -39,7 +40,7 @@ namespace Core
         public event NetworkStatusUpdateHandler OnUpdateStatus;
 
         public static AbstractNetwork CreateNetworkByType(ModelType mt, String rName,
-            GenerationType gType,
+            ResearchType rType, GenerationType gType,
             Dictionary<ResearchParameter, object> rParams,
             Dictionary<GenerationParameter, object> genParams,
             AnalyzeOption AnalyzeOptions)
@@ -48,12 +49,14 @@ namespace Core
             Type t = Type.GetType(info[0].Implementation);
             Type[] constructTypes = new Type[] {
                     typeof(String),
+                    typeof(ResearchType),
                     typeof(GenerationType),
                     typeof(Dictionary<ResearchParameter, object>),
                     typeof(Dictionary<GenerationParameter, object>), 
                     typeof(AnalyzeOption) };
             object[] invokeParams = new object[] {
                     rName,
+                    rType,
                     gType,
                     rParams,
                     genParams, 
@@ -61,13 +64,14 @@ namespace Core
             return (AbstractNetwork)t.GetConstructor(constructTypes).Invoke(invokeParams);
         }
 
-        public AbstractNetwork(String rName,
+        public AbstractNetwork(String rName, ResearchType rType,
             GenerationType gType,
             Dictionary<ResearchParameter, object> rParams,
             Dictionary<GenerationParameter, object> genParams,
             AnalyzeOption AnalyzeOptions)
         {
             ResearchName = rName;
+            ResearchType = rType;
             GenerationType = gType;
             ResearchParameterValues = rParams;
             GenerationParameterValues = genParams;
@@ -101,6 +105,8 @@ namespace Core
                 {
                     Debug.Assert(!GenerationParameterValues.ContainsKey(GenerationParameter.AdjacencyMatrix));
                     networkGenerator.RandomGeneration(GenerationParameterValues);
+                    if (ResearchType == ResearchType.Activation)
+                        (networkGenerator.Container as AbstractNetworkContainer).RandomActivating();
 
                     Logger.Write("Research - " + ResearchName +
                         ". Random GENERATION FINISHED for network - " + NetworkID.ToString());
@@ -188,6 +194,7 @@ namespace Core
                     matrixInfo.Matrix = networkGenerator.Container.GetMatrix();
                     if (networkGenerator.Container is AbstractHierarchicContainer)
                         matrixInfo.Branches = (networkGenerator.Container as AbstractHierarchicContainer).GetBranches();
+                    matrixInfo.ActiveStates = (networkGenerator.Container as AbstractNetworkContainer).GetActiveStatuses();
 
                     FileManager.Write(matrixInfo, tracingPath);
                 }
@@ -197,6 +204,7 @@ namespace Core
                     neighbourshipInfo.Neighbourship = networkGenerator.Container.GetNeighbourship();
                     if (networkGenerator.Container is AbstractHierarchicContainer)
                         neighbourshipInfo.Branches = (networkGenerator.Container as AbstractHierarchicContainer).GetBranches();
+                    neighbourshipInfo.ActiveStates = (networkGenerator.Container as AbstractNetworkContainer).GetActiveStatuses();
 
                     FileManager.Write(neighbourshipInfo, tracingPath);
                 }

@@ -25,24 +25,28 @@ namespace Core.Utility
     };
 
     /// <summary>
-    /// Representation of adjacency matrix and branches of the network read from file.
+    /// Representation of adjacency matrix, branches and active states of the network read from file.
     /// <note>Branches property is null, if the network is not hierarchical.</note>
+    /// <note>ActiveStates property is null, if active states information is not given/needed.</note>
     /// </summary>
     public struct MatrixInfoToRead
     {
         public String fileName;
         public ArrayList Matrix;
         public ArrayList Branches;
+        public BitArray ActiveStates;
     }
 
     /// <summary>
-    /// Representation of adjacency matrix and branches of the network to be written to file.
+    /// Representation of adjacency matrix, branches and active states of the network to be written to file.
     /// <note>Branches property is null, if the network is not hierarchical.</note>
+    /// <note>ActiveStates property is null, if active states information is not given/needed.</note>
     /// </summary>
     public struct MatrixInfoToWrite
     {
         public bool[,] Matrix;
         public UInt32[][] Branches;
+        public BitArray ActiveStates;
     }
 
     /// <summary>
@@ -52,5 +56,6 @@ namespace Core.Utility
     {
         public List<KeyValuePair<int, int>> Neighbourship;
         public UInt32[][] Branches;
+        public BitArray ActiveStates;
     }
 }

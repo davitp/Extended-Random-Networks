@@ -25,6 +25,8 @@ namespace Core
 
         public String ResearchName { get; set; }
 
+        public ResearchType ResearchType { get; set; }
+
         public GenerationType GenerationType { get; set; }
 
         public Dictionary<ResearchParameter, object> ResearchParamaterValues { get; set; }

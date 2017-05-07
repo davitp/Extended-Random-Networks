@@ -38,9 +38,9 @@ namespace Core.Enumerations
             "NonRegularHierarchicModel.NonRegularHierarchicNetwork, NonRegularHierarchicModel")]
         NonRegularHierarchic,
 
-        [ModelTypeInfo("IM model",
+        [ModelTypeInfo("HMN model",
             "Random network.",
-            "IMModel.IMNetwork, IMModel")]
-        IM
+            "HMNModel.HMNetwork, HMNModel")]
+        HMN
     }
 }

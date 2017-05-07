@@ -7,8 +7,8 @@
     <ProjectGuid>{6D6AF5BB-B73C-4A48-B798-3B2CF22A70AB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>IMModel</RootNamespace>
-    <AssemblyName>IMModel</AssemblyName>
+    <RootNamespace>HMNModel</RootNamespace>
+    <AssemblyName>HMNModel</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,8 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IMNetwork.cs" />
-    <Compile Include="IMNetworkGenerator.cs" />
+    <Compile Include="HMNetwork.cs" />
+    <Compile Include="HMNetworkGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

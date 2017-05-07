@@ -178,6 +178,7 @@ namespace Core
             currentManager.TracingPath = (TracingPath == "" ? "" : TracingPath + "\\" + ResearchName);
             currentManager.RealizationCount = realizationCount;
             currentManager.ResearchName = ResearchName;
+            currentManager.ResearchType = GetResearchType();
             currentManager.GenerationType = GenerationType;
             currentManager.AnalyzeOptions = AnalyzeOption;
             currentManager.NetworkStatusUpdateHandlerMethod = AbstractResearch_OnUpdateNetworkStatus;
