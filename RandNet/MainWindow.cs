@@ -451,7 +451,7 @@ namespace RandNet
             {
                 statusProgress.Visible = true;
                 statusProgress.Maximum = SessionManager.GetProcessStepsCount(id);
-                statusProgress.Value = (int)rsi.CompletedStepsCount;
+                statusProgress.Value = (int)SessionManager.GetResearchStatus(id).CompletedStepsCount;
             }
         }
 
