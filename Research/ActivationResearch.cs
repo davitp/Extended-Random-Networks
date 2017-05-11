@@ -96,7 +96,7 @@ namespace Research
             Double Lambda = Convert.ToDouble(ResearchParameterValues[ResearchParameter.Lambda]);
             Double Mu = Convert.ToDouble(ResearchParameterValues[ResearchParameter.ActiveMu]);
 
-            if (Time <= 0 || Lambda > 1 || Lambda < 0 || Mu > 1 || Mu < 0)
+            if (Time <= 0 || Lambda < 0 || Mu < 0)
             {
                 Logger.Write("Research - " + ResearchName + ". Invalid research parameters.");
                 throw new InvalidResearchParameters();
