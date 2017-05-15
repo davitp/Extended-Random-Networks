@@ -320,12 +320,12 @@ namespace Core.Utility
         }
 
         private static BitArray ReadActiveStates(String filePath, int size)
-        {
-            if (size == 0)
-                throw new ActiveStatesFormatException();
+        {            
             Debug.Assert(Path.GetExtension(filePath) == ".actives");
             if (File.Exists(filePath))
             {
+                if (size == 0)
+                    throw new ActiveStatesFormatException();
                 BitArray activeStates = new BitArray(size);
                 try
                 {

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Diagnostics;
 
 using Core.Enumerations;
 using Core.Model;
@@ -50,8 +51,10 @@ namespace NonRegularHierarchicModel
         public void StaticGeneration(MatrixInfoToRead matrixInfo)
         {
             container.SetBranches(matrixInfo.Branches);
+            Debug.Assert(matrixInfo.Branches != null);
             container.SetMatrix(matrixInfo.Matrix);
-            container.SetActivStatuses(matrixInfo.ActiveStates);
+            if (matrixInfo.ActiveStates != null)
+                container.SetActivStatuses(matrixInfo.ActiveStates);
         }
 
         private RNGCrypto rand = new RNGCrypto();

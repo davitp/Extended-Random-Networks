@@ -295,7 +295,11 @@ namespace RandNet
                 generationTypeCmb.Items.Add(g.ToString());
 
             if (dType != DialogType.Create)
+            {
                 generationTypeCmb.SelectedText = SessionManager.GetResearchGenerationType(researchId).ToString();
+                if (GetCurrentGenerationType() == GenerationType.Static)
+                    realizationCountTxt.Enabled = false;
+            }
             else
             {
                 Debug.Assert(generationTypeCmb.Items.Count != 0);
