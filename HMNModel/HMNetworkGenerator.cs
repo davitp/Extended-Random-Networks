@@ -38,8 +38,8 @@ namespace HMNModel
             UInt32 blocksCount = Convert.ToUInt32(genParam[GenerationParameter.BlocksCount]);
             Double alpha = Convert.ToDouble(genParam[GenerationParameter.Alpha]);
      
-            bool pb = (probability < 0 || probability > 1);
-            bool a = (alpha < 0 || alpha > 1);
+            Boolean pb = (probability < 0 || probability > 1);
+            Boolean a = (alpha < 0 || alpha > 1);
 
             if (pb || a || !(IsPowerOfN(numberOfVertices/zeroLevelNodesCount, blocksCount)))
             {
@@ -57,9 +57,9 @@ namespace HMNModel
         }
 
         private RNGCrypto rand;
-        private uint node { get; set; }
+        private UInt32 node { get; set; }
 
-        private bool IsPowerOfN(UInt32 x, UInt32 n)
+        private Boolean IsPowerOfN(UInt32 x, UInt32 n)
         {
             if (x == 1)
             {
@@ -76,18 +76,18 @@ namespace HMNModel
 
         private void GenerateFullGraph(Int32[] nodes)
         {
-            for (uint i = 0; i < nodes.Length - 1; ++i)
+            for (UInt32 i = 0; i < nodes.Length - 1; ++i)
             {
-                for (uint j = i + 1; j < nodes.Length; ++j)
+                for (UInt32 j = i + 1; j < nodes.Length; ++j)
                 {
                     container.AddConnection(nodes[i], nodes[j]);
                 }
             }
         }
 
-        private void TwoBlocksProbablyConnection(double probability, UInt32[] firstBlock, UInt32[] secondBlock)
+        private void TwoBlocksProbablyConnection(Double probability, UInt32[] firstBlock, UInt32[] secondBlock)
         {
-            bool stop = false;
+            Boolean stop = false;
 
             while (!stop)
             {
@@ -121,7 +121,7 @@ namespace HMNModel
         }
 
         private void Generate(UInt32 numberOfVertices, UInt32 zeroLevelNodesCount,
-            uint blocksCount, double probability, Double alpha)
+            UInt32 blocksCount, Double probability, Double alpha)
         {
             Int32 fullGraphNodesCount = Convert.ToInt32(zeroLevelNodesCount);
             for (Int32 i = 0; i < container.Size; i += fullGraphNodesCount)
@@ -137,19 +137,19 @@ namespace HMNModel
             }
 
             UInt32 level = 1;
-            double levelsCount = Math.Log(numberOfVertices / zeroLevelNodesCount, blocksCount);
+            UInt32 levelsCount = (UInt32)(Math.Log(numberOfVertices / zeroLevelNodesCount, blocksCount));
 
             while (levelsCount > 0)
             {
                 List<UInt32[]> blocks = null;
-                double levelP = alpha * Math.Pow(probability, level);
+                Double levelP = alpha * Math.Pow(probability, level);
                 UInt32 size = Convert.ToUInt32(Math.Pow(blocksCount, level - 1) * zeroLevelNodesCount);
                 node = 0;
                 for (UInt32 i = 0; i < container.Size; i += blocksCount * size)
                 {
                     blocks = GetBlocksFromNetwork(blocksCount, size);
 
-                    for (int j = 1; j < blocks.Count; ++j)
+                    for (Int32 j = 1; j < blocks.Count; ++j)
                     {
                         TwoBlocksProbablyConnection(levelP, blocks[0], blocks[j]);
                     }
