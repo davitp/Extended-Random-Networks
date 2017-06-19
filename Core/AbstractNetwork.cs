@@ -127,6 +127,41 @@ namespace Core
             return true;
         }
 
+        public bool CheckConnected()
+        {
+            try
+            {
+                Logger.Write("Research - " + ResearchName +
+                    ". CHECK CONNECTED STARTED for network - " + NetworkID.ToString());
+
+                bool result = false;
+                Debug.Assert(networkGenerator.Container != null);
+                networkAnalyzer.Container = networkGenerator.Container;
+                object ccd = networkAnalyzer.CalculateOption(AnalyzeOption.ConnectedComponentDistribution);
+                Debug.Assert(ccd is SortedDictionary<Double, Double>);
+                SortedDictionary<Double, Double> r = ccd as SortedDictionary<Double, Double>;
+                result = r.ContainsKey(networkGenerator.Container.Size);
+                if (!result)
+                {
+                    UpdateStatus(NetworkStatus.StepCompleted);  // for analyze
+                }
+
+                Logger.Write("Research - " + ResearchName +
+                        ". CHECK COMPLETED FINISHED for network - " + NetworkID.ToString());
+
+                return result;
+            }
+            catch (CoreException ex)
+            {
+                UpdateStatus(NetworkStatus.Failed);
+
+                Logger.Write("Research - " + ResearchName +
+                    "CHECK COMPLETED FAILED for network - " + NetworkID.ToString() +
+                    ". Exception message: " + ex.Message);
+                return false;
+            }
+        }
+
         /// <summary>
         /// Calculates specified analyze options values.
         /// </summary>

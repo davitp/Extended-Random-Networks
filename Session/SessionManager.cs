@@ -41,6 +41,7 @@ namespace Session
             r.ResearchName = "Default";
             r.Storage = AbstractResultStorage.CreateStorage(StorageType.XMLStorage, RandNetSettings.StorageDirectory);
             r.TracingPath = "";
+            r.CheckConnected = false;
 
             return r.ResearchID;
         }
@@ -54,6 +55,7 @@ namespace Session
         /// <param name="storage">The storage type for saving results of analyze.</param>
         /// <param name="storageString">Connection string or file path for data storage.</param>
         /// <param name="tracingPath">Path, if tracing is on, and empty string otherwise.</param>
+        /// <param name="checkConnected">Specifies if check for network's connected is on.</param>
         /// <returns>ID of created Research.</returns>
         public static Guid CreateResearch(ResearchType researchType,
             ModelType modelType,
@@ -61,7 +63,8 @@ namespace Session
             StorageType storage,
             string storageString,
             GenerationType generationType,
-            string tracingPath)
+            string tracingPath,
+            bool checkConnected)
         {
             AbstractResearch r = AbstractResearch.CreateResearchByType(researchType);
             existingResearches.Add(r.ResearchID, r);
@@ -70,6 +73,7 @@ namespace Session
             r.Storage = AbstractResultStorage.CreateStorage(storage, storageString);
             r.GenerationType = generationType;
             r.TracingPath = tracingPath;
+            r.CheckConnected = checkConnected;
 
             return r.ResearchID;
         }
@@ -108,6 +112,7 @@ namespace Session
                     researchToClone.Storage.StorageString);
                 r.GenerationType = researchToClone.GenerationType;
                 r.TracingPath = researchToClone.TracingPath;
+                r.CheckConnected = researchToClone.CheckConnected;
 
                 r.RealizationCount = researchToClone.RealizationCount;
 
@@ -481,6 +486,40 @@ namespace Session
             try
             {
                 existingResearches[id].TracingPath = tracingPath;
+            }
+            catch (KeyNotFoundException)
+            {
+                throw new CoreException("Specified research does not exists.");
+            }
+        }
+
+        /// <summary>
+        /// Gets the check connected setting for specified research.
+        /// </summary>
+        /// <param name="id">ID of research.</param>
+        /// <returns>Tracing path of research.</returns>
+        public static bool GetResearchCheckConnected(Guid id)
+        {
+            try
+            {
+                return existingResearches[id].CheckConnected;
+            }
+            catch (KeyNotFoundException)
+            {
+                throw new CoreException("Specified research does not exists.");
+            }
+        }
+
+        /// <summary>
+        /// Sets check connected setting for specified research.
+        /// </summary>
+        /// <param name="id">ID of research.</param>
+        /// <param name="modelType">Path to set. Empty, if tracing is off.</param>
+        public static void SetResearchCheckConnectedh(Guid id, bool checkConnected)
+        {
+            try
+            {
+                existingResearches[id].CheckConnected = checkConnected;
             }
             catch (KeyNotFoundException)
             {

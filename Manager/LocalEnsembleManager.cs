@@ -121,6 +121,11 @@ namespace Manager
                     int networkToRun = d.ThreadIndex + i * d.ThreadCount;
                     if (!networks[networkToRun].Generate())
                         continue;
+                    if (CheckConnected)
+                    {
+                        if (!networks[networkToRun].CheckConnected())
+                            continue;
+                    }
                     if (TracingPath != "")
                     {
                         if (!networks[networkToRun].Trace(TracingPath + "_" + networkToRun.ToString()))

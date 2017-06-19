@@ -50,6 +50,7 @@
             this.deselectAll = new System.Windows.Forms.Button();
             this.selectAll = new System.Windows.Forms.Button();
             this.optionsPanel = new System.Windows.Forms.Panel();
+            this.checkConnected = new System.Windows.Forms.CheckBox();
             this.generalGrp.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.realizationCountTxt)).BeginInit();
             this.parametersGrp.SuspendLayout();
@@ -58,7 +59,7 @@
             // 
             // create
             // 
-            this.create.Location = new System.Drawing.Point(651, 398);
+            this.create.Location = new System.Drawing.Point(699, 397);
             this.create.Name = "create";
             this.create.Size = new System.Drawing.Size(75, 23);
             this.create.TabIndex = 6;
@@ -68,7 +69,7 @@
             // cancel
             // 
             this.cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancel.Location = new System.Drawing.Point(732, 398);
+            this.cancel.Location = new System.Drawing.Point(780, 397);
             this.cancel.Name = "cancel";
             this.cancel.Size = new System.Drawing.Size(75, 23);
             this.cancel.TabIndex = 7;
@@ -77,6 +78,7 @@
             // 
             // generalGrp
             // 
+            this.generalGrp.Controls.Add(this.checkConnected);
             this.generalGrp.Controls.Add(this.realizationCountTxt);
             this.generalGrp.Controls.Add(this.realizationCount);
             this.generalGrp.Controls.Add(this.tracingCheck);
@@ -92,7 +94,7 @@
             this.generalGrp.Controls.Add(this.researchType);
             this.generalGrp.Location = new System.Drawing.Point(12, 12);
             this.generalGrp.Name = "generalGrp";
-            this.generalGrp.Size = new System.Drawing.Size(795, 93);
+            this.generalGrp.Size = new System.Drawing.Size(846, 93);
             this.generalGrp.TabIndex = 2;
             this.generalGrp.TabStop = false;
             this.generalGrp.Text = "General";
@@ -249,7 +251,7 @@
             this.optionsGrp.Controls.Add(this.optionsPanel);
             this.optionsGrp.Location = new System.Drawing.Point(417, 111);
             this.optionsGrp.Name = "optionsGrp";
-            this.optionsGrp.Size = new System.Drawing.Size(390, 276);
+            this.optionsGrp.Size = new System.Drawing.Size(441, 276);
             this.optionsGrp.TabIndex = 4;
             this.optionsGrp.TabStop = false;
             this.optionsGrp.Text = "Analyze Options";
@@ -280,15 +282,25 @@
             this.optionsPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.optionsPanel.Location = new System.Drawing.Point(3, 16);
             this.optionsPanel.Name = "optionsPanel";
-            this.optionsPanel.Size = new System.Drawing.Size(384, 225);
+            this.optionsPanel.Size = new System.Drawing.Size(435, 225);
             this.optionsPanel.TabIndex = 0;
+            // 
+            // checkConnected
+            // 
+            this.checkConnected.AutoSize = true;
+            this.checkConnected.Location = new System.Drawing.Point(712, 57);
+            this.checkConnected.Name = "checkConnected";
+            this.checkConnected.Size = new System.Drawing.Size(112, 17);
+            this.checkConnected.TabIndex = 6;
+            this.checkConnected.Text = "Check Connected";
+            this.checkConnected.UseVisualStyleBackColor = true;
             // 
             // CreateEditResearchWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cancel;
-            this.ClientSize = new System.Drawing.Size(819, 432);
+            this.ClientSize = new System.Drawing.Size(870, 432);
             this.Controls.Add(this.optionsGrp);
             this.Controls.Add(this.parametersGrp);
             this.Controls.Add(this.generalGrp);
@@ -335,5 +347,6 @@
         private System.Windows.Forms.Button deselectAll;
         private System.Windows.Forms.Button selectAll;
         private System.Windows.Forms.Panel optionsPanel;
+        private System.Windows.Forms.CheckBox checkConnected;
     }
 }

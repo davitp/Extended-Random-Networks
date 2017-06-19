@@ -321,7 +321,7 @@ namespace Core.Model
             throw new NotImplementedException();
         }
 
-        protected virtual Double CalculateDr()
+        protected virtual SortedDictionary<Double, Double> CalculateDr()
         {
             throw new NotImplementedException();
         }

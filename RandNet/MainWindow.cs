@@ -291,6 +291,7 @@ namespace RandNet
                 SessionManager.GetResearchStorageType(id).ToString(),
                 SessionManager.GetResearchGenerationType(id).ToString(),
                 (SessionManager.GetResearchTracingPath(id) != ""),
+                SessionManager.GetResearchCheckConnected(id),
                 SessionManager.GetResearchRealizationCount(id).ToString(),
                 ResearchStatus.NotStarted);
 
@@ -307,6 +308,7 @@ namespace RandNet
             r.Cells["storageColumn"].Value = SessionManager.GetResearchStorageType(id).ToString();
             r.Cells["generationColumn"].Value = SessionManager.GetResearchGenerationType(id).ToString();
             r.Cells["tracingColumn"].Value = (SessionManager.GetResearchTracingPath(id) != "");
+            r.Cells["checkConnectedColumn"].Value = (SessionManager.GetResearchCheckConnected(id));
             r.Cells["realizationsColumn"].Value = SessionManager.GetResearchRealizationCount(id).ToString();
 
             FillParametersTable(id);

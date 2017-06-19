@@ -104,6 +104,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Class Diagram\Attributes.cd" />
+    <None Include="Class Diagram\ClassDiagram2.cd" />
     <None Include="Class Diagram\Enumerations.cd" />
     <None Include="Class Diagram\Abstracts.cd" />
     <None Include="Class Diagram\Interfaces.cd" />

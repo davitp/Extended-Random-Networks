@@ -100,6 +100,8 @@ namespace Core
 
         public string TracingPath { get; set; }
 
+        public bool CheckConnected { get; set; }
+
         public ResearchStatusInfo StatusInfo 
         {
             get { return status; }
@@ -176,6 +178,7 @@ namespace Core
 
             currentManager.ModelType = modelType;
             currentManager.TracingPath = (TracingPath == "" ? "" : TracingPath + "\\" + ResearchName);
+            currentManager.CheckConnected = CheckConnected;
             currentManager.RealizationCount = realizationCount;
             currentManager.ResearchName = ResearchName;
             currentManager.ResearchType = GetResearchType();
@@ -196,8 +199,11 @@ namespace Core
         /// </summary>
         protected void SaveResearch()
         {
-            if (result.EnsembleResults.Count() != 0 && result.EnsembleResults[0] == null)
+            if (result.EnsembleResults.Count == 0 || result.EnsembleResults[0] == null)
+            {
+                StatusInfo = new ResearchStatusInfo(ResearchStatus.Failed, StatusInfo.CompletedStepsCount + 1);
                 return;
+            }
             result.ResearchID = ResearchID;
             result.ResearchName = ResearchName;
             result.ResearchType = GetResearchType();

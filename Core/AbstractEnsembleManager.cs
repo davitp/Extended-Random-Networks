@@ -21,6 +21,8 @@ namespace Core
 
         public string TracingPath { protected get; set; }
 
+        public bool CheckConnected { protected get; set; }
+
         public int RealizationCount { protected get; set; }
 
         public String ResearchName { get; set; }

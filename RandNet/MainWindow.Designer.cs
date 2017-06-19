@@ -33,7 +33,6 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -42,17 +41,9 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.researchesTable = new System.Windows.Forms.DataGridView();
-            this.guidColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.researchColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.modelColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.storageColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.generationColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tracingColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.realizationsColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.statusColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.researchTableCSM = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.createResearch = new System.Windows.Forms.ToolStripMenuItem();
             this.basicNewResearch = new System.Windows.Forms.ToolStripMenuItem();
@@ -60,6 +51,7 @@
             this.percolationNewResearch = new System.Windows.Forms.ToolStripMenuItem();
             this.collectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.structuralToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.activationToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.editResearch = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteResearch = new System.Windows.Forms.ToolStripMenuItem();
             this.cloneResearch = new System.Windows.Forms.ToolStripMenuItem();
@@ -74,6 +66,7 @@
             this.percolationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.basicCollectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.structuralToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.activationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -103,8 +96,16 @@
             this.statusProgress = new System.Windows.Forms.ProgressBar();
             this.startstop = new System.Windows.Forms.Button();
             this.generalPanel = new System.Windows.Forms.Panel();
-            this.activationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.activationToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.guidColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.researchColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.modelColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.storageColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.generationColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tracingColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.checkConnectedColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.realizationsColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.statusColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.researchesTable)).BeginInit();
             this.researchTableCSM.SuspendLayout();
             this.parametersGrp.SuspendLayout();
@@ -149,6 +150,7 @@
             this.storageColumn,
             this.generationColumn,
             this.tracingColumn,
+            this.checkConnectedColumn,
             this.realizationsColumn,
             this.statusColumn});
             this.researchesTable.ContextMenuStrip = this.researchTableCSM;
@@ -176,93 +178,11 @@
             this.researchesTable.RowHeadersVisible = false;
             this.researchesTable.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.researchesTable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.researchesTable.Size = new System.Drawing.Size(880, 655);
+            this.researchesTable.Size = new System.Drawing.Size(936, 655);
             this.researchesTable.TabIndex = 0;
             this.researchesTable.TabStop = false;
             this.researchesTable.SelectionChanged += new System.EventHandler(this.researchTable_SelectionChanged);
             this.researchesTable.MouseDown += new System.Windows.Forms.MouseEventHandler(this.researchTable_MouseDown);
-            // 
-            // guidColumn
-            // 
-            this.guidColumn.HeaderText = "Guid";
-            this.guidColumn.Name = "guidColumn";
-            this.guidColumn.ReadOnly = true;
-            this.guidColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.guidColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.guidColumn.Visible = false;
-            // 
-            // researchColumn
-            // 
-            this.researchColumn.HeaderText = "Research";
-            this.researchColumn.Name = "researchColumn";
-            this.researchColumn.ReadOnly = true;
-            this.researchColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.researchColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.researchColumn.ToolTipText = "Research Type";
-            // 
-            // nameColumn
-            // 
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.nameColumn.DefaultCellStyle = dataGridViewCellStyle3;
-            this.nameColumn.HeaderText = "Name";
-            this.nameColumn.Name = "nameColumn";
-            this.nameColumn.ReadOnly = true;
-            this.nameColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.nameColumn.ToolTipText = "Research Name";
-            // 
-            // modelColumn
-            // 
-            this.modelColumn.HeaderText = "Model";
-            this.modelColumn.Name = "modelColumn";
-            this.modelColumn.ReadOnly = true;
-            this.modelColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.modelColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.modelColumn.ToolTipText = "Model Type";
-            // 
-            // storageColumn
-            // 
-            this.storageColumn.HeaderText = "Storage";
-            this.storageColumn.Name = "storageColumn";
-            this.storageColumn.ReadOnly = true;
-            this.storageColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.storageColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.storageColumn.ToolTipText = "Storage Type";
-            // 
-            // generationColumn
-            // 
-            this.generationColumn.HeaderText = "Generation";
-            this.generationColumn.Name = "generationColumn";
-            this.generationColumn.ReadOnly = true;
-            this.generationColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.generationColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.generationColumn.ToolTipText = "Generation Type";
-            // 
-            // tracingColumn
-            // 
-            this.tracingColumn.HeaderText = "Tracing";
-            this.tracingColumn.Name = "tracingColumn";
-            this.tracingColumn.ReadOnly = true;
-            this.tracingColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.tracingColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.tracingColumn.ToolTipText = "Tracing";
-            // 
-            // realizationsColumn
-            // 
-            this.realizationsColumn.HeaderText = "Realizations";
-            this.realizationsColumn.Name = "realizationsColumn";
-            this.realizationsColumn.ReadOnly = true;
-            this.realizationsColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.realizationsColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.realizationsColumn.ToolTipText = "Realizations Count";
-            // 
-            // statusColumn
-            // 
-            this.statusColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.statusColumn.HeaderText = "Status";
-            this.statusColumn.Name = "statusColumn";
-            this.statusColumn.ReadOnly = true;
-            this.statusColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.statusColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // researchTableCSM
             // 
@@ -272,7 +192,7 @@
             this.deleteResearch,
             this.cloneResearch});
             this.researchTableCSM.Name = "contextMenuStrip1";
-            this.researchTableCSM.Size = new System.Drawing.Size(159, 114);
+            this.researchTableCSM.Size = new System.Drawing.Size(159, 92);
             // 
             // createResearch
             // 
@@ -290,37 +210,44 @@
             // basicNewResearch
             // 
             this.basicNewResearch.Name = "basicNewResearch";
-            this.basicNewResearch.Size = new System.Drawing.Size(152, 22);
+            this.basicNewResearch.Size = new System.Drawing.Size(134, 22);
             this.basicNewResearch.Text = "Basic";
             this.basicNewResearch.Click += new System.EventHandler(this.basicToolStripMenuItem_Click);
             // 
             // evolutionNewResearch
             // 
             this.evolutionNewResearch.Name = "evolutionNewResearch";
-            this.evolutionNewResearch.Size = new System.Drawing.Size(152, 22);
+            this.evolutionNewResearch.Size = new System.Drawing.Size(134, 22);
             this.evolutionNewResearch.Text = "Evolution";
             this.evolutionNewResearch.Click += new System.EventHandler(this.evolutionToolStripMenuItem_Click);
             // 
             // percolationNewResearch
             // 
             this.percolationNewResearch.Name = "percolationNewResearch";
-            this.percolationNewResearch.Size = new System.Drawing.Size(152, 22);
+            this.percolationNewResearch.Size = new System.Drawing.Size(134, 22);
             this.percolationNewResearch.Text = "Percolation";
             this.percolationNewResearch.Click += new System.EventHandler(this.percolationToolStripMenuItem_Click);
             // 
             // collectionToolStripMenuItem
             // 
             this.collectionToolStripMenuItem.Name = "collectionToolStripMenuItem";
-            this.collectionToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.collectionToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.collectionToolStripMenuItem.Text = "Collection";
             this.collectionToolStripMenuItem.Click += new System.EventHandler(this.basicCollectionToolStripMenuItem_Click);
             // 
             // structuralToolStripMenuItem1
             // 
             this.structuralToolStripMenuItem1.Name = "structuralToolStripMenuItem1";
-            this.structuralToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.structuralToolStripMenuItem1.Size = new System.Drawing.Size(134, 22);
             this.structuralToolStripMenuItem1.Text = "Structural";
             this.structuralToolStripMenuItem1.Click += new System.EventHandler(this.structuralToolStripMenuItem_Click);
+            // 
+            // activationToolStripMenuItem1
+            // 
+            this.activationToolStripMenuItem1.Name = "activationToolStripMenuItem1";
+            this.activationToolStripMenuItem1.Size = new System.Drawing.Size(134, 22);
+            this.activationToolStripMenuItem1.Text = "Activation";
+            this.activationToolStripMenuItem1.Click += new System.EventHandler(this.activationToolStripMenuItem_Click);
             // 
             // editResearch
             // 
@@ -352,7 +279,7 @@
             this.parametersGrp.Margin = new System.Windows.Forms.Padding(0);
             this.parametersGrp.MinimumSize = new System.Drawing.Size(0, 70);
             this.parametersGrp.Name = "parametersGrp";
-            this.parametersGrp.Size = new System.Drawing.Size(365, 238);
+            this.parametersGrp.Size = new System.Drawing.Size(309, 238);
             this.parametersGrp.TabIndex = 1;
             this.parametersGrp.TabStop = false;
             this.parametersGrp.Text = "Parameters";
@@ -399,7 +326,7 @@
             this.parametersTable.RowHeadersVisible = false;
             this.parametersTable.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.parametersTable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.ColumnHeaderSelect;
-            this.parametersTable.Size = new System.Drawing.Size(359, 219);
+            this.parametersTable.Size = new System.Drawing.Size(303, 219);
             this.parametersTable.TabIndex = 26;
             // 
             // generationParameterNameColumn
@@ -453,37 +380,44 @@
             // basicToolStripMenuItem
             // 
             this.basicToolStripMenuItem.Name = "basicToolStripMenuItem";
-            this.basicToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.basicToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.basicToolStripMenuItem.Text = "Basic";
             this.basicToolStripMenuItem.Click += new System.EventHandler(this.basicToolStripMenuItem_Click);
             // 
             // evolutionToolStripMenuItem
             // 
             this.evolutionToolStripMenuItem.Name = "evolutionToolStripMenuItem";
-            this.evolutionToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.evolutionToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.evolutionToolStripMenuItem.Text = "Evolution";
             this.evolutionToolStripMenuItem.Click += new System.EventHandler(this.evolutionToolStripMenuItem_Click);
             // 
             // percolationToolStripMenuItem
             // 
             this.percolationToolStripMenuItem.Name = "percolationToolStripMenuItem";
-            this.percolationToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.percolationToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.percolationToolStripMenuItem.Text = "Percolation";
             this.percolationToolStripMenuItem.Click += new System.EventHandler(this.percolationToolStripMenuItem_Click);
             // 
             // basicCollectionToolStripMenuItem
             // 
             this.basicCollectionToolStripMenuItem.Name = "basicCollectionToolStripMenuItem";
-            this.basicCollectionToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.basicCollectionToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.basicCollectionToolStripMenuItem.Text = "Collection";
             this.basicCollectionToolStripMenuItem.Click += new System.EventHandler(this.basicCollectionToolStripMenuItem_Click);
             // 
             // structuralToolStripMenuItem
             // 
             this.structuralToolStripMenuItem.Name = "structuralToolStripMenuItem";
-            this.structuralToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.structuralToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.structuralToolStripMenuItem.Text = "Structural";
             this.structuralToolStripMenuItem.Click += new System.EventHandler(this.structuralToolStripMenuItem_Click);
+            // 
+            // activationToolStripMenuItem
+            // 
+            this.activationToolStripMenuItem.Name = "activationToolStripMenuItem";
+            this.activationToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.activationToolStripMenuItem.Text = "Activation";
+            this.activationToolStripMenuItem.Click += new System.EventHandler(this.activationToolStripMenuItem_Click);
             // 
             // settingsToolStripMenuItem
             // 
@@ -641,7 +575,7 @@
             this.topSplitLayout.Panel2.Controls.Add(this.parametersGrp);
             this.topSplitLayout.Panel2MinSize = 0;
             this.topSplitLayout.Size = new System.Drawing.Size(1264, 664);
-            this.topSplitLayout.SplitterDistance = 889;
+            this.topSplitLayout.SplitterDistance = 945;
             this.topSplitLayout.TabIndex = 34;
             // 
             // analyzeOptionsGrp
@@ -654,7 +588,7 @@
             this.analyzeOptionsGrp.Margin = new System.Windows.Forms.Padding(0);
             this.analyzeOptionsGrp.MinimumSize = new System.Drawing.Size(0, 70);
             this.analyzeOptionsGrp.Name = "analyzeOptionsGrp";
-            this.analyzeOptionsGrp.Size = new System.Drawing.Size(365, 420);
+            this.analyzeOptionsGrp.Size = new System.Drawing.Size(309, 420);
             this.analyzeOptionsGrp.TabIndex = 35;
             this.analyzeOptionsGrp.TabStop = false;
             this.analyzeOptionsGrp.Text = "Analyze Options";
@@ -700,7 +634,7 @@
             this.analyzeOptionsTable.RowHeadersDefaultCellStyle = dataGridViewCellStyle13;
             this.analyzeOptionsTable.RowHeadersVisible = false;
             this.analyzeOptionsTable.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            this.analyzeOptionsTable.Size = new System.Drawing.Size(359, 401);
+            this.analyzeOptionsTable.Size = new System.Drawing.Size(303, 401);
             this.analyzeOptionsTable.TabIndex = 32;
             // 
             // analyzeOptionNameColumn
@@ -777,19 +711,96 @@
             this.generalPanel.Size = new System.Drawing.Size(1264, 664);
             this.generalPanel.TabIndex = 36;
             // 
-            // activationToolStripMenuItem
+            // guidColumn
             // 
-            this.activationToolStripMenuItem.Name = "activationToolStripMenuItem";
-            this.activationToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.activationToolStripMenuItem.Text = "Activation";
-            this.activationToolStripMenuItem.Click += new System.EventHandler(this.activationToolStripMenuItem_Click);
+            this.guidColumn.HeaderText = "Guid";
+            this.guidColumn.Name = "guidColumn";
+            this.guidColumn.ReadOnly = true;
+            this.guidColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.guidColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.guidColumn.Visible = false;
             // 
-            // activationToolStripMenuItem1
+            // researchColumn
             // 
-            this.activationToolStripMenuItem1.Name = "activationToolStripMenuItem1";
-            this.activationToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
-            this.activationToolStripMenuItem1.Text = "Activation";
-            this.activationToolStripMenuItem1.Click += new System.EventHandler(this.activationToolStripMenuItem_Click);
+            this.researchColumn.HeaderText = "Research";
+            this.researchColumn.Name = "researchColumn";
+            this.researchColumn.ReadOnly = true;
+            this.researchColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.researchColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.researchColumn.ToolTipText = "Research Type";
+            // 
+            // nameColumn
+            // 
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.nameColumn.DefaultCellStyle = dataGridViewCellStyle3;
+            this.nameColumn.HeaderText = "Name";
+            this.nameColumn.Name = "nameColumn";
+            this.nameColumn.ReadOnly = true;
+            this.nameColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.nameColumn.ToolTipText = "Research Name";
+            // 
+            // modelColumn
+            // 
+            this.modelColumn.HeaderText = "Model";
+            this.modelColumn.Name = "modelColumn";
+            this.modelColumn.ReadOnly = true;
+            this.modelColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.modelColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.modelColumn.ToolTipText = "Model Type";
+            // 
+            // storageColumn
+            // 
+            this.storageColumn.HeaderText = "Storage";
+            this.storageColumn.Name = "storageColumn";
+            this.storageColumn.ReadOnly = true;
+            this.storageColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.storageColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.storageColumn.ToolTipText = "Storage Type";
+            // 
+            // generationColumn
+            // 
+            this.generationColumn.HeaderText = "Generation";
+            this.generationColumn.Name = "generationColumn";
+            this.generationColumn.ReadOnly = true;
+            this.generationColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.generationColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.generationColumn.ToolTipText = "Generation Type";
+            // 
+            // tracingColumn
+            // 
+            this.tracingColumn.HeaderText = "Tracing";
+            this.tracingColumn.Name = "tracingColumn";
+            this.tracingColumn.ReadOnly = true;
+            this.tracingColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.tracingColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.tracingColumn.ToolTipText = "Tracing";
+            // 
+            // checkConnectedColumn
+            // 
+            this.checkConnectedColumn.HeaderText = "Check Connected";
+            this.checkConnectedColumn.Name = "checkConnectedColumn";
+            this.checkConnectedColumn.ReadOnly = true;
+            this.checkConnectedColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.checkConnectedColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.checkConnectedColumn.ToolTipText = "Check Connected";
+            // 
+            // realizationsColumn
+            // 
+            this.realizationsColumn.HeaderText = "Realizations";
+            this.realizationsColumn.Name = "realizationsColumn";
+            this.realizationsColumn.ReadOnly = true;
+            this.realizationsColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.realizationsColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.realizationsColumn.ToolTipText = "Realizations Count";
+            // 
+            // statusColumn
+            // 
+            this.statusColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.statusColumn.HeaderText = "Status";
+            this.statusColumn.Name = "statusColumn";
+            this.statusColumn.ReadOnly = true;
+            this.statusColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.statusColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // MainWindow
             // 
@@ -874,6 +885,12 @@
         private System.Windows.Forms.Panel generalPanel;
         private System.Windows.Forms.Button startstop;
         private System.Windows.Forms.ProgressBar statusProgress;
+        private System.Windows.Forms.ToolStripMenuItem runToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem classicalTestsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem regularHierarchicTestsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem nonRegularHierarchicTestsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem activationToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem activationToolStripMenuItem1;
         private System.Windows.Forms.DataGridViewTextBoxColumn guidColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn researchColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn nameColumn;
@@ -881,14 +898,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn storageColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn generationColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn tracingColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn checkConnectedColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn realizationsColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn statusColumn;
-        private System.Windows.Forms.ToolStripMenuItem runToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem classicalTestsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem regularHierarchicTestsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem nonRegularHierarchicTestsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem activationToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem activationToolStripMenuItem1;
     }
 }
 

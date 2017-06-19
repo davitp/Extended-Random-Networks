@@ -152,6 +152,7 @@ namespace RandNet
             {
                 researchNameTxt.Text = SessionManager.GetResearchName(researchId);
                 tracingCheck.Checked = (SessionManager.GetResearchTracingPath(researchId) != "");
+                checkConnected.Checked = SessionManager.GetResearchCheckConnected(researchId);
                 realizationCountTxt.Value = SessionManager.GetResearchRealizationCount(researchId);
             }
             
@@ -476,6 +477,7 @@ namespace RandNet
             SessionManager.SetResearchGenerationType(ResultResearchId, GetCurrentGenerationType());
             string p = tracingCheck.Checked ? RandNetSettings.TracingDirectory : "";
             SessionManager.SetResearchTracingPath(ResultResearchId, p);
+            SessionManager.SetResearchCheckConnectedh(ResultResearchId, checkConnected.Checked);
             SessionManager.SetResearchRealizationCount(ResultResearchId, (int)realizationCountTxt.Value);
         }
 

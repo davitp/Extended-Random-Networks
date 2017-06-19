@@ -210,7 +210,7 @@ namespace NetworkModel
             return trianglesDistribution;
         }
 
-        protected override double CalculateDr()
+        protected override SortedDictionary<Double, double> CalculateDr()
         {
             uint Size = container.Size;
             List<List<int>> matrix = new List<List<int>>();
@@ -279,13 +279,16 @@ namespace NetworkModel
                 }
             }
 
-            List<double> NrAVG = new List<double>();
-
+            
+            SortedDictionary<Double, Double> sd = new SortedDictionary<double, double>();
+            int j = 1;
             foreach (List<int> i in matrix)
-                NrAVG.Add(CalculateNrAvg(i));
+            {
+                sd.Add(j, CalculateNrAvg(i));
+                j++;
+            }
 
-
-            return CalculateNrAvg(NrAVG);
+            return sd;
         }
 
         private int NeighbourshipCount(int i, List<int> lst)

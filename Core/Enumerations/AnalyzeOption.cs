@@ -61,7 +61,7 @@ namespace Core.Enumerations
 
         [AnalyzeOptionInfo("Dr",
             "Dr",
-            OptionType.Global,
+            OptionType.Trajectory,
             "",
             "")]
         Dr = 0x80,
