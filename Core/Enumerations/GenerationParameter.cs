@@ -71,6 +71,11 @@ namespace Core.Enumerations
             typeof(UInt32), "2")]
         BlocksCount,
 
+        [GenerationParameterInfo("Make Connected",
+            "",
+            typeof(Boolean), "true")]
+        MakeConnected,
+
         [GenerationParameterInfo("Adjacency matrix",
             "Adjacency matrix and branches of the networks.",
             typeof(MatrixPath), null)]

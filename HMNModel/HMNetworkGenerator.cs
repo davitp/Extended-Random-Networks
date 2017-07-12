@@ -37,7 +37,8 @@ namespace HMNModel
             Double probability = Convert.ToDouble(genParam[GenerationParameter.Probability]);
             UInt32 blocksCount = Convert.ToUInt32(genParam[GenerationParameter.BlocksCount]);
             Double alpha = Convert.ToDouble(genParam[GenerationParameter.Alpha]);
-     
+            Boolean makeConnected = Convert.ToBoolean(genParam[GenerationParameter.MakeConnected]);
+
             Boolean pb = (probability < 0 || probability > 1);
             Boolean a = (alpha < 0 || alpha > 1);
 
@@ -47,7 +48,7 @@ namespace HMNModel
             }
 
             container.Size = numberOfVertices;
-            Generate(numberOfVertices, zeroLevelNodesCount, blocksCount, probability, alpha);
+            Generate(numberOfVertices, zeroLevelNodesCount, blocksCount, probability, alpha, makeConnected);
         }
 
         public void StaticGeneration(MatrixInfoToRead matrixInfo)
@@ -85,7 +86,7 @@ namespace HMNModel
             }
         }
 
-        private void TwoBlocksProbablyConnection(Double probability, UInt32[] firstBlock, UInt32[] secondBlock)
+        private void AddTwoBlocksConnection(Double probability, UInt32[] firstBlock, UInt32[] secondBlock)
         {
             Boolean stop = false;
 
@@ -101,6 +102,18 @@ namespace HMNModel
                         }
                     }
             }
+        }
+
+        private void AddTwoBlocksPropablyConnection(Double probability, UInt32[] firstBlock, UInt32[] secondBlock)
+        {
+            for (UInt32 i = 0; i < firstBlock.Length; ++i)
+                for (UInt32 j = 0; j < secondBlock.Length; ++j)
+                {
+                    if (probability >= rand.NextDouble())
+                    {
+                        container.AddConnection(Convert.ToInt32(firstBlock[i]), Convert.ToInt32(secondBlock[j]));
+                    }
+                }
         }
 
         private List<UInt32[]> GetBlocksFromNetwork(UInt32 count, UInt32 size)
@@ -121,7 +134,7 @@ namespace HMNModel
         }
 
         private void Generate(UInt32 numberOfVertices, UInt32 zeroLevelNodesCount,
-            UInt32 blocksCount, Double probability, Double alpha)
+            UInt32 blocksCount, Double probability, Double alpha, Boolean makeConnected)
         {
             Int32 fullGraphNodesCount = Convert.ToInt32(zeroLevelNodesCount);
             for (Int32 i = 0; i < container.Size; i += fullGraphNodesCount)
@@ -151,7 +164,10 @@ namespace HMNModel
 
                     for (Int32 j = 1; j < blocks.Count; ++j)
                     {
-                        TwoBlocksProbablyConnection(levelP, blocks[0], blocks[j]);
+                        if (makeConnected)
+                            AddTwoBlocksConnection(levelP, blocks[0], blocks[j]);
+                        else
+                            AddTwoBlocksPropablyConnection(levelP, blocks[0], blocks[j]);
                     }
                 }
 

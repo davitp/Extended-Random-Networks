@@ -15,6 +15,7 @@ namespace HMNModel
     [RequiredGenerationParameter(GenerationParameter.Alpha)]
     [RequiredGenerationParameter(GenerationParameter.ZeroLevelNodesCount)]
     [RequiredGenerationParameter(GenerationParameter.BlocksCount)]
+    [RequiredGenerationParameter(GenerationParameter.MakeConnected)]
     [AvailableAnalyzeOption(AnalyzeOption.AvgClusteringCoefficient
         | AnalyzeOption.AvgDegree
         | AnalyzeOption.AvgPathLength

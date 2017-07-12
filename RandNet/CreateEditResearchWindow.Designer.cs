@@ -31,6 +31,7 @@
             this.create = new System.Windows.Forms.Button();
             this.cancel = new System.Windows.Forms.Button();
             this.generalGrp = new System.Windows.Forms.GroupBox();
+            this.checkConnected = new System.Windows.Forms.CheckBox();
             this.realizationCountTxt = new System.Windows.Forms.NumericUpDown();
             this.realizationCount = new System.Windows.Forms.Label();
             this.tracingCheck = new System.Windows.Forms.CheckBox();
@@ -50,7 +51,6 @@
             this.deselectAll = new System.Windows.Forms.Button();
             this.selectAll = new System.Windows.Forms.Button();
             this.optionsPanel = new System.Windows.Forms.Panel();
-            this.checkConnected = new System.Windows.Forms.CheckBox();
             this.generalGrp.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.realizationCountTxt)).BeginInit();
             this.parametersGrp.SuspendLayout();
@@ -99,11 +99,21 @@
             this.generalGrp.TabStop = false;
             this.generalGrp.Text = "General";
             // 
+            // checkConnected
+            // 
+            this.checkConnected.AutoSize = true;
+            this.checkConnected.Location = new System.Drawing.Point(712, 57);
+            this.checkConnected.Name = "checkConnected";
+            this.checkConnected.Size = new System.Drawing.Size(112, 17);
+            this.checkConnected.TabIndex = 6;
+            this.checkConnected.Text = "Check Connected";
+            this.checkConnected.UseVisualStyleBackColor = true;
+            // 
             // realizationCountTxt
             // 
             this.realizationCountTxt.Location = new System.Drawing.Point(555, 56);
             this.realizationCountTxt.Maximum = new decimal(new int[] {
-            100000,
+            10000000,
             0,
             0,
             0});
@@ -284,16 +294,6 @@
             this.optionsPanel.Name = "optionsPanel";
             this.optionsPanel.Size = new System.Drawing.Size(435, 225);
             this.optionsPanel.TabIndex = 0;
-            // 
-            // checkConnected
-            // 
-            this.checkConnected.AutoSize = true;
-            this.checkConnected.Location = new System.Drawing.Point(712, 57);
-            this.checkConnected.Name = "checkConnected";
-            this.checkConnected.Size = new System.Drawing.Size(112, 17);
-            this.checkConnected.TabIndex = 6;
-            this.checkConnected.Text = "Check Connected";
-            this.checkConnected.UseVisualStyleBackColor = true;
             // 
             // CreateEditResearchWindow
             // 
