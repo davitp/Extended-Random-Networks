@@ -53,9 +53,9 @@ namespace RandNet
             ShowCreateResearchDialog(ResearchType.Evolution);
         }
 
-        private void percolationToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ThresholdToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ShowCreateResearchDialog(ResearchType.Percolation);
+            ShowCreateResearchDialog(ResearchType.Threshold);
         }
 
         private void basicCollectionToolStripMenuItem_Click(object sender, EventArgs e)

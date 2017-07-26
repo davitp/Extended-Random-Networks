@@ -48,7 +48,7 @@
             this.createResearch = new System.Windows.Forms.ToolStripMenuItem();
             this.basicNewResearch = new System.Windows.Forms.ToolStripMenuItem();
             this.evolutionNewResearch = new System.Windows.Forms.ToolStripMenuItem();
-            this.percolationNewResearch = new System.Windows.Forms.ToolStripMenuItem();
+            this.ThresholdNewResearch = new System.Windows.Forms.ToolStripMenuItem();
             this.collectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.structuralToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.activationToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -63,7 +63,7 @@
             this.createResearchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.basicToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.evolutionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.percolationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ThresholdToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.basicCollectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.structuralToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.activationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -199,7 +199,7 @@
             this.createResearch.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.basicNewResearch,
             this.evolutionNewResearch,
-            this.percolationNewResearch,
+            this.ThresholdNewResearch,
             this.collectionToolStripMenuItem,
             this.structuralToolStripMenuItem1,
             this.activationToolStripMenuItem1});
@@ -221,12 +221,12 @@
             this.evolutionNewResearch.Text = "Evolution";
             this.evolutionNewResearch.Click += new System.EventHandler(this.evolutionToolStripMenuItem_Click);
             // 
-            // percolationNewResearch
+            // ThresholdNewResearch
             // 
-            this.percolationNewResearch.Name = "percolationNewResearch";
-            this.percolationNewResearch.Size = new System.Drawing.Size(134, 22);
-            this.percolationNewResearch.Text = "Percolation";
-            this.percolationNewResearch.Click += new System.EventHandler(this.percolationToolStripMenuItem_Click);
+            this.ThresholdNewResearch.Name = "ThresholdNewResearch";
+            this.ThresholdNewResearch.Size = new System.Drawing.Size(134, 22);
+            this.ThresholdNewResearch.Text = "Threshold";
+            this.ThresholdNewResearch.Click += new System.EventHandler(this.ThresholdToolStripMenuItem_Click);
             // 
             // collectionToolStripMenuItem
             // 
@@ -369,7 +369,7 @@
             this.createResearchToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.basicToolStripMenuItem,
             this.evolutionToolStripMenuItem,
-            this.percolationToolStripMenuItem,
+            this.ThresholdToolStripMenuItem,
             this.basicCollectionToolStripMenuItem,
             this.structuralToolStripMenuItem,
             this.activationToolStripMenuItem});
@@ -391,12 +391,12 @@
             this.evolutionToolStripMenuItem.Text = "Evolution";
             this.evolutionToolStripMenuItem.Click += new System.EventHandler(this.evolutionToolStripMenuItem_Click);
             // 
-            // percolationToolStripMenuItem
+            // ThresholdToolStripMenuItem
             // 
-            this.percolationToolStripMenuItem.Name = "percolationToolStripMenuItem";
-            this.percolationToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
-            this.percolationToolStripMenuItem.Text = "Percolation";
-            this.percolationToolStripMenuItem.Click += new System.EventHandler(this.percolationToolStripMenuItem_Click);
+            this.ThresholdToolStripMenuItem.Name = "ThresholdToolStripMenuItem";
+            this.ThresholdToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.ThresholdToolStripMenuItem.Text = "Threshold";
+            this.ThresholdToolStripMenuItem.Click += new System.EventHandler(this.ThresholdToolStripMenuItem_Click);
             // 
             // basicCollectionToolStripMenuItem
             // 
@@ -850,7 +850,7 @@
         private System.Windows.Forms.ToolStripMenuItem createResearchToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem basicToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem evolutionToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem percolationToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ThresholdToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
@@ -870,7 +870,7 @@
         private System.Windows.Forms.OpenFileDialog openFileDlg;
         private System.Windows.Forms.ToolStripMenuItem matrixConvertionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem probabilityToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem percolationNewResearch;
+        private System.Windows.Forms.ToolStripMenuItem ThresholdNewResearch;
         private System.Windows.Forms.ToolStripMenuItem basicCollectionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem collectionToolStripMenuItem;
         private System.Windows.Forms.FolderBrowserDialog browseFolderDlg;

@@ -23,10 +23,10 @@ namespace Core.Enumerations
             "Research.EvolutionResearch, Research")]
         Evolution,
 
-        [ResearchTypeInfo("Percolation research", 
-            "Analysis of percolation probability (critical probability) for random network (several ensembles).", 
-            "Research.PercolationResearch, Research")]
-        Percolation,
+        [ResearchTypeInfo("Threshold research", 
+            "Analysis of Threshold probability (critical probability) for random network (several ensembles).", 
+            "Research.ThresholdResearch, Research")]
+        Threshold,
 
         [ResearchTypeInfo("Collection of researches",
             "",

@@ -24,11 +24,11 @@
       <FileName>EvolutionResearch.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Research.PercolationResearch">
+  <Class Name="Research.ThresholdResearch">
     <Position X="4.5" Y="2" Width="2" />
     <TypeIdentifier>
       <HashCode>ACAAgAQQAACAAAAAAAAAAAAAAggAAAAUAAABAEEAAAA=</HashCode>
-      <FileName>PercolationResearch.cs</FileName>
+      <FileName>ThresholdResearch.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Core.AbstractResearch" Collapsed="true">

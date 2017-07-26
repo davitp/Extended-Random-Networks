@@ -16,7 +16,7 @@ using Core.Exceptions;
 namespace Research
 {
     /// <summary>
-    /// Percolation research implementation.
+    /// Threshold research implementation.
     /// </summary>
     [AvailableModelType(ModelType.ER)]
     [AvailableModelType(ModelType.RegularHierarchic)]
@@ -40,7 +40,7 @@ namespace Research
         | AnalyzeOption.TriangleByVertexDistribution
         | AnalyzeOption.Dr
         )]
-    public class PercolationResearch : AbstractResearch
+    public class ThresholdResearch : AbstractResearch
     {
         private bool isCanceled = false;
 
@@ -69,7 +69,7 @@ namespace Research
 
             StatusInfo = new ResearchStatusInfo(ResearchStatus.Running, 0);
             Logger.Write("Research ID - " + ResearchID.ToString() +
-                ". Research - " + ResearchName + ". STARTED PERCOLATION RESEARCH.");
+                ". Research - " + ResearchName + ". STARTED Threshold RESEARCH.");
 
             StartCurrentEnsemble();
         }
@@ -80,12 +80,12 @@ namespace Research
             currentManager.Cancel();
             StatusInfo = new ResearchStatusInfo(ResearchStatus.Stopped, StatusInfo.CompletedStepsCount);
             Logger.Write("Research ID - " + ResearchID.ToString() +
-                ". Research - " + ResearchName + ". STOPPED PERCOLATION RESEARCH.");
+                ". Research - " + ResearchName + ". STOPPED Threshold RESEARCH.");
         }
 
         public override ResearchType GetResearchType()
         {
-            return ResearchType.Percolation;
+            return ResearchType.Threshold;
         }
 
         public override int GetProcessStepsCount()
@@ -95,7 +95,7 @@ namespace Research
                 // TODO
             }
             return processStepCount;*/
-            return 10000;
+            return 10000000;
         }
 
         protected override void ValidateResearchParameters()
