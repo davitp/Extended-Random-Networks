@@ -68,7 +68,9 @@ namespace Research
             m.Path = Directory.GetFiles(mp.Path, "*.txt")[0];
             m.Size = mp.Size;
             matrixes.Add(m);
-            MatrixInfoToRead mr = FileManager.Read(m.Path, m.Size);
+            NetworkInfoToRead mr = FileManager.Read(m.Path, m.Size);
+            // TODO FIX
+            Debug.Assert(mr is MatrixInfoToRead);
 
             string storageString = Storage.StorageString;
             if (Storage.GetStorageType() != StorageType.SQLStorage)
@@ -83,7 +85,8 @@ namespace Research
                 int[] s;
                 FileManager.ReadSubgraphMatrix(fn, out s);
                 MatrixInfoToWrite tmp = new MatrixInfoToWrite();
-                tmp.Matrix = CreateMatrixForSubgraph(mr.Matrix, s);
+                // TODO FIX
+                tmp.Matrix = CreateMatrixForSubgraph((mr as MatrixInfoToRead).Matrix, s);
                 
                 // Create temporary .txt files for each matrix
                 string tmpFileName = storageString + "\\" + Path.GetFileNameWithoutExtension(fn);

@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.IO;
+using System.Diagnostics;
 
 using Core;
 using Core.Utility;
@@ -92,12 +93,15 @@ namespace RandNet
         private void Convert(string fileName)
         {
             string sourceBranchesFilePath = fileName.Substring(0, fileName.Length - 4) + ".branches";
-            MatrixInfoToRead matrix = FileManager.Read(fileName, 0);
-            ArrayList m = matrix.Matrix;
+            string sourceActiveStatesFilePath = fileName.Substring(0, fileName.Length - 4) + ".actives";
+            NetworkInfoToRead network = FileManager.Read(fileName, 0);
+            Debug.Assert(network is MatrixInfoToRead);
+            ArrayList m = (network as MatrixInfoToRead).Matrix;
             fileName = Path.GetFileName(fileName);
             int l = fileName.Length;
             string outFileName = outputPathTxt.Text + "\\" + fileName.Substring(0, l - 4) + "_out.txt";
             string outBranchesFileName = outputPathTxt.Text + "\\" + fileName.Substring(0, l - 4) + "_out.branches";
+            string outActiveStatesFileName = outputPathTxt.Text + "\\" + fileName.Substring(0, l - 4) + "_out.actives";
             using (StreamWriter file = new StreamWriter(outFileName))
             {
                 ArrayList row = new ArrayList();
@@ -111,8 +115,10 @@ namespace RandNet
                     }
                 }
             }
-            if (matrix.Branches != null)
+            if (network.Branches != null)
                 File.Copy(sourceBranchesFilePath, outBranchesFileName);
+            if (network.ActiveStates != null)
+                File.Copy(sourceActiveStatesFilePath, outActiveStatesFileName);
         }
 
         #endregion

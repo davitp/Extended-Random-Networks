@@ -61,6 +61,11 @@ namespace Core.Enumerations
             typeof(UInt32), "10")]
         ActivationStepCount,
 
+        [ResearchParameterInfo("",
+            "",
+            typeof(Double), "1")]
+        InitialActivationProbability,
+
         [ResearchParameterInfo("Research type",
             "Research type for each item",
             typeof(ResearchType), "BasicResearch")]

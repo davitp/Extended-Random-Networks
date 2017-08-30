@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Globalization;
 
 using Session;
 using Core.Enumerations;
@@ -412,7 +413,7 @@ namespace RandNet
             Debug.Assert(sender is TextBox);
             TextBox tb = sender as TextBox;
             Double n = 0;
-            bool b = Double.TryParse(tb.Text, out n);
+            bool b = Double.TryParse(tb.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out n);
             if (!b)
             {
                 MessageBox.Show(tb.Name + " parameter value should be real number.", "Error");

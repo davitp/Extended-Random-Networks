@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Runtime.Remoting.Messaging;
 using System.Diagnostics;
+using System.Globalization;
 
 using Microsoft.Practices.EnterpriseLibrary.Logging;
 
@@ -62,10 +63,10 @@ namespace Research
             probabilityParameter = GenerationParameterValues.ContainsKey(GenerationParameter.Probability) ?
                 GenerationParameter.Probability : GenerationParameter.Mu;
 
-            minProbability = Convert.ToDouble(GenerationParameterValues[probabilityParameter]);
+            minProbability = Double.Parse(GenerationParameterValues[probabilityParameter].ToString(), CultureInfo.InvariantCulture);
             currentProbability = minProbability;
-            maxProbability = Convert.ToDouble(ResearchParameterValues[ResearchParameter.ProbabilityMax]);
-            delta = Convert.ToDouble(ResearchParameterValues[ResearchParameter.ProbabilityDelta]);
+            maxProbability = Double.Parse(ResearchParameterValues[ResearchParameter.ProbabilityMax].ToString(), CultureInfo.InvariantCulture);
+            delta = Double.Parse(ResearchParameterValues[ResearchParameter.ProbabilityDelta].ToString(), CultureInfo.InvariantCulture);
 
             StatusInfo = new ResearchStatusInfo(ResearchStatus.Running, 0);
             Logger.Write("Research ID - " + ResearchID.ToString() +

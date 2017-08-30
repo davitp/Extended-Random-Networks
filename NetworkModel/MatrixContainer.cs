@@ -62,6 +62,18 @@ namespace NetworkModel
             return matrix;
         }
 
+        public override void SetNeighbourship(List<int> neighbours, int size)
+        {
+            Debug.Assert(size != 0);
+            Debug.Assert(neighbours.Count() % 2 == 0);
+
+            Size = (UInt32)size;
+            for (int i = 0; i < neighbours.Count(); i += 2)
+            {
+                AddConnection(neighbours[i], neighbours[i + 1]);
+            }
+        }
+
         public override List<KeyValuePair<int, int>> GetNeighbourship()
         {
             List<KeyValuePair<int, int>> n = new List<KeyValuePair<int, int>>();

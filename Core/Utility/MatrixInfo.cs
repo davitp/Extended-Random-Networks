@@ -22,19 +22,35 @@ namespace Core.Utility
         {
             return Path;
         }
-    };
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public abstract class NetworkInfoToRead
+    {
+        public String fileName;
+        public ArrayList Branches;
+        public BitArray ActiveStates;
+    }
 
     /// <summary>
     /// Representation of adjacency matrix, branches and active states of the network read from file.
     /// <note>Branches property is null, if the network is not hierarchical.</note>
     /// <note>ActiveStates property is null, if active states information is not given/needed.</note>
     /// </summary>
-    public struct MatrixInfoToRead
+    public class MatrixInfoToRead : NetworkInfoToRead
     {
-        public String fileName;
         public ArrayList Matrix;
-        public ArrayList Branches;
-        public BitArray ActiveStates;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public class NeighbourshipInfoToRead : NetworkInfoToRead
+    {
+        public List<int> Neighbours;
+        public int Size;
     }
 
     /// <summary>

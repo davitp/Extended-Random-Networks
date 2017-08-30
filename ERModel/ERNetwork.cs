@@ -30,6 +30,7 @@ namespace ERModel
         | AnalyzeOption.EigenDistanceDistribution
         | AnalyzeOption.EigenValues
         | AnalyzeOption.TriangleByVertexDistribution
+        | AnalyzeOption.Cycles3Trajectory
         | AnalyzeOption.Dr
         | AnalyzeOption.ActivePartA
         | AnalyzeOption.ActivePartB

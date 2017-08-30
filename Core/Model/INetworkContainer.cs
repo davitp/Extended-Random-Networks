@@ -15,8 +15,7 @@ namespace Core.Model
         /// The size of the graph (number if vertices).
         /// </summary>
         UInt32 Size { get; set; }
-
-        // Строится граф на основе матрицы смежности.
+        
         /// <summary>
         /// Constucts a graph on the base of a adjacency matrix.
         /// </summary>
@@ -28,11 +27,24 @@ namespace Core.Model
         /// </summary>
         /// <returns>Adjacency matrix.</returns>
         bool[,] GetMatrix();
-        
+
+        /// <summary>
+        /// Constucts a graph on the base of neighbours list.
+        /// </summary>
+        /// <param name="neighbours">Neighbours list.</param>
+        /// <param name="size">Size of graph (number of vertices).</param>
+        void SetNeighbourship(List<int> neighbours, int size);
+
         /// <summary>
         /// Constructs neighbourships for the graph.
         /// </summary>
         /// <returns>Neighbourship pairs.</returns>
         List<KeyValuePair<int, int>> GetNeighbourship();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="act"></param>
+        void SetActiveStatuses(BitArray act);
     }
 }

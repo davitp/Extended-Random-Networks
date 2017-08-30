@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Diagnostics;
+using System.Globalization;
 
 using Microsoft.Practices.EnterpriseLibrary.Logging;
 
@@ -22,6 +23,7 @@ namespace Research
     [AvailableModelType(ModelType.BA)]
     [AvailableModelType(ModelType.WS)]
     [AvailableModelType(ModelType.HMN)]
+    [RequiredResearchParameter(ResearchParameter.InitialActivationProbability)]
     [RequiredResearchParameter(ResearchParameter.ActiveMu)]
     [RequiredResearchParameter(ResearchParameter.Lambda)]
     [RequiredResearchParameter(ResearchParameter.ActivationStepCount)]
@@ -86,17 +88,19 @@ namespace Research
             if (!ResearchParameterValues.ContainsKey(ResearchParameter.ActivationStepCount) ||
                 !ResearchParameterValues.ContainsKey(ResearchParameter.Lambda) || 
                 !ResearchParameterValues.ContainsKey(ResearchParameter.ActiveMu) ||
-                !ResearchParameterValues.ContainsKey(ResearchParameter.TracingStepIncrement))
+                !ResearchParameterValues.ContainsKey(ResearchParameter.TracingStepIncrement) ||
+                !ResearchParameterValues.ContainsKey(ResearchParameter.InitialActivationProbability))
             {
                 Logger.Write("Research - " + ResearchName + ". Invalid research parameters.");
                 throw new InvalidResearchParameters();
             }
 
             UInt32 Time = Convert.ToUInt32(ResearchParameterValues[ResearchParameter.ActivationStepCount]);
-            Double Lambda = Convert.ToDouble(ResearchParameterValues[ResearchParameter.Lambda]);
-            Double Mu = Convert.ToDouble(ResearchParameterValues[ResearchParameter.ActiveMu]);
+            Double Lambda = Double.Parse(ResearchParameterValues[ResearchParameter.Lambda].ToString(), CultureInfo.InvariantCulture);
+            Double Mu = Double.Parse(ResearchParameterValues[ResearchParameter.ActiveMu].ToString(), CultureInfo.InvariantCulture);
+            Double IP = Double.Parse(ResearchParameterValues[ResearchParameter.InitialActivationProbability].ToString(), CultureInfo.InvariantCulture);
 
-            if (Time <= 0 || Lambda < 0 || Mu < 0)
+            if (Time <= 0 || Lambda < 0 || Mu < 0|| IP < 0 || IP > 1)
             {
                 Logger.Write("Research - " + ResearchName + ". Invalid research parameters.");
                 throw new InvalidResearchParameters();

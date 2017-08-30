@@ -5,6 +5,7 @@ using System.Text;
 using System.Numerics;
 using System.Collections;
 using System.Diagnostics;
+using System.Globalization;
 
 using Core;
 using Core.Exceptions;
@@ -443,7 +444,7 @@ namespace NetworkModel
             Debug.Assert(network.ResearchParameterValues.ContainsKey(ResearchParameter.PermanentDistribution));
 
             UInt32 stepCount = Convert.ToUInt32(network.ResearchParameterValues[ResearchParameter.EvolutionStepCount]);
-            Double nu = Convert.ToDouble(network.ResearchParameterValues[ResearchParameter.Nu]);
+            Double nu = Double.Parse(network.ResearchParameterValues[ResearchParameter.Nu].ToString(), CultureInfo.InvariantCulture);
             bool permanentDistribution = Convert.ToBoolean(network.ResearchParameterValues[ResearchParameter.PermanentDistribution]);
             object v = network.ResearchParameterValues[ResearchParameter.TracingStepIncrement];
             UInt32 tracingStepIncrement = ((v != null) ? Convert.ToUInt32(v) : 0);
@@ -861,26 +862,30 @@ namespace NetworkModel
 
             SortedDictionary<Double, Double> ActiveParts = new SortedDictionary<Double, Double>();
             UInt32 Time = Convert.ToUInt32(network.ResearchParameterValues[ResearchParameter.ActivationStepCount]);
-            Double Mu = Convert.ToDouble(network.ResearchParameterValues[ResearchParameter.ActiveMu]);
-            Double Lambda = Convert.ToDouble(network.ResearchParameterValues[ResearchParameter.Lambda]);
+            Double Mu = Double.Parse(network.ResearchParameterValues[ResearchParameter.ActiveMu].ToString(), CultureInfo.InvariantCulture);
+            Double Lambda = Double.Parse(network.ResearchParameterValues[ResearchParameter.Lambda].ToString(), CultureInfo.InvariantCulture);
             object v = network.ResearchParameterValues[ResearchParameter.TracingStepIncrement];
             UInt32 tracingStepIncrement = ((v != null) ? Convert.ToUInt32(v) : 0);
 
-            Double P = Lambda/(Lambda + Mu);
+            Double P1 = Mu / (Mu + Lambda);
             Int32 t = 0;
             RNGCrypto Rand = new RNGCrypto();
             uint currentTracingStep = tracingStepIncrement;
-            while (t <= Time && DoesActiveNodeExist())
+            int curActiveNodeCount = container.GetActiveNodesCount();
+
+            while (t <= Time && curActiveNodeCount != 0)
             {
                 Int32 RandomActiveNode = GetRandomActiveNodeIndex(Rand);
-                if (Rand.NextDouble() <= P)
+
+                if (Rand.NextDouble() <= P1)
                 {
-                    Int32 RandomPassiveNode = GetRandomIndex(GetVertexPassiveNeighbours(RandomActiveNode), Rand);
-                    container.SetActiveStatus(RandomPassiveNode, true);
+                    container.SetActiveStatus(RandomActiveNode, false);
                 }
                 else
                 {
-                    container.SetActiveStatus(RandomActiveNode, false);
+                    Int32 RandomNode = GetRandomIndex(container.Neighbourship[RandomActiveNode], Rand);
+                    if (container.GetActiveStatus(RandomNode) == false)
+                        container.SetActiveStatus(RandomNode, true);
                 }
 
                 if (currentTracingStep == t)
@@ -893,12 +898,12 @@ namespace NetworkModel
                     network.UpdateStatus(NetworkStatus.StepCompleted);
                 }
 
-                t++;
-                Int32 ActiveNodesCount = container.GetActiveNodesCount();
-                Double ActivePartA = (Double)ActiveNodesCount / (Double)container.Size;
+                ++t;
+                curActiveNodeCount = container.GetActiveNodesCount();
+                Double ActivePartA = curActiveNodeCount / (Double)container.Size;
                 ActiveParts.Add(t - 1, ActivePartA);
             }
-
+            Debug.Assert(t > Time || !container.DoesActiveNodeExist());
             return ActiveParts;
         }
 
@@ -913,30 +918,31 @@ namespace NetworkModel
 
             SortedDictionary<Double, Double> ActiveParts = new SortedDictionary<Double, Double>();
             UInt32 Time = Convert.ToUInt32(network.ResearchParameterValues[ResearchParameter.ActivationStepCount]);
-            Double Mu = Convert.ToDouble(network.ResearchParameterValues[ResearchParameter.ActiveMu]);
-            Double Lambda = Convert.ToDouble(network.ResearchParameterValues[ResearchParameter.Lambda]);
+            Double Mu = Double.Parse(network.ResearchParameterValues[ResearchParameter.ActiveMu].ToString(), CultureInfo.InvariantCulture);
+            Double Lambda = Double.Parse(network.ResearchParameterValues[ResearchParameter.Lambda].ToString(), CultureInfo.InvariantCulture);
             object v = network.ResearchParameterValues[ResearchParameter.TracingStepIncrement];
             UInt32 tracingStepIncrement = ((v != null) ? Convert.ToUInt32(v) : 0);
 
-            Double P = Lambda / (Lambda + Mu);
+            Double P1 = Mu / (Lambda + Mu);
             Int32 t = 0;
             RNGCrypto Rand = new RNGCrypto();
             uint currentTracingStep = tracingStepIncrement;
-            while (t <= Time && DoesActiveNodeExist())
+            int curActiveNodeCount = container.GetActiveNodesCount();
+
+            while (t <= Time && curActiveNodeCount != 0)
             {
                 Int32 RandomActiveNode = GetRandomActiveNodeIndex(Rand);
-                if (Rand.NextDouble() <= P)
+                if (Rand.NextDouble() <= P1)
                 {
-                    Double r = Rand.NextDouble();
-                    if (r < Lambda)
-                    {
-                        List<Int32> PassiveNeighbours = GetVertexPassiveNeighbours(RandomActiveNode);
-                        PassiveNeighbours.ForEach(x => container.SetActiveStatus(x, true));
-                    }
+                    container.SetActiveStatus(RandomActiveNode, false);
                 }
                 else
                 {
-                    container.SetActiveStatus(RandomActiveNode, false);
+                    foreach(int x in container.Neighbourship[RandomActiveNode])
+                    {
+                        if (Rand.NextDouble() < Lambda && container.GetActiveStatus(x) == true)
+                            container.SetActiveStatus(x, true);
+                    }
                 }
 
                 if (currentTracingStep == t)
@@ -949,42 +955,47 @@ namespace NetworkModel
                     network.UpdateStatus(NetworkStatus.StepCompleted);
                 }
 
-                t++;
-                Int32 ActiveNodesCount = container.GetActiveNodesCount();
-                Double ActivePartA = (Double)ActiveNodesCount / (Double)container.Size;
+                ++t;
+                curActiveNodeCount = container.GetActiveNodesCount();
+                Double ActivePartA = (Double)curActiveNodeCount / (Double)container.Size;
                 ActiveParts.Add(t - 1, ActivePartA);
             }
+            Debug.Assert(t > Time || !container.DoesActiveNodeExist());
 
             return ActiveParts;
         }
 
-        private Boolean DoesActiveNodeExist() => this.container.GetActiveNodesCount() != 0;
+        private Boolean DoesActiveNodeExist() => this.container.DoesActiveNodeExist();
 
         private Int32 GetRandomActiveNodeIndex(RNGCrypto Rand)
         {
-            if (DoesActiveNodeExist())
+            List<Int32> ActiveIndexes = new List<Int32>();
+
+            for (int i = 0; i < container.Size; ++i)
             {
-                List<Int32> ActiveIndexes = new List<Int32>();
-
-                for (int i = 0; i < container.Size; ++i)
+                if (container.GetActiveStatus(i))
                 {
-                    if (container.GetActiveStatus(i))
-                    {
-                        ActiveIndexes.Add(i);
-                    }
+                    ActiveIndexes.Add(i);
                 }
-
-                return GetRandomIndex(ActiveIndexes, Rand);
             }
 
-            return -1;
+            if (ActiveIndexes.Count == 0)
+            {
+                return -1;
+            }
+
+            return GetRandomIndex(ActiveIndexes, Rand);
         }
 
         private List<Int32> GetVertexPassiveNeighbours(Int32 Vertex)
         {
             List<Int32> PassiveNeighbours = new List<Int32>();
-            for (int i = 0; i < container.Size && i != Vertex; ++i)
+            for (int i = 0; i < container.Size; ++i)
             {
+                if (i == Vertex)
+                {
+                    continue;
+                }
                 if (container.AreConnected(Vertex, i) && !container.GetActiveStatus(i))
                 {
                     PassiveNeighbours.Add(i);

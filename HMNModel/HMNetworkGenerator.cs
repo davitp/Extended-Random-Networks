@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Globalization;
 
 using Core.Enumerations;
 using Core.Model;
@@ -13,7 +14,7 @@ using RandomNumberGeneration;
 
 namespace HMNModel
 {
-    class HMNetworkGenerator : INetworkGenerator
+    class HMNetworkGenerator : AbstractNetworkGenerator
     {
         private NonHierarchicContainer container;
 
@@ -24,19 +25,19 @@ namespace HMNModel
             node = 0;
         }
 
-        public INetworkContainer Container
+        public override INetworkContainer Container
         {
             get { return container; }
             set { container = (NonHierarchicContainer)value; }
         }
 
-        public void RandomGeneration(Dictionary<GenerationParameter, object> genParam)
+        public override void RandomGeneration(Dictionary<GenerationParameter, object> genParam)
         {
             UInt32 numberOfVertices = Convert.ToUInt32(genParam[GenerationParameter.Vertices]);
             UInt32 zeroLevelNodesCount = Convert.ToUInt32(genParam[GenerationParameter.ZeroLevelNodesCount]);
-            Double probability = Convert.ToDouble(genParam[GenerationParameter.Probability]);
+            Double probability = Double.Parse(genParam[GenerationParameter.Probability].ToString(), CultureInfo.InvariantCulture);
             UInt32 blocksCount = Convert.ToUInt32(genParam[GenerationParameter.BlocksCount]);
-            Double alpha = Convert.ToDouble(genParam[GenerationParameter.Alpha]);
+            Double alpha = Double.Parse(genParam[GenerationParameter.Alpha].ToString(), CultureInfo.InvariantCulture);
             Boolean makeConnected = Convert.ToBoolean(genParam[GenerationParameter.MakeConnected]);
 
             Boolean pb = (probability < 0 || probability > 1);
@@ -49,12 +50,6 @@ namespace HMNModel
 
             container.Size = numberOfVertices;
             Generate(numberOfVertices, zeroLevelNodesCount, blocksCount, probability, alpha, makeConnected);
-        }
-
-        public void StaticGeneration(MatrixInfoToRead matrixInfo)
-        {
-            container.SetMatrix(matrixInfo.Matrix);
-            container.SetActivStatuses(matrixInfo.ActiveStates);
         }
 
         private RNGCrypto rand;

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Diagnostics;
+using System.Globalization;
 
 using Core.Enumerations;
 using Core.Model;
@@ -16,7 +17,7 @@ namespace NonRegularHierarchicModel
     /// <summary>
     /// Implementation of non regularly branching block-hierarchic network's generator.
     /// </summary>
-    class NonRegularHierarchicNetworkGenerator : INetworkGenerator
+    class NonRegularHierarchicNetworkGenerator : AbstractNetworkGenerator
     {
         /// <summary>
         /// Container with network of specified model (non regular block-hierarchic).
@@ -28,17 +29,17 @@ namespace NonRegularHierarchicModel
             container = new NonRegularHierarchicNetworkContainer();
         }
 
-        public INetworkContainer Container
+        public override INetworkContainer Container
         {
             get { return container; }
             set { container = (NonRegularHierarchicNetworkContainer)value; }
         }
 
-        public void RandomGeneration(Dictionary<GenerationParameter, object> genParam)
+        public override void RandomGeneration(Dictionary<GenerationParameter, object> genParam)
         {
             UInt32 vertices = Convert.ToUInt32(genParam[GenerationParameter.Vertices]);
             UInt32 branchingIndex = Convert.ToUInt32(genParam[GenerationParameter.BranchingIndex]);
-            Double mu = Convert.ToDouble(genParam[GenerationParameter.Mu]);
+            Double mu = Double.Parse(genParam[GenerationParameter.Mu].ToString(), CultureInfo.InvariantCulture);
 
             if (mu < 0)
                 throw new InvalidGenerationParameters();
@@ -48,13 +49,11 @@ namespace NonRegularHierarchicModel
             container.HierarchicTree = GenerateByVertices(mu);
         }
 
-        public void StaticGeneration(MatrixInfoToRead matrixInfo)
+        public override void StaticGeneration(NetworkInfoToRead info)
         {
-            container.SetBranches(matrixInfo.Branches);
-            Debug.Assert(matrixInfo.Branches != null);
-            container.SetMatrix(matrixInfo.Matrix);
-            if (matrixInfo.ActiveStates != null)
-                container.SetActivStatuses(matrixInfo.ActiveStates);
+            Debug.Assert(info.Branches != null);
+            container.SetBranches(info.Branches);
+            base.StaticGeneration(info);
         }
 
         private RNGCrypto rand = new RNGCrypto();

@@ -25,23 +25,60 @@ namespace Core.Utility
         /// <param name="fileName">File name.</param>
         /// <returns>Matrix and branches (if exists).</returns>
         /// <throws>CoreException, MatrixFormatException.</throws>
-        public static MatrixInfoToRead Read(String fileName, int size)
+        public static NetworkInfoToRead Read(String fileName, int size)
         {
-            MatrixInfoToRead r = new MatrixInfoToRead();
-
             if ((File.GetAttributes(fileName) & FileAttributes.Directory) == FileAttributes.Directory)
             {
                 throw new CoreException("File should be specified.");
             }
             else
             {
+                Debug.Assert(Path.GetExtension(fileName) == ".txt");
+                NetworkInfoToRead r;
+                if (IsMatrixFile(fileName))
+                {
+                    r = new MatrixInfoToRead();
+                    (r as MatrixInfoToRead).Matrix = ReadMatrix(fileName);
+                }
+                else
+                {
+                    r = new NeighbourshipInfoToRead();
+                    NeighbourshipInfoToRead nr = r as NeighbourshipInfoToRead;
+                    nr.Neighbours = ReadNeighbourship(fileName);
+                    nr.Size = size == 0 ? nr.Neighbours.Max() + 1 : size;                    
+                }
+
                 r.fileName = fileName;
-                r.Matrix = ReadMatrix(fileName, size);
                 r.Branches = ReadBranches(fileName.Substring(0, fileName.Length - 4) + ".branches");
                 r.ActiveStates = ReadActiveStates(fileName.Substring(0, fileName.Length - 4) + ".actives", size);
-            }
 
-            return r;
+                return r;
+            }
+        }
+
+        private static bool IsMatrixFile(String fileName)
+        {
+            using (StreamReader streamreader = new StreamReader(fileName, System.Text.Encoding.Default))
+            {
+                char[] buffer = new char[10];
+                string[] saparators = { " " };
+                streamreader.ReadBlock(buffer, 0, 10);
+                string content = new string(buffer);
+                string[] split = content.Split(saparators, StringSplitOptions.RemoveEmptyEntries);
+                if (split.Count() <= 2)
+                    return false;
+                else
+                {
+                    foreach (string str in split)
+                    {
+                        if (str == "0" || str == "1")
+                            continue;
+                        else
+                            return false;
+                    }
+                }
+            }
+            return true;
         }
 
         /// <summary>
@@ -185,32 +222,9 @@ namespace Core.Utility
                 WriteActiveStates(neighbourshipInfo.ActiveStates, filePath);
         }
 
-        private static ArrayList ReadMatrix(String filePath, int size)
+        private static ArrayList ReadMatrix(String filePath)
         {
-            Debug.Assert(Path.GetExtension(filePath) == ".txt");
-            ArrayList matrix;
-
-            bool r = false;
-            try
-            {
-                r = TryReadClassicalMatrix(filePath, out matrix);
-                if (!r)
-                    r = TryReadDegreesMatrix(filePath, size, out matrix);
-            }
-            catch (SystemException)
-            {
-                throw new MatrixFormatException();
-            }
-
-            if (!r)
-                throw new MatrixFormatException();
-
-            return matrix;
-        }
-
-        private static bool TryReadClassicalMatrix(String filePath, out ArrayList matrix)
-        {
-            matrix = new ArrayList();
+            ArrayList matrix = new ArrayList();
             using (StreamReader streamreader = new StreamReader(filePath, System.Text.Encoding.Default))
             {
                 string[] saparators = { " " };
@@ -225,21 +239,18 @@ namespace Core.Utility
                             tmp.Add(false);
                         else if (split[i].Equals("1"))
                             tmp.Add(true);
-                        else return false;
+                        else throw new MatrixFormatException();
                     }
 
                     matrix.Add(tmp);
                 }
             }
-
-            return true;
+            return matrix;
         }
 
-        private static bool TryReadDegreesMatrix(String filePath, int size, out ArrayList matrix)
+        private static List<int> ReadNeighbourship(String filePath)
         {
-            matrix = new ArrayList();
-
-            List<int> numbers = new List<int>();
+            List<int> neighbours = new List<int>();
             using (StreamReader streamreader = new StreamReader(filePath, System.Text.Encoding.Default))
             {
                 string[] saparators = { " ", ",", ";" };
@@ -251,36 +262,19 @@ namespace Core.Utility
                     try
                     {
                         int i = Convert.ToInt32(split[0]), j = Convert.ToInt32(split[1]);
-                        numbers.Add(i);
-                        numbers.Add(j);
+                        neighbours.Add(i);
+                        neighbours.Add(j);
                     }
                     catch (SystemException)
                     {
-                        return false;
+                        throw new MatrixFormatException();
                     }
                 }
             }
-            Debug.Assert(numbers.Count() % 2 == 0);
-            int networkSize = (size == 0) ? numbers.Max() + 1 : size;
+            if (neighbours.Count() % 2 != 0)
+                throw new MatrixFormatException();
 
-            bool[,] n = new bool[networkSize, networkSize];
-            for (int i = 0; i < numbers.Count(); i += 2)
-            {
-                n[numbers[i], numbers[i + 1]] = true;
-                n[numbers[i + 1], numbers[i]] = true;
-            }
-
-            for (int i = 0; i < networkSize; ++i)
-            {
-                ArrayList tmp = new ArrayList();
-                for (int j = 0; j < networkSize; ++j)
-                {
-                    tmp.Add(n[i, j]);
-                }
-                matrix.Add(tmp);
-            }
-
-            return true;
+            return neighbours;
         }
 
         private static ArrayList ReadBranches(String filePath)

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Globalization;
 
 using Core.Enumerations;
 using Core.Model;
@@ -15,7 +16,7 @@ namespace RegularHierarchicModel
     /// <summary>
     /// Implementation of regularly branching block-hierarchic network's generator.
     /// </summary>
-    class RegularHierarchicNetworkGenerator : INetworkGenerator
+    class RegularHierarchicNetworkGenerator : AbstractNetworkGenerator
     {
         /// <summary>
         /// Container with network of specified model (regular block-hierarchic).
@@ -27,17 +28,17 @@ namespace RegularHierarchicModel
             container = new RegularHierarchicNetworkContainer();
         }
 
-        public INetworkContainer Container
+        public override INetworkContainer Container
         {
             get { return container; }
             set { container = (RegularHierarchicNetworkContainer)value; }
         }
 
-        public void RandomGeneration(Dictionary<GenerationParameter, object> genParam)
+        public override void RandomGeneration(Dictionary<GenerationParameter, object> genParam)
         {
             UInt32 branchingIndex = Convert.ToUInt32(genParam[GenerationParameter.BranchingIndex]);
             UInt32 level = Convert.ToUInt32(genParam[GenerationParameter.Level]);
-            Double mu = Convert.ToDouble(genParam[GenerationParameter.Mu]);
+            Double mu = Double.Parse(genParam[GenerationParameter.Mu].ToString(), CultureInfo.InvariantCulture);
 
             if (mu < 0)
                 throw new InvalidGenerationParameters();
@@ -45,13 +46,6 @@ namespace RegularHierarchicModel
             container.BranchingIndex = branchingIndex;
             container.Level = level;
             container.HierarchicTree = GenerateTree(branchingIndex, level, mu);
-        }
-
-        public void StaticGeneration(MatrixInfoToRead matrixInfo)
-        {
-            container.SetMatrix(matrixInfo.Matrix);
-            if (matrixInfo.ActiveStates != null)
-                container.SetActivStatuses(matrixInfo.ActiveStates);
         }
 
         private RNGCrypto rand = new RNGCrypto();

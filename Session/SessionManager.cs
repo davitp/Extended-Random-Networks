@@ -13,8 +13,32 @@ using Core.Events;
 using Core.Result;
 using Core.Settings;
 
+// dummy
+using BAModel;
+using ERModel;
+using HMNModel;
+using Manager;
+using RegularHierarchicModel;
+using NonRegularHierarchicModel;
+using Research;
+using Storage;
+using WSModel;
+
 namespace Session
 {
+    class Dummy
+    {
+        BANetwork n1 = null;
+        ERNetwork n2 = null;
+        HMNetwork n3 = null;
+        LocalEnsembleManager n4 = null;
+        RegularHierarchicNetwork n5 = null;
+        NonRegularHierarchicNetwork n6 = null;
+        BasicResearch n7 = null;
+        XMLResultStorage n8 = null;
+        WSNetwork n9 = null;
+    }
+
     /// <summary>
     /// Research organization and manipulation interface.
     /// </summary>

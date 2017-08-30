@@ -332,6 +332,165 @@ namespace NetworkModel
             return base.CalculateEigenVectorCentrality();
         }*/
 
+        protected override SortedDictionary<Double, Double> CalculateActivePartA()
+        {
+            // Retrieving research parameters from network. Research MUST be Activation. //
+            Debug.Assert(network.ResearchParameterValues != null);
+            Debug.Assert(network.ResearchParameterValues.ContainsKey(ResearchParameter.ActivationStepCount));
+            Debug.Assert(network.ResearchParameterValues.ContainsKey(ResearchParameter.ActiveMu));
+            Debug.Assert(network.ResearchParameterValues.ContainsKey(ResearchParameter.Lambda));
+            Debug.Assert(network.ResearchParameterValues.ContainsKey(ResearchParameter.TracingStepIncrement));
+
+            SortedDictionary<Double, Double> ActiveParts = new SortedDictionary<Double, Double>();
+            UInt32 Time = Convert.ToUInt32(network.ResearchParameterValues[ResearchParameter.ActivationStepCount]);
+            Double Mu = Convert.ToDouble(network.ResearchParameterValues[ResearchParameter.ActiveMu]);
+            Double Lambda = Convert.ToDouble(network.ResearchParameterValues[ResearchParameter.Lambda]);
+            object v = network.ResearchParameterValues[ResearchParameter.TracingStepIncrement];
+            UInt32 tracingStepIncrement = ((v != null) ? Convert.ToUInt32(v) : 0);
+
+            Double P1 = Mu / (Mu + Lambda);
+            Double P2 = Lambda / (Lambda + Mu);
+            Int32 t = 0;
+            RNGCrypto Rand = new RNGCrypto();
+            uint currentTracingStep = tracingStepIncrement;
+            int curActiveNodeCount = container.GetActiveNodesCount();
+
+            while (t <= Time && curActiveNodeCount != 0)
+            {
+                Int32 RandomActiveNode = GetRandomActiveNodeIndex(Rand);
+
+                if (Rand.NextDouble() <= P1)
+                {
+                    container.SetActiveStatus(RandomActiveNode, false);
+                }
+                else
+                {
+                    Int32 RandomNode = 0;//GetRandomIndex(container.Neighbourship[RandomActiveNode], Rand);
+                    if (container.GetActiveStatus(RandomNode) == false)
+                        container.SetActiveStatus(RandomNode, true);
+                }
+
+                /*if (currentTracingStep == t)
+                {
+                    container.Trace(network.ResearchName + "_ActivePartA",
+                        "Realization_" + network.NetworkID.ToString(),
+                        "Matrix_" + currentTracingStep.ToString());
+                    currentTracingStep += tracingStepIncrement;
+
+                    network.UpdateStatus(NetworkStatus.StepCompleted);
+                }*/
+
+                ++t;
+                curActiveNodeCount = container.GetActiveNodesCount();
+                Double ActivePartA = curActiveNodeCount / (Double)container.Size;
+                ActiveParts.Add(t - 1, ActivePartA);
+            }
+            Debug.Assert(t > Time || !container.DoesActiveNodeExist());
+            return ActiveParts;
+        }
+
+        protected override SortedDictionary<Double, Double> CalculateActivePartB()
+        {
+            // Retrieving research parameters from network. Research MUST be Activation. //
+            Debug.Assert(network.ResearchParameterValues != null);
+            Debug.Assert(network.ResearchParameterValues.ContainsKey(ResearchParameter.ActivationStepCount));
+            Debug.Assert(network.ResearchParameterValues.ContainsKey(ResearchParameter.ActiveMu));
+            Debug.Assert(network.ResearchParameterValues.ContainsKey(ResearchParameter.Lambda));
+            Debug.Assert(network.ResearchParameterValues.ContainsKey(ResearchParameter.TracingStepIncrement));
+
+            SortedDictionary<Double, Double> ActiveParts = new SortedDictionary<Double, Double>();
+            UInt32 Time = Convert.ToUInt32(network.ResearchParameterValues[ResearchParameter.ActivationStepCount]);
+            Double Mu = Convert.ToDouble(network.ResearchParameterValues[ResearchParameter.ActiveMu]);
+            Double Lambda = Convert.ToDouble(network.ResearchParameterValues[ResearchParameter.Lambda]);
+            object v = network.ResearchParameterValues[ResearchParameter.TracingStepIncrement];
+            UInt32 tracingStepIncrement = ((v != null) ? Convert.ToUInt32(v) : 0);
+
+            Double P1 = Mu / (Lambda + Mu);
+            Int32 t = 0;
+            RNGCrypto Rand = new RNGCrypto();
+            uint currentTracingStep = tracingStepIncrement;
+            int curActiveNodeCount = container.GetActiveNodesCount();
+
+            while (t <= Time && curActiveNodeCount != 0)
+            {
+                Int32 RandomActiveNode = GetRandomActiveNodeIndex(Rand);
+                if (Rand.NextDouble() <= P1)
+                {
+                    container.SetActiveStatus(RandomActiveNode, false);
+                }
+                else
+                {
+                    int x = 0;
+                    //foreach (int x in container.Neighbourship[RandomActiveNode])
+                    //{
+                        if (Rand.NextDouble() < Lambda && container.GetActiveStatus(x) == true)
+                            container.SetActiveStatus(x, true);
+                    //}
+                }
+
+                /*if (currentTracingStep == t)
+                {
+                    container.Trace(network.ResearchName + "_ActivePartB",
+                        "Realization_" + network.NetworkID.ToString(),
+                        "Matrix_" + currentTracingStep.ToString());
+                    currentTracingStep += tracingStepIncrement;
+
+                    network.UpdateStatus(NetworkStatus.StepCompleted);
+                }*/
+
+                ++t;
+                curActiveNodeCount = container.GetActiveNodesCount();
+                Double ActivePartA = (Double)curActiveNodeCount / (Double)container.Size;
+                ActiveParts.Add(t - 1, ActivePartA);
+            }
+            Debug.Assert(t > Time || !container.DoesActiveNodeExist());
+
+            return ActiveParts;
+        }
+
+        private Boolean DoesActiveNodeExist() => this.container.DoesActiveNodeExist();
+
+        private Int32 GetRandomActiveNodeIndex(RNGCrypto Rand)
+        {
+            List<Int32> ActiveIndexes = new List<Int32>();
+
+            for (int i = 0; i < container.Size; ++i)
+            {
+                if (container.GetActiveStatus(i))
+                {
+                    ActiveIndexes.Add(i);
+                }
+            }
+
+            if (ActiveIndexes.Count == 0)
+            {
+                return -1;
+            }
+
+            return GetRandomIndex(ActiveIndexes, Rand);
+        }
+
+        private List<Int32> GetVertexPassiveNeighbours(Int32 Vertex)
+        {
+            List<Int32> PassiveNeighbours = new List<Int32>();
+            for (int i = 0; i < container.Size; ++i)
+            {
+                if (i == Vertex)
+                {
+                    continue;
+                }
+                if (container.AreConnected(Vertex, i) && !container.GetActiveStatus(i))
+                {
+                    PassiveNeighbours.Add(i);
+                }
+            }
+
+            return PassiveNeighbours;
+        }
+
+        private Int32 GetRandomIndex(List<Int32> list, RNGCrypto Rand) => list.OrderBy(x => Rand.Next()).FirstOrDefault();
+
+
         #region Utilities
 
         private double CalculateNrAvg(List<int> lst)

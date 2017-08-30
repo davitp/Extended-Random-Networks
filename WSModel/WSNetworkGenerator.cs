@@ -16,7 +16,7 @@ namespace WSModel
     /// <summary>
     /// Implementation of generator of random network of Watts-Strogatz's model.
     /// </summary>
-    class WSNetworkGenerator : INetworkGenerator
+    class WSNetworkGenerator : AbstractNetworkGenerator
     {
         private NonHierarchicContainer container;
 
@@ -25,13 +25,13 @@ namespace WSModel
             container = new NonHierarchicContainer();
         }
 
-        public INetworkContainer Container
+        public override INetworkContainer Container
         {
             get { return container; }
             set { container = (NonHierarchicContainer)value; }
         }
 
-        public void RandomGeneration(Dictionary<GenerationParameter, object> genParam)
+        public override void RandomGeneration(Dictionary<GenerationParameter, object> genParam)
         {
             UInt32 numberOfVertices = Convert.ToUInt32(genParam[GenerationParameter.Vertices]);
             UInt32 numberOfEdges = Convert.ToUInt32(genParam[GenerationParameter.Edges]);
@@ -43,13 +43,6 @@ namespace WSModel
             //container.SetParameters(numberOfVertices, numberOfEdges / 2);
             Randomize();
             FillValuesByProbability(probability, stepCount);
-        }
-
-        public void StaticGeneration(MatrixInfoToRead matrixInfo)
-        {
-            container.SetMatrix(matrixInfo.Matrix);
-            if (matrixInfo.ActiveStates != null)
-                container.SetActivStatuses(matrixInfo.ActiveStates);
         }
 
         private int currentId = 0;

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Globalization;
 
 using Core.Model;
 using Core.Utility;
@@ -16,7 +17,7 @@ namespace ERModel
     /// <summary>
     /// Implementation of generator of random network of Erdős-Rényi's model.
     /// </summary>
-    class ERNetworkGenerator : INetworkGenerator
+    class ERNetworkGenerator : AbstractNetworkGenerator
     {
         private NonHierarchicContainer container;
      
@@ -25,16 +26,16 @@ namespace ERModel
             container = new NonHierarchicContainer();
         }
 
-        public INetworkContainer Container
+        public override INetworkContainer Container
         {
             get { return container; }
             set { container = (NonHierarchicContainer)value; }
         }
 
-        public void RandomGeneration(Dictionary<GenerationParameter, object> genParam)
+        public override void RandomGeneration(Dictionary<GenerationParameter, object> genParam)
         {
             UInt32 numberOfVertices = Convert.ToUInt32(genParam[GenerationParameter.Vertices]);
-            Double probability = Convert.ToDouble(genParam[GenerationParameter.Probability]);
+            Double probability = Double.Parse(genParam[GenerationParameter.Probability].ToString(), CultureInfo.InvariantCulture);
 
             bool p = (probability < 0 || probability > 1);
             if (p)
@@ -42,13 +43,6 @@ namespace ERModel
             
             container.Size = numberOfVertices;           
             FillValuesByProbability(probability);
-        }
-
-        public void StaticGeneration(MatrixInfoToRead matrixInfo)
-        {
-            container.SetMatrix(matrixInfo.Matrix);
-            if (matrixInfo.ActiveStates != null)
-                container.SetActivStatuses(matrixInfo.ActiveStates);
         }
 
         private RNGCrypto rand = new RNGCrypto();

@@ -95,8 +95,8 @@ namespace Core
                     Debug.Assert(GenerationParameterValues.ContainsKey(GenerationParameter.AdjacencyMatrix));
                     MatrixPath fp = (MatrixPath)GenerationParameterValues[GenerationParameter.AdjacencyMatrix];
                     Debug.Assert(fp.Path != null && fp.Path != "");
-                    MatrixInfoToRead matrix = FileManager.Read(fp.Path, fp.Size);
-                    networkGenerator.StaticGeneration(matrix);
+                    NetworkInfoToRead ni = FileManager.Read(fp.Path, fp.Size);
+                    networkGenerator.StaticGeneration(ni);
 
                     Logger.Write("Research - " + ResearchName +
                         ". Static GENERATION FINISHED for network - " + NetworkID.ToString());
@@ -106,7 +106,11 @@ namespace Core
                     Debug.Assert(!GenerationParameterValues.ContainsKey(GenerationParameter.AdjacencyMatrix));
                     networkGenerator.RandomGeneration(GenerationParameterValues);
                     if (ResearchType == ResearchType.Activation)
-                        (networkGenerator.Container as AbstractNetworkContainer).RandomActivating();
+                    {
+                        Debug.Assert(ResearchParameterValues.ContainsKey(ResearchParameter.InitialActivationProbability));
+                        Double IP = Convert.ToDouble(ResearchParameterValues[ResearchParameter.InitialActivationProbability]);
+                        (networkGenerator.Container as AbstractNetworkContainer).RandomActivating(IP);
+                    }
 
                     Logger.Write("Research - " + ResearchName +
                         ". Random GENERATION FINISHED for network - " + NetworkID.ToString());

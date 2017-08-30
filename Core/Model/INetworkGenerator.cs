@@ -26,9 +26,9 @@ namespace Core.Model
         void RandomGeneration(Dictionary<GenerationParameter, object> genParam);
 
         /// <summary>
-        /// Generates network from adjacency matrix.
+        /// Generates network from input network information.
         /// </summary>
-        /// <param name="matrix"></param>
-        void StaticGeneration(MatrixInfoToRead matrixInfo);
+        /// <param name="info"></param>
+        void StaticGeneration(NetworkInfoToRead info);
     }
 }

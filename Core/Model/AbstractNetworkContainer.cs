@@ -14,7 +14,36 @@ namespace Core.Model
 
         public abstract void SetMatrix(ArrayList matrix);
         public abstract bool[,] GetMatrix();
+
+        public virtual void SetNeighbourship(List<int> neighbours, int size)
+        {
+            Debug.Assert(size != 0);
+            Debug.Assert(neighbours.Count() % 2 == 0);
+
+            ArrayList matrix = new ArrayList();
+
+            bool[,] n = new bool[size, size];
+            for (int i = 0; i < neighbours.Count(); i += 2)
+            {
+                n[neighbours[i], neighbours[i + 1]] = true;
+                n[neighbours[i + 1], neighbours[i]] = true;
+            }
+
+            for (int i = 0; i < size; ++i)
+            {
+                ArrayList tmp = new ArrayList();
+                for (int j = 0; j < size; ++j)
+                {
+                    tmp.Add(n[i, j]);
+                }
+                matrix.Add(tmp);
+            }
+            SetMatrix(matrix);
+        }
+
         public abstract List<KeyValuePair<int, int>> GetNeighbourship();
+
+        #region Activation Extra Interface
 
         private BitArray activeNodes = null;
 
@@ -24,7 +53,7 @@ namespace Core.Model
         /// 
         /// </summary>
         /// <param name="act"></param>
-        public void SetActivStatuses(BitArray act)
+        public virtual void SetActiveStatuses(BitArray act)
         {
             Debug.Assert(act.Count == Size);
             activeNodes = act;
@@ -33,14 +62,13 @@ namespace Core.Model
         /// <summary>
         /// 
         /// </summary>
-        public void RandomActivating()
+        public void RandomActivating(Double p)
         {
             RNGCrypto rand = new RNGCrypto();
-            Int32 r = rand.Next();
             activeNodes = new BitArray((Int32)Size, false);
             for (Int32 i = 0; i < Size; ++i)
             {
-                if (r >= rand.Next())
+                if (rand.NextDouble() <= p)
                 {
                     activeNodes[i] = true;
                 }
@@ -56,8 +84,7 @@ namespace Core.Model
         {
             Debug.Assert(activeNodes != null);
             Debug.Assert(i >= 0 && i < activeNodes.Count);
-            if (a != activeNodes[i])
-                activeNodes[i] = a;
+            activeNodes[i] = a;
         }
 
         /// <summary>
@@ -84,10 +111,25 @@ namespace Core.Model
             {
                 if (activeNodes[i])
                 {
-                    c++;
+                    ++c;
                 }
             }
             return c;
         }
+
+        public bool DoesActiveNodeExist()
+        {
+            Debug.Assert(activeNodes != null);
+            for (int i = 0; i < activeNodes.Count; ++i)
+            {
+                if (activeNodes[i])
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        #endregion
     }
 }

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Globalization;
 
 using Core.Enumerations;
 using Core.Model;
@@ -16,7 +17,7 @@ namespace BAModel
     /// <summary>
     /// Implementation of generator of random network of Baraba´si-Albert's model.
     /// </summary>
-    class BANetworkGenerator : INetworkGenerator
+    class BANetworkGenerator : AbstractNetworkGenerator
     {
         private NonHierarchicContainer container;
         private NonHierarchicContainer initialcontainer;
@@ -27,17 +28,17 @@ namespace BAModel
             initialcontainer = new NonHierarchicContainer();
         }
 
-        public INetworkContainer Container
+        public override INetworkContainer Container
         {
             get { return container; }
             set { container = (NonHierarchicContainer)value; }
         }
 
-        public void RandomGeneration(Dictionary<GenerationParameter, object> genParam)
+        public override void RandomGeneration(Dictionary<GenerationParameter, object> genParam)
         {
             UInt32 numberOfVertices = Convert.ToUInt32(genParam[GenerationParameter.Vertices]);
             UInt32 edges = Convert.ToUInt32(genParam[GenerationParameter.Edges]);
-            Double probability = Convert.ToDouble(genParam[GenerationParameter.Probability]);
+            Double probability = Double.Parse(genParam[GenerationParameter.Probability].ToString(), CultureInfo.InvariantCulture);
             UInt32 stepCount = Convert.ToUInt32(genParam[GenerationParameter.StepCount]);
 
             bool pb = (probability < 0 || probability > 1);
@@ -48,13 +49,6 @@ namespace BAModel
             container.Size = numberOfVertices;
             initialcontainer.Size = numberOfVertices;
             Generate(stepCount, probability, edges);
-        }
-        
-        public void StaticGeneration(MatrixInfoToRead matrixInfo)
-        {
-            container.SetMatrix(matrixInfo.Matrix);
-            if (matrixInfo.ActiveStates != null)
-                container.SetActivStatuses(matrixInfo.ActiveStates);
         }
 
         private RNGCrypto rand = new RNGCrypto();
