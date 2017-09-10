@@ -29,6 +29,7 @@ namespace NonRegularHierarchicModel
         | AnalyzeOption.DistanceDistribution
         | AnalyzeOption.EigenDistanceDistribution
         | AnalyzeOption.EigenValues
+        | AnalyzeOption.LaplacianEigenValues
         | AnalyzeOption.TriangleByVertexDistribution
         | AnalyzeOption.ActivePartA
         | AnalyzeOption.ActivePartB

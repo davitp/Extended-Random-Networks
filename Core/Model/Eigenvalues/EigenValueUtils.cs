@@ -6,7 +6,7 @@ using System.Collections;
 
 using MatrixLibrary;
 
-namespace NetworkModel.Engine.Eigenvalues
+namespace Model.Eigenvalues
 {
     public class EigenValueUtils
     {

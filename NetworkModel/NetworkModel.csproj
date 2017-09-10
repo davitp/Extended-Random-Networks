@@ -74,8 +74,6 @@
     <Compile Include="Engine\Cycles\CyclesCounter.cs" />
     <Compile Include="Engine\Cycles\CyclesCounterSingleThreaded.cs" />
     <Compile Include="Engine\Cycles\CyclesParrallelCounter.cs" />
-    <Compile Include="Engine\Eigenvalues\cMatrixLib.cs" />
-    <Compile Include="Engine\Eigenvalues\EigenValueUtils.cs" />
     <Compile Include="HierarchicEngine\Engine.cs" />
     <Compile Include="HierarchicEngine\EngineForConnectedComp.cs" />
     <Compile Include="MatrixAnalyzer.cs" />

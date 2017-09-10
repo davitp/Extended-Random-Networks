@@ -11,7 +11,6 @@ using Core;
 using Core.Exceptions;
 using Core.Enumerations;
 using Core.Model;
-using NetworkModel.Engine.Eigenvalues;
 using NetworkModel.Engine.Cycles;
 using RandomNumberGeneration;
 
@@ -97,41 +96,6 @@ namespace NetworkModel
                 count += Get4OrderCyclesOfNode(i);
 
             return count / 4;
-        }
-
-        protected override List<Double> CalculateEigenValues()
-        {
-            bool[,] m = container.GetMatrix();
-
-            EigenValueUtils eg = new EigenValueUtils();            
-            try
-            {
-                eigenValues = eg.CalculateEigenValue(m);
-                calledEigens = true;
-                return eigenValues;
-            }
-            catch (SystemException)
-            {
-                return new List<Double>();
-            }
-        }
-
-        protected override SortedDictionary<Double, Double> CalculateEigenDistanceDistribution()
-        {
-            bool[,] m = container.GetMatrix();
-
-            EigenValueUtils eg = new EigenValueUtils();
-            try
-            {
-                if (!calledEigens)
-                    eg.CalculateEigenValue(m);
-
-                return eg.CalcEigenValuesDist(eigenValues);
-            }
-            catch (SystemException)
-            {
-                return new SortedDictionary<Double, Double>();
-            }
         }
 
         protected override SortedDictionary<Double, Double> CalculateDegreeDistribution()
@@ -1058,10 +1022,7 @@ namespace NetworkModel
         private bool calledCoeffs = false;
         private SortedDictionary<Double, Double> coefficients =
             new SortedDictionary<Double, Double>();
-
-        private bool calledEigens = false;
-        private List<double> eigenValues = new List<double>();
-
+        
         private class Node
         {
             public int ancestor = -1;

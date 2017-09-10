@@ -10,7 +10,6 @@ using Core;
 using Core.Exceptions;
 using Core.Enumerations;
 using Core.Model;
-using NetworkModel.Engine.Eigenvalues;
 using NetworkModel.Engine.Cycles;
 using RandomNumberGeneration;
 
@@ -535,10 +534,7 @@ namespace NetworkModel
         private bool calledCoeffs = false;
         private SortedDictionary<Double, Double> coefficients =
             new SortedDictionary<Double, Double>();
-
-        private bool calledEigens = false;
-        private List<double> eigenValues = new List<double>();
-
+        
         private class Node
         {
             public int ancestor = -1;

@@ -37,6 +37,7 @@ namespace Research
         | AnalyzeOption.DistanceDistribution
         | AnalyzeOption.EigenDistanceDistribution
         | AnalyzeOption.EigenValues
+        | AnalyzeOption.LaplacianEigenValues
         | AnalyzeOption.TriangleByVertexDistribution
         | AnalyzeOption.Dr
         )]

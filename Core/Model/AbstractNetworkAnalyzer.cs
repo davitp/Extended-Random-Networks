@@ -5,6 +5,7 @@ using System.Text;
 using System.Numerics;
 
 using Core.Enumerations;
+using Model.Eigenvalues;
 
 namespace Core.Model
 {
@@ -72,6 +73,8 @@ namespace Core.Model
                     return CalculateEigenDistanceDistribution();
                 case AnalyzeOption.EigenValues:
                     return CalculateEigenValues();
+                case AnalyzeOption.LaplacianEigenValues:
+                    return CalculateLaplacianEigenValues();
                 case AnalyzeOption.TriangleByVertexDistribution:
                     return CalculateTriangleByVertexDistribution();
                 case AnalyzeOption.BetweennessCentrality:
@@ -163,13 +166,68 @@ namespace Core.Model
             throw new NotImplementedException();
         }
 
+        private bool calledEigens = false;
+        private List<double> eigenValues = new List<double>();
+
         /// <summary>
         /// Calculates the eigenvalues of adjacency matrix of the network.
         /// </summary>
         /// <returns>List of eigenvalues.</returns>
-        protected virtual List<Double> CalculateEigenValues()
+        protected List<Double> CalculateEigenValues()
         {
-            throw new NotImplementedException();
+            bool[,] m = Container.GetMatrix();
+
+            EigenValueUtils eg = new EigenValueUtils();
+            try
+            {
+                eigenValues = eg.CalculateEigenValue(m);
+                calledEigens = true;
+                return eigenValues;
+            }
+            catch (SystemException)
+            {
+                return new List<double>();
+            }
+        }
+
+        protected List<Double> CalculateLaplacianEigenValues()
+        {
+            bool[,] m = Container.GetMatrix();
+
+            // TODO add logic to get laplacian matrix in lm variable from m variable.
+            bool[,] lm = null;
+
+            EigenValueUtils eg = new EigenValueUtils();
+            try
+            {
+                return eg.CalculateEigenValue(lm);
+            }
+            catch (SystemException)
+            {
+                return new List<double>();
+            }
+        }
+
+        /// <summary>
+        /// Calculates distances between eigenvalues.
+        /// </summary>
+        /// <returns>(distance, count) pairs.</returns>
+        protected SortedDictionary<Double, Double> CalculateEigenDistanceDistribution()
+        {
+            bool[,] m = Container.GetMatrix();
+
+            EigenValueUtils eg = new EigenValueUtils();
+            try
+            {
+                if (!calledEigens)
+                    eg.CalculateEigenValue(m);
+
+                return eg.CalcEigenValuesDist(eigenValues);
+            }
+            catch (SystemException)
+            {
+                return new SortedDictionary<Double, Double>();
+            }
         }
 
         /// <summary>
@@ -186,15 +244,6 @@ namespace Core.Model
         /// </summary>
         /// <returns>Number of cycles 4.</returns>
         protected virtual Double CalculateCycles4Eigen()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Calculates distances between eigenvalues.
-        /// </summary>
-        /// <returns>(distance, count) pairs.</returns>
-        protected virtual SortedDictionary<Double, Double> CalculateEigenDistanceDistribution()
         {
             throw new NotImplementedException();
         }

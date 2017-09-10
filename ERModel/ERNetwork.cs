@@ -29,6 +29,7 @@ namespace ERModel
         | AnalyzeOption.DistanceDistribution
         | AnalyzeOption.EigenDistanceDistribution
         | AnalyzeOption.EigenValues
+        | AnalyzeOption.LaplacianEigenValues
         | AnalyzeOption.TriangleByVertexDistribution
         | AnalyzeOption.Cycles3Trajectory
         | AnalyzeOption.Dr

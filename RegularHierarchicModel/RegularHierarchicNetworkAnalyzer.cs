@@ -8,7 +8,6 @@ using System.Numerics;
 using Core;
 using Core.Model;
 using NetworkModel;
-using NetworkModel.Engine.Eigenvalues;
 using NetworkModel.HierarchicEngine;
 
 namespace RegularHierarchicModel
@@ -91,41 +90,6 @@ namespace RegularHierarchicModel
             return Count5Cycle(0, 0)[0];
         }
 
-        protected override List<Double> CalculateEigenValues()
-        {
-            bool[,] m = container.GetMatrix();
-
-            EigenValueUtils eg = new EigenValueUtils();
-            try
-            {
-                eigenValues = eg.CalculateEigenValue(m);
-                calledEigens = true;
-                return eigenValues;
-            }
-            catch (SystemException)
-            {
-                return new List<double>();
-            }
-        }
-
-        protected override SortedDictionary<Double, Double> CalculateEigenDistanceDistribution()
-        {
-            bool[,] m = container.GetMatrix();
-
-            EigenValueUtils eg = new EigenValueUtils();
-            try
-            {
-                if(!calledEigens)
-                    eg.CalculateEigenValue(m);
-
-                return eg.CalcEigenValuesDist(eigenValues);
-            }
-            catch (SystemException)
-            {
-                return new SortedDictionary<Double, Double>();
-            }
-        }
-
         protected override SortedDictionary<Double, Double> CalculateDegreeDistribution()
         {
             return DegreeDistributionInCluster(0, 0);
@@ -193,9 +157,6 @@ namespace RegularHierarchicModel
         private uint diameter;
         private SortedDictionary<Double, Double> distanceDistribution =
             new SortedDictionary<Double, Double>();
-
-        bool calledEigens = false;
-        private List<Double> eigenValues = new List<Double>();
 
         private void CountEssentialOptions()
         {

@@ -111,6 +111,8 @@
     <Compile Include="Model\AbstractHierarchicContainer.cs" />
     <Compile Include="Model\AbstractNetworkAnalyzer.cs" />
     <Compile Include="Model\AbstractNetworkGenerator.cs" />
+    <Compile Include="Model\Eigenvalues\cMatrixLib.cs" />
+    <Compile Include="Model\Eigenvalues\EigenValueUtils.cs" />
     <Compile Include="Model\INetworkAnalyzer.cs" />
     <Compile Include="Model\INetworkContainer.cs" />
     <Compile Include="Model\INetworkGenerator.cs" />
