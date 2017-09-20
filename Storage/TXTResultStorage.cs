@@ -165,10 +165,8 @@ namespace Storage
                         SaveToGlobalFile(dirName, id, info, e.Result[opt]);
                         break;
                     case OptionType.ValueList:
-                        SaveValueListFile(dirName, id, info, e.Result[opt]);
-                        break;
                     case OptionType.Centrality:
-                        SaveCentralityFile(dirName, id, info, e.Result[opt]);
+                        SaveValueListFile(dirName, id, info, e.Result[opt]);
                         break;
                     case OptionType.Distribution:
                         SaveDistributionFile(dirName, id, info, e.Result[opt]);

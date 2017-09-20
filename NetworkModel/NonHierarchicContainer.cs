@@ -89,19 +89,11 @@ namespace NetworkModel
             existingEdges = new List<KeyValuePair<int, int>>();
             nonExistingEdges = new List<KeyValuePair<int, int>>();
         }
-
-        //getting degrees list ,added by Gayane
+        
         public List<int> Degrees
         {
               get { return degrees; }          
         }
-
-        //public IEnumerable<int> Nodes
-        //{
-        //    get { return neighbourship.Keys; }
-        //}
-
-        //*****end 
 
         public List<KeyValuePair<int, int>> ExistingEdges()
         {

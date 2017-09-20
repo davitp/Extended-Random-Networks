@@ -306,10 +306,8 @@ namespace Storage
                         SaveToGlobalSheet(id, info, e.Result[opt]);
                         break;
                     case OptionType.ValueList:
-                        SaveValueListSheet(id, info, e.Result[opt]);
-                        break;
                     case OptionType.Centrality:
-                        SaveCentralitySheet(id, info, e.Result[opt]);
+                        SaveValueListSheet(id, info, e.Result[opt]);
                         break;
                     case OptionType.Distribution:
                         SaveDistributionSheet(id, info, e.Result[opt]);

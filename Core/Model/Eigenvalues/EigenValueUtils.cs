@@ -36,6 +36,24 @@ namespace Model.Eigenvalues
             }
         }
 
+        public List<Double> CalculateEigenValue(double[,] matrix)
+        {
+            int size = matrix.GetLength(1);
+            var vector = new double[size, size];
+            var vectors = new double[size, size];
+
+            try
+            {
+                Matrix.Eigen(matrix, out vector, out vectors);
+                GetSortEigineValue(vector);
+                return eigenValue;
+            }
+            catch (Exception)
+            {
+                return new List<Double>();
+            }
+        }
+
         private static int isInArray(double[] array, double element)
         {
             for (int i = 0; i < array.Length; ++i)

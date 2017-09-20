@@ -35,6 +35,9 @@ namespace ERModel
         | AnalyzeOption.Dr
         | AnalyzeOption.ActivePartA
         | AnalyzeOption.ActivePartB
+        | AnalyzeOption.DegreeCentrality
+        | AnalyzeOption.ClosenessCentrality
+        | AnalyzeOption.BetweennessCentrality
         )]
     public class ERNetwork : AbstractNetwork
     {

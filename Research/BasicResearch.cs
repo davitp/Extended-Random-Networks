@@ -40,6 +40,9 @@ namespace Research
         | AnalyzeOption.LaplacianEigenValues
         | AnalyzeOption.TriangleByVertexDistribution
         | AnalyzeOption.Dr
+        | AnalyzeOption.DegreeCentrality
+        | AnalyzeOption.ClosenessCentrality
+        | AnalyzeOption.BetweennessCentrality
         )]
     public class BasicResearch : AbstractResearch
     {

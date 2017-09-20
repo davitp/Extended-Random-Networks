@@ -482,13 +482,52 @@ namespace NetworkModel
             return trajectory;
         }
 
+        #region Centrality Options
+
         /// <summary>
         ///  calculating   degree centrality for each vertex
         /// </summary>
         /// <returns></returns>
         protected override List<Double> CalculateDegreeCentrality()
         {
-            return null; // container.Degrees;
+            return container.Degrees.Select(i => (Double)i).ToList();
+        }
+
+        /// <summary>
+        ///  calculating   closeness centrality for each vertex
+        /// </summary>
+        /// <returns></returns>
+        protected override List<Double> CalculateClosenessCentrality()
+        {
+            Int32 size = (Int32)container.Size;
+            List<Double> cCentralities = new List<Double>(size);
+            int[] far = new int[size];
+            int[] d = new int[size];
+
+            for (int i = 0; i < size; i++)
+            {
+                Queue qu = new Queue();
+                for (int j = 0; j < size; j++) { d[j] = -1; }
+                qu.Enqueue(i);
+                d[i] = 0;
+                far[i] = 0;
+                while (qu.Count != 0)
+                {
+                    int v = (int)qu.Dequeue();
+                    foreach (int w in container.Neighbourship[v])
+                    {
+                        if (d[w] < 0)
+                        {
+                            qu.Enqueue(w);
+                            d[w] = d[v] + 1;
+                            far[i] = far[i] + d[w];
+                        }
+                    }
+                }
+                cCentralities.Add(1.0 / (double)far[i]);
+            }
+
+            return cCentralities;
         }
 
         /// <summary>
@@ -497,17 +536,13 @@ namespace NetworkModel
         /// <returns></returns>
         protected override List<Double> CalculateBetweennessCentrality()
         {
-            UInt32 size = container.Size;
-            double[] VB = new double[size];
+            Int32 size = (Int32)container.Size;
+            List<Double> VB = new List<Double>(new Double[size]);
             double[] dist = new double[size];
             double[] sigma = new double[size];
             double[] delta = new double[size];
             List<int>[] Pred = new List<int>[size];
 
-            for (int i = 0; i < size; i++)
-            {
-                VB[i] = 0;
-            }
             for (int i = 0; i < size; i++)
             {
                 //initialization part//
@@ -565,129 +600,10 @@ namespace NetworkModel
                 VB[i] = VB[i] / 2;
             }
 
-            //Dictionary<KeyValuePair<int, int>, double> eb= EdgeBetweenness();
-
-            List<ConnectedComponents> comps = GirvanNewmanCommunityDetection();
-            return null; //VB;
+            return VB;
         }
 
-        /// <summary>
-        /// calculating   betweenness centrality for each edge
-        /// </summary>
-        /// <returns></returns>
-        public Dictionary<KeyValuePair<int, int>, double> EdgeBetweenness()
-        {
-            UInt32 size = container.Size;
-            List<KeyValuePair<int, int>> edges = container.ExistingEdges();
-            Dictionary<KeyValuePair<int, int>, double> EB = new Dictionary<KeyValuePair<int, int>, double>();
-            double[] dist = new double[size];
-            double[] sigma = new double[size];
-            double[] delta = new double[size];
-            List<int>[] Pred = new List<int>[size];
-
-            for (int i = 0; i < size; i++)
-            {
-                //initialization part//
-                Stack stk = new Stack();
-                Queue qu = new Queue();
-
-                for (int w = 0; w < size; w++) { Pred[w] = new List<int>(); }
-                for (int t = 0; t < size; t++)
-                {
-                    dist[t] = -1;
-                    sigma[t] = 0;
-                }
-                dist[i] = 0;
-                sigma[i] = 1;
-                qu.Enqueue(i);
-
-                //end initialization part//
-
-                while (qu.Count != 0)
-                {
-                    int v = (int)qu.Dequeue();
-                    stk.Push(v);
-                    foreach (int neigh in container.Neighbourship[v])
-                    {
-                        if (dist[neigh] < 0)
-                        {
-                            qu.Enqueue(neigh);
-                            dist[neigh] = dist[v] + 1;
-                        }
-                        if (dist[neigh] == dist[v] + 1)
-                        {
-                            sigma[neigh] = sigma[neigh] + sigma[v];
-                            Pred[neigh].Add(v);
-                        }
-                    }
-                }
-                for (int j = 0; j < size; j++) { delta[j] = 0; }
-
-                double currenteb = 0.0;
-
-                //accumulation part//
-                while (stk.Count != 0)
-                {
-                    int w = (int)stk.Pop();
-                    for (int j = 0; j < Pred[w].Count; j++)
-                    {
-                        int t = Pred[w][j];
-
-                        KeyValuePair<int, int> currentedge = new KeyValuePair<int, int>(w, t);
-                        KeyValuePair<int, int> currentedgeduplicate = new KeyValuePair<int, int>(t, w);
-
-                        if (!EB.Keys.Contains(currentedge) && !EB.Keys.Contains(currentedgeduplicate))
-                        {
-                            EB.Add(currentedge, currenteb);
-                        }
-
-                        KeyValuePair<int, int> tempedge = EB.Keys.Contains(currentedge) ? currentedge : currentedgeduplicate;
-
-                        EB[tempedge] += (sigma[t] / sigma[w]) * (1 + delta[w]);
-                        delta[t] = delta[t] + (sigma[t] / sigma[w]) * (1 + delta[w]);
-                    }
-                }
-            }
-            return EB;
-        }
-
-        /// <summary>
-        ///  calculating   closeness centrality for each vertex
-        /// </summary>
-        /// <returns></returns>
-        protected override List<Double> CalculateClosenessCentrality()
-        {
-            UInt32 size = container.Size;
-            double[] cCentralities = new double[size];
-            int[] far = new int[size];
-            int[] d = new int[size];
-
-            for (int i = 0; i < size; i++)
-            {
-                Queue qu = new Queue();
-                for (int j = 0; j < size; j++) { d[j] = -1; }
-                qu.Enqueue(i);
-                d[i] = 0;
-                far[i] = 0;
-                while (qu.Count != 0)
-                {
-                    int v = (int)qu.Dequeue();
-                    foreach (int w in container.Neighbourship[v])
-                    {
-                        if (d[w] < 0)
-                        {
-                            qu.Enqueue(w);
-                            d[w] = d[v] + 1;
-                            far[i] = far[i] + d[w];
-                        }
-                    }
-                }
-                cCentralities[i] = (double)1 / (double)far[i];
-            }
-
-            return null; // cCentralities;
-        }
-
+        #endregion
 
         protected override SortedDictionary<Double, Double> CalculateDr()
         {
@@ -1297,6 +1213,86 @@ namespace NetworkModel
 
 
         //******comunity detection******//
+
+        /// <summary>
+        /// calculating   betweenness centrality for each edge
+        /// </summary>
+        /// <returns></returns>
+        public Dictionary<KeyValuePair<int, int>, double> EdgeBetweenness()
+        {
+            UInt32 size = container.Size;
+            List<KeyValuePair<int, int>> edges = container.ExistingEdges();
+            Dictionary<KeyValuePair<int, int>, double> EB = new Dictionary<KeyValuePair<int, int>, double>();
+            double[] dist = new double[size];
+            double[] sigma = new double[size];
+            double[] delta = new double[size];
+            List<int>[] Pred = new List<int>[size];
+
+            for (int i = 0; i < size; i++)
+            {
+                //initialization part//
+                Stack stk = new Stack();
+                Queue qu = new Queue();
+
+                for (int w = 0; w < size; w++) { Pred[w] = new List<int>(); }
+                for (int t = 0; t < size; t++)
+                {
+                    dist[t] = -1;
+                    sigma[t] = 0;
+                }
+                dist[i] = 0;
+                sigma[i] = 1;
+                qu.Enqueue(i);
+
+                //end initialization part//
+
+                while (qu.Count != 0)
+                {
+                    int v = (int)qu.Dequeue();
+                    stk.Push(v);
+                    foreach (int neigh in container.Neighbourship[v])
+                    {
+                        if (dist[neigh] < 0)
+                        {
+                            qu.Enqueue(neigh);
+                            dist[neigh] = dist[v] + 1;
+                        }
+                        if (dist[neigh] == dist[v] + 1)
+                        {
+                            sigma[neigh] = sigma[neigh] + sigma[v];
+                            Pred[neigh].Add(v);
+                        }
+                    }
+                }
+                for (int j = 0; j < size; j++) { delta[j] = 0; }
+
+                double currenteb = 0.0;
+
+                //accumulation part//
+                while (stk.Count != 0)
+                {
+                    int w = (int)stk.Pop();
+                    for (int j = 0; j < Pred[w].Count; j++)
+                    {
+                        int t = Pred[w][j];
+
+                        KeyValuePair<int, int> currentedge = new KeyValuePair<int, int>(w, t);
+                        KeyValuePair<int, int> currentedgeduplicate = new KeyValuePair<int, int>(t, w);
+
+                        if (!EB.Keys.Contains(currentedge) && !EB.Keys.Contains(currentedgeduplicate))
+                        {
+                            EB.Add(currentedge, currenteb);
+                        }
+
+                        KeyValuePair<int, int> tempedge = EB.Keys.Contains(currentedge) ? currentedge : currentedgeduplicate;
+
+                        EB[tempedge] += (sigma[t] / sigma[w]) * (1 + delta[w]);
+                        delta[t] = delta[t] + (sigma[t] / sigma[w]) * (1 + delta[w]);
+                    }
+                }
+            }
+            return EB;
+        }
 
         public void GirvanNewmanStep()
         {

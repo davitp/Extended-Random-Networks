@@ -90,6 +90,9 @@ namespace Core.Enumerations
             "Count")]
         EigenDistanceDistribution = 0x800,
 
+        [AnalyzeOptionInfo("Eigenvalues for Laplacian matrix",
+            "Eigenvalues for Laplacian matrix.",
+            OptionType.ValueList)]
         LaplacianEigenValues = 0x1000,
 
         [AnalyzeOptionInfo("ActivePartA",

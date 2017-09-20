@@ -251,12 +251,10 @@ namespace Storage
                         writer.WriteElementString(opt.ToString(), e.Result[opt].ToString());
                         break;
                     case OptionType.ValueList:
+                    case OptionType.Centrality:
                         writer.WriteStartElement(opt.ToString());
                         SaveValueList(e.Result[opt]);
                         writer.WriteEndElement();
-                        break;
-                    case OptionType.Centrality:
-                        // TODO add code
                         break;
                     case OptionType.Distribution:
                         writer.WriteStartElement(opt.ToString());

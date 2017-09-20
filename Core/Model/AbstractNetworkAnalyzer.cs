@@ -193,9 +193,27 @@ namespace Core.Model
         protected List<Double> CalculateLaplacianEigenValues()
         {
             bool[,] m = Container.GetMatrix();
+            double[,] lm = new double[m.GetLength(0), m.GetLength(1)];
+            for (int i = 0; i < m.GetLength(0); ++i)
+            {
+                int connection_count = 0;
+                for (int j = 0; j < m.GetLength(1); ++j)
+                {
+                    if (i == j)
+                        continue;
+                    if (m[i, j])
+                    {
+                        lm[i, j] = -1;
+                        ++connection_count;
+                    }
+                    else
+                    {
+                        lm[i, j] = 0;
+                    }
 
-            // TODO add logic to get laplacian matrix in lm variable from m variable.
-            bool[,] lm = null;
+                }
+                lm[i, i] = connection_count;
+            }
 
             EigenValueUtils eg = new EigenValueUtils();
             try
