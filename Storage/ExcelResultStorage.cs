@@ -347,8 +347,9 @@ namespace Storage
 
         private void SaveValueListSheet(int id, AnalyzeOptionInfo info, Object value)
         {
+            int length = (info.FullName.Length > 31) ? 30 : info.FullName.Length;
             Worksheet sheet = GetNextWorksheet();
-            sheet.Name = info.FullName;
+            sheet.Name = info.FullName.Substring(0, length);
             sheet.Columns[1].ColumnWidth = 20;
             sheet.Columns.HorizontalAlignment = XlHAlign.xlHAlignLeft;
             int lastRow = sheet.Cells.SpecialCells(XlCellType.xlCellTypeLastCell).Row;

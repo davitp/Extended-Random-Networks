@@ -434,6 +434,7 @@ namespace Storage
                                 e.Result.Add(opt, reader.ReadElementContentAsDouble());
                                 break;
                             case OptionType.ValueList:
+                            case OptionType.Centrality:
                                 e.Result.Add(opt, LoadValueList());
                                 reader.Read();
                                 break;

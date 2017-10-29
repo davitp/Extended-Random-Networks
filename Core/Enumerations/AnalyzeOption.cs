@@ -61,9 +61,9 @@ namespace Core.Enumerations
 
         [AnalyzeOptionInfo("Dr",
             "Dr",
-            OptionType.Trajectory,
-            "",
-            "")]
+            OptionType.Distribution,
+            "Dr",
+            "DrV")]
         Dr = 0x80,
 
         // Eigenvalues spectra properties. //
