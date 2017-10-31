@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Diagnostics;
+using System.Globalization;
 
 using Microsoft.Practices.EnterpriseLibrary.Logging;
 
@@ -108,7 +109,8 @@ namespace Core
                     if (ResearchType == ResearchType.Activation)
                     {
                         Debug.Assert(ResearchParameterValues.ContainsKey(ResearchParameter.InitialActivationProbability));
-                        Double IP = Convert.ToDouble(ResearchParameterValues[ResearchParameter.InitialActivationProbability]);
+                        Double IP = Double.Parse(ResearchParameterValues[ResearchParameter.InitialActivationProbability].ToString(),
+                            CultureInfo.InvariantCulture);
                         (networkGenerator.Container as AbstractNetworkContainer).RandomActivating(IP);
                     }
 

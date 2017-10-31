@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.IO;
+using System.Globalization;
 
 using Core.Settings;
 
@@ -36,9 +37,9 @@ namespace RandNet
             results.Clear();
             int p = int.Parse(branchingIndexTxt.Text.ToString());
             int level = int.Parse(levelTxt.Text.ToString());
-            double mu = double.Parse(minMuTxt.Text.ToString());
-            double muMax = double.Parse(maxMuTxt.Text.ToString());
-            double delta = double.Parse(deltaTxt.Text.ToString());
+            double mu = double.Parse(minMuTxt.Text.ToString(), CultureInfo.InvariantCulture);
+            double muMax = double.Parse(maxMuTxt.Text.ToString(), CultureInfo.InvariantCulture);
+            double delta = double.Parse(deltaTxt.Text.ToString(), CultureInfo.InvariantCulture);
             while (mu <= muMax)
             {
                 results.Add(mu, CalculateProbability(p, level, mu));

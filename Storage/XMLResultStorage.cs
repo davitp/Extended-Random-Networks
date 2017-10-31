@@ -6,6 +6,7 @@ using System.IO;
 using System.Xml;
 using System.Numerics;
 using System.Diagnostics;
+using System.Globalization;
 
 using Core;
 using Core.Enumerations;
@@ -49,7 +50,11 @@ namespace Storage
             if (File.Exists(fileName + ".xml"))
                 fileName += result.ResearchID;
 
-            using (writer = XmlWriter.Create(fileName + ".xml"))
+            XmlWriterSettings settings = new XmlWriterSettings();
+            settings.Indent = true;
+            settings.IndentChars = "\t";
+            settings.NewLineOnAttributes = true;
+            using (writer = XmlWriter.Create(fileName + ".xml", settings))
             {
                 writer.WriteStartDocument(true);
                 writer.WriteStartElement("Research");
@@ -91,12 +96,14 @@ namespace Storage
             existingFileNames = new SortedDictionary<Guid, string>();
             List<ResearchResult> researchInfos = new List<ResearchResult>();
 
+            XmlReaderSettings settings = new XmlReaderSettings();
+            settings.IgnoreWhitespace = true;
             ResearchResult DoubleResearchInfo = null;
             foreach (string fileName in Directory.GetFiles(storageStr, "*.xml",
                 SearchOption.TopDirectoryOnly))
             {
                 DoubleResearchInfo = new ResearchResult();
-                using (reader = XmlReader.Create(fileName))
+                using (reader = XmlReader.Create(fileName, settings))
                 {
                     try
                     {
@@ -134,7 +141,9 @@ namespace Storage
             if (fileNameToLoad != null)
             {
                 r = new ResearchResult();
-                using (reader = XmlReader.Create(fileNameToLoad))
+                XmlReaderSettings settings = new XmlReaderSettings();
+                settings.IgnoreWhitespace = true;
+                using (reader = XmlReader.Create(fileNameToLoad, settings))
                 {
                     while (reader.Read() &&
                         (reader.NodeType != XmlNodeType.Element ||
@@ -157,7 +166,9 @@ namespace Storage
             if (name != null)
             {
                 r = new ResearchResult();
-                using (reader = XmlReader.Create(name))
+                XmlReaderSettings settings = new XmlReaderSettings();
+                settings.IgnoreWhitespace = true;
+                using (reader = XmlReader.Create(name, settings))
                 {
                     while (reader.Read() &&
                         (reader.NodeType != XmlNodeType.Element ||
@@ -334,7 +345,7 @@ namespace Storage
             if (reader.Name == "Size")
                 r.Size = UInt32.Parse(reader.ReadElementString());
             if (reader.Name == "Edges")
-                r.Edges = Double.Parse(reader.ReadElementString());
+                r.Edges = Double.Parse(reader.ReadElementString(), CultureInfo.InvariantCulture);
         }
 
         private void LoadResearchParameters(ResearchResult r)
@@ -351,15 +362,15 @@ namespace Storage
                     if (rpInfo.Type.Equals(typeof(UInt32)))
                         r.ResearchParameterValues.Add(rp, UInt32.Parse(reader.Value));
                     else if (rpInfo.Type.Equals(typeof(Double)))
-                        r.ResearchParameterValues.Add(rp, Double.Parse(reader.Value));
+                        r.ResearchParameterValues.Add(rp, Double.Parse(reader.Value, CultureInfo.InvariantCulture));
                     else if (rpInfo.Type.Equals(typeof(Boolean)))
                         r.ResearchParameterValues.Add(rp, Boolean.Parse(reader.Value));
                     else if (rpInfo.Type.Equals(typeof(ResearchType)))
-                        r.ResearchParameterValues.Add(rp, reader.Value.ToString());
+                        r.ResearchParameterValues.Add(rp, reader.Value);
                     else if (rpInfo.Type.Equals(typeof(MatrixPath)))
                     {
                         MatrixPath mp = new MatrixPath();
-                        mp.Path = reader.Value.ToString();
+                        mp.Path = reader.Value;
                         r.ResearchParameterValues.Add(rp, mp);
                     }
                     else
@@ -392,13 +403,13 @@ namespace Storage
                     if (gpInfo.Type.Equals(typeof(UInt32)))
                         r.GenerationParameterValues.Add(gp, UInt32.Parse(reader.Value));
                     else if (gpInfo.Type.Equals(typeof(Double)))
-                        r.GenerationParameterValues.Add(gp, Double.Parse(reader.Value));
+                        r.GenerationParameterValues.Add(gp, Double.Parse(reader.Value, CultureInfo.InvariantCulture));
                     else if (gpInfo.Type.Equals(typeof(Boolean)))
                         r.GenerationParameterValues.Add(gp, Boolean.Parse(reader.Value));
                     else if (gpInfo.Type.Equals(typeof(MatrixPath)))
                     {
                         MatrixPath mp = new MatrixPath();
-                        mp.Path = reader.Value.ToString();
+                        mp.Path = reader.Value;
                         r.GenerationParameterValues.Add(gp, mp);
                     }
                     else
@@ -459,7 +470,7 @@ namespace Storage
             reader.Read();
             while (reader.NodeType != XmlNodeType.EndElement)
             {
-                valueList.Add(Double.Parse(reader.ReadElementString()));
+                valueList.Add(Double.Parse(reader.ReadElementString(), CultureInfo.InvariantCulture));
             }
             return valueList;
         }
@@ -471,9 +482,9 @@ namespace Storage
             while (reader.Read() && reader.NodeType != XmlNodeType.EndElement)
             {
                 reader.MoveToFirstAttribute();
-                first = Double.Parse(reader.Value);
+                first = Double.Parse(reader.Value, CultureInfo.InvariantCulture);
                 reader.MoveToNextAttribute();
-                second = Double.Parse(reader.Value);
+                second = Double.Parse(reader.Value, CultureInfo.InvariantCulture);
                 d.Add(first, second);
             }
             return d;
