@@ -22,6 +22,7 @@ namespace Core.Settings
 
         static private StorageType storageType = StorageType.XMLStorage;
         static private string xmlStorageDirectory;
+        static private string txtStorageDirectory;
         static private string excelStorageDirectory;
         //static private StorageProvider storage;
         //static private string connectionString;
@@ -83,6 +84,32 @@ namespace Core.Settings
                 }
 
                 config.AppSettings.Settings["XMLStorageDirectory"].Value = xmlStorageDirectory;
+            }
+        }
+
+        static public string TXTStorageDirectory
+        {
+            get
+            {
+                return (txtStorageDirectory == "") ? defaultDirectory + "\\Results" : txtStorageDirectory;
+            }
+            set
+            {
+                if (value.EndsWith(Path.DirectorySeparatorChar.ToString()))
+                {
+                    txtStorageDirectory = value;
+                }
+                else
+                {
+                    txtStorageDirectory = value + Path.DirectorySeparatorChar;
+                }
+
+                if (Directory.Exists(txtStorageDirectory) == false)
+                {
+                    Directory.CreateDirectory(txtStorageDirectory);
+                }
+
+                config.AppSettings.Settings["TXTStorageDirectory"].Value = txtStorageDirectory;
             }
         }
 

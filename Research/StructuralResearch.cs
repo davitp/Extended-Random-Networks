@@ -73,12 +73,13 @@ namespace Research
             Debug.Assert(mr is MatrixInfoToRead);
 
             string storageString = Storage.StorageString;
-            if (Storage.GetStorageType() != StorageType.SQLStorage)
-            {
+            // depraceting sql storage
+            /*if (Storage.GetStorageType() != StorageType.SQLStorage)
+            {*/
                 storageString += ResearchName;
                 if (!Directory.Exists(storageString))
                     Directory.CreateDirectory(storageString);
-            }
+            //}
 
             foreach (string fn in Directory.GetFiles(mp.Path, "*.sm"))
             {

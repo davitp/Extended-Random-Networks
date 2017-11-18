@@ -31,8 +31,6 @@ namespace NonRegularHierarchicModel
         | AnalyzeOption.EigenValues
         | AnalyzeOption.LaplacianEigenValues
         | AnalyzeOption.TriangleByVertexDistribution
-        | AnalyzeOption.ActivePartA
-        | AnalyzeOption.ActivePartB
         )]
     public class NonRegularHierarchicNetwork : AbstractNetwork
     {

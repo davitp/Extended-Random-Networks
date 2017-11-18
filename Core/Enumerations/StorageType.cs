@@ -17,9 +17,10 @@ namespace Core.Enumerations
             "Storage.XMLResultStorage, Storage")]
         XMLStorage,
 
-        [StorageTypeInfo("SQL DB with defined LINK schema.", 
+        // depracate sql storage
+        /*[StorageTypeInfo("SQL DB with defined LINK schema.", 
             "Storage.SQLResultStorage, Storage")]
-        SQLStorage,
+        SQLStorage,*/
 
         [StorageTypeInfo("Excel file with defined LINK structure.",
             "Storage.ExcelResultStorage, Storage")]

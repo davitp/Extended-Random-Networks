@@ -33,6 +33,8 @@
             this.browserDlg = new System.Windows.Forms.FolderBrowserDialog();
             this.generalGrp = new System.Windows.Forms.GroupBox();
             this.tracingGrp = new System.Windows.Forms.GroupBox();
+            this.neighbourshipRadio = new System.Windows.Forms.RadioButton();
+            this.matrixRadio = new System.Windows.Forms.RadioButton();
             this.tracingDirectory = new System.Windows.Forms.Label();
             this.tracingDirectoryTxt = new System.Windows.Forms.TextBox();
             this.tracingBrowse = new System.Windows.Forms.Button();
@@ -41,14 +43,9 @@
             this.loggingDirectoryTxt = new System.Windows.Forms.TextBox();
             this.loggingBrowse = new System.Windows.Forms.Button();
             this.storageGrp = new System.Windows.Forms.GroupBox();
-            this.connections = new System.Windows.Forms.Button();
             this.storageBrowse = new System.Windows.Forms.Button();
-            this.databaseTxt = new System.Windows.Forms.TextBox();
             this.storageDirectoryTxt = new System.Windows.Forms.TextBox();
-            this.database = new System.Windows.Forms.Label();
             this.storageDirectory = new System.Windows.Forms.Label();
-            this.matrixRadio = new System.Windows.Forms.RadioButton();
-            this.neighbourshipRadio = new System.Windows.Forms.RadioButton();
             this.generalGrp.SuspendLayout();
             this.tracingGrp.SuspendLayout();
             this.loggingGrp.SuspendLayout();
@@ -57,7 +54,7 @@
             // 
             // SaveSettingsButton
             // 
-            this.SaveSettingsButton.Location = new System.Drawing.Point(455, 304);
+            this.SaveSettingsButton.Location = new System.Drawing.Point(455, 288);
             this.SaveSettingsButton.Name = "SaveSettingsButton";
             this.SaveSettingsButton.Size = new System.Drawing.Size(75, 23);
             this.SaveSettingsButton.TabIndex = 3;
@@ -68,7 +65,7 @@
             // CancelSettingsButton
             // 
             this.CancelSettingsButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.CancelSettingsButton.Location = new System.Drawing.Point(536, 304);
+            this.CancelSettingsButton.Location = new System.Drawing.Point(536, 288);
             this.CancelSettingsButton.Name = "CancelSettingsButton";
             this.CancelSettingsButton.Size = new System.Drawing.Size(75, 23);
             this.CancelSettingsButton.TabIndex = 4;
@@ -82,7 +79,7 @@
             this.generalGrp.Controls.Add(this.storageGrp);
             this.generalGrp.Location = new System.Drawing.Point(12, 12);
             this.generalGrp.Name = "generalGrp";
-            this.generalGrp.Size = new System.Drawing.Size(599, 286);
+            this.generalGrp.Size = new System.Drawing.Size(599, 261);
             this.generalGrp.TabIndex = 0;
             this.generalGrp.TabStop = false;
             this.generalGrp.Text = "General";
@@ -94,12 +91,32 @@
             this.tracingGrp.Controls.Add(this.tracingDirectory);
             this.tracingGrp.Controls.Add(this.tracingDirectoryTxt);
             this.tracingGrp.Controls.Add(this.tracingBrowse);
-            this.tracingGrp.Location = new System.Drawing.Point(12, 183);
+            this.tracingGrp.Location = new System.Drawing.Point(12, 155);
             this.tracingGrp.Name = "tracingGrp";
             this.tracingGrp.Size = new System.Drawing.Size(575, 93);
             this.tracingGrp.TabIndex = 0;
             this.tracingGrp.TabStop = false;
             this.tracingGrp.Text = "Tracing";
+            // 
+            // neighbourshipRadio
+            // 
+            this.neighbourshipRadio.AutoSize = true;
+            this.neighbourshipRadio.Location = new System.Drawing.Point(166, 60);
+            this.neighbourshipRadio.Name = "neighbourshipRadio";
+            this.neighbourshipRadio.Size = new System.Drawing.Size(93, 17);
+            this.neighbourshipRadio.TabIndex = 14;
+            this.neighbourshipRadio.Text = "Neighbourship";
+            this.neighbourshipRadio.UseVisualStyleBackColor = true;
+            // 
+            // matrixRadio
+            // 
+            this.matrixRadio.AutoSize = true;
+            this.matrixRadio.Location = new System.Drawing.Point(97, 60);
+            this.matrixRadio.Name = "matrixRadio";
+            this.matrixRadio.Size = new System.Drawing.Size(53, 17);
+            this.matrixRadio.TabIndex = 13;
+            this.matrixRadio.Text = "Matrix";
+            this.matrixRadio.UseVisualStyleBackColor = true;
             // 
             // tracingDirectory
             // 
@@ -167,27 +184,15 @@
             // 
             // storageGrp
             // 
-            this.storageGrp.Controls.Add(this.connections);
             this.storageGrp.Controls.Add(this.storageBrowse);
-            this.storageGrp.Controls.Add(this.databaseTxt);
             this.storageGrp.Controls.Add(this.storageDirectoryTxt);
-            this.storageGrp.Controls.Add(this.database);
             this.storageGrp.Controls.Add(this.storageDirectory);
             this.storageGrp.Location = new System.Drawing.Point(12, 86);
             this.storageGrp.Name = "storageGrp";
-            this.storageGrp.Size = new System.Drawing.Size(575, 91);
+            this.storageGrp.Size = new System.Drawing.Size(575, 63);
             this.storageGrp.TabIndex = 3;
             this.storageGrp.TabStop = false;
             this.storageGrp.Text = "Default storage locations";
-            // 
-            // connections
-            // 
-            this.connections.Location = new System.Drawing.Point(491, 53);
-            this.connections.Name = "connections";
-            this.connections.Size = new System.Drawing.Size(75, 20);
-            this.connections.TabIndex = 9;
-            this.connections.Text = "Connections";
-            this.connections.UseVisualStyleBackColor = true;
             // 
             // storageBrowse
             // 
@@ -199,28 +204,12 @@
             this.storageBrowse.UseVisualStyleBackColor = true;
             this.storageBrowse.Click += new System.EventHandler(this.storageBrowseButton_Click);
             // 
-            // databaseTxt
-            // 
-            this.databaseTxt.Location = new System.Drawing.Point(97, 53);
-            this.databaseTxt.Name = "databaseTxt";
-            this.databaseTxt.Size = new System.Drawing.Size(388, 20);
-            this.databaseTxt.TabIndex = 8;
-            // 
             // storageDirectoryTxt
             // 
             this.storageDirectoryTxt.Location = new System.Drawing.Point(97, 24);
             this.storageDirectoryTxt.Name = "storageDirectoryTxt";
             this.storageDirectoryTxt.Size = new System.Drawing.Size(388, 20);
             this.storageDirectoryTxt.TabIndex = 5;
-            // 
-            // database
-            // 
-            this.database.AutoSize = true;
-            this.database.Location = new System.Drawing.Point(13, 56);
-            this.database.Name = "database";
-            this.database.Size = new System.Drawing.Size(78, 13);
-            this.database.TabIndex = 7;
-            this.database.Text = "SQL database:";
             // 
             // storageDirectory
             // 
@@ -231,33 +220,13 @@
             this.storageDirectory.TabIndex = 4;
             this.storageDirectory.Text = "File directory:";
             // 
-            // matrixRadio
-            // 
-            this.matrixRadio.AutoSize = true;
-            this.matrixRadio.Location = new System.Drawing.Point(97, 60);
-            this.matrixRadio.Name = "matrixRadio";
-            this.matrixRadio.Size = new System.Drawing.Size(53, 17);
-            this.matrixRadio.TabIndex = 13;
-            this.matrixRadio.Text = "Matrix";
-            this.matrixRadio.UseVisualStyleBackColor = true;
-            // 
-            // neighbourshipRadio
-            // 
-            this.neighbourshipRadio.AutoSize = true;
-            this.neighbourshipRadio.Location = new System.Drawing.Point(166, 60);
-            this.neighbourshipRadio.Name = "neighbourshipRadio";
-            this.neighbourshipRadio.Size = new System.Drawing.Size(93, 17);
-            this.neighbourshipRadio.TabIndex = 14;
-            this.neighbourshipRadio.Text = "Neighbourship";
-            this.neighbourshipRadio.UseVisualStyleBackColor = true;
-            // 
             // SettingsWindow
             // 
             this.AcceptButton = this.SaveSettingsButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.CancelSettingsButton;
-            this.ClientSize = new System.Drawing.Size(623, 339);
+            this.ClientSize = new System.Drawing.Size(623, 323);
             this.Controls.Add(this.generalGrp);
             this.Controls.Add(this.SaveSettingsButton);
             this.Controls.Add(this.CancelSettingsButton);
@@ -294,11 +263,8 @@
         private System.Windows.Forms.TextBox loggingDirectoryTxt;
         private System.Windows.Forms.Button loggingBrowse;
         private System.Windows.Forms.GroupBox storageGrp;
-        private System.Windows.Forms.Button connections;
         private System.Windows.Forms.Button storageBrowse;
-        private System.Windows.Forms.TextBox databaseTxt;
         private System.Windows.Forms.TextBox storageDirectoryTxt;
-        private System.Windows.Forms.Label database;
         private System.Windows.Forms.Label storageDirectory;
         private System.Windows.Forms.RadioButton neighbourshipRadio;
         private System.Windows.Forms.RadioButton matrixRadio;

@@ -731,7 +731,10 @@ namespace NetworkModel
 
         #region Active Parts
 
-        protected override SortedDictionary<Double, Double> CalculateActivePartA()
+        // orAnd - OR - true, AND - false
+        // stdExt - Std - true, Extended - false
+        // allPas - All neighbours - true, Passive neighbours - false
+        protected override SortedDictionary<Double, Double> CalculateActivePartModelA(bool orAnd, bool stdExt, bool allPas)
         {
             // Retrieving research parameters from network. Research MUST be Activation. //
             Debug.Assert(network.ResearchParameterValues != null);
@@ -747,8 +750,12 @@ namespace NetworkModel
             object v = network.ResearchParameterValues[ResearchParameter.TracingStepIncrement];
             UInt32 tracingStepIncrement = ((v != null) ? Convert.ToUInt32(v) : 0);
 
+            // keep initial container
+            NonHierarchicContainer initialContainer = container.Clone();
+
             Double P1 = Mu / (Mu + Lambda);
-            Int32 t = 0;
+            Double P2 = Lambda / (Mu + Lambda);
+            Double t = 0;
             RNGCrypto Rand = new RNGCrypto();
             uint currentTracingStep = tracingStepIncrement;
             int curActiveNodeCount = container.GetActiveNodesCount();
@@ -757,20 +764,27 @@ namespace NetworkModel
             {
                 Int32 RandomActiveNode = GetRandomActiveNodeIndex(Rand);
 
-                if (Rand.NextDouble() <= P1)
+                bool ev = (Rand.NextDouble() <= P1);
+                if (ev)
                 {
                     container.SetActiveStatus(RandomActiveNode, false);
                 }
-                else
+
+                if (orAnd)
                 {
-                    Int32 RandomNode = GetRandomIndex(container.Neighbourship[RandomActiveNode], Rand);
-                    if (container.GetActiveStatus(RandomNode) == false)
-                        container.SetActiveStatus(RandomNode, true);
+                    if (!ev)
+                    {
+                        ActivateVertex(allPas, RandomActiveNode, Rand);
+                    }
+                }
+                else if (Rand.NextDouble() <= P2)
+                {
+                    ActivateVertex(allPas, RandomActiveNode, Rand);
                 }
 
                 if (currentTracingStep == t)
                 {
-                    container.Trace(network.ResearchName + "_ActivePartA",
+                    container.Trace(network.ResearchName + "_ActivePartModelA",
                         "Realization_" + network.NetworkID.ToString(),
                         "Matrix_" + currentTracingStep.ToString());
                     currentTracingStep += tracingStepIncrement;
@@ -778,16 +792,18 @@ namespace NetworkModel
                     network.UpdateStatus(NetworkStatus.StepCompleted);
                 }
 
-                ++t;
+                t += stdExt ? 1 : (1.0 / curActiveNodeCount);
                 curActiveNodeCount = container.GetActiveNodesCount();
                 Double ActivePartA = curActiveNodeCount / (Double)container.Size;
                 ActiveParts.Add(t - 1, ActivePartA);
             }
             Debug.Assert(t > Time || !container.DoesActiveNodeExist());
+
+            container = initialContainer;
             return ActiveParts;
         }
 
-        protected override SortedDictionary<Double, Double> CalculateActivePartB()
+        protected override SortedDictionary<Double, Double> CalculateActivePartModelB()
         {
             // Retrieving research parameters from network. Research MUST be Activation. //
             Debug.Assert(network.ResearchParameterValues != null);
@@ -827,7 +843,7 @@ namespace NetworkModel
 
                 if (currentTracingStep == t)
                 {
-                    container.Trace(network.ResearchName + "_ActivePartB",
+                    container.Trace(network.ResearchName + "_ActivePartModelB",
                         "Realization_" + network.NetworkID.ToString(),
                         "Matrix_" + currentTracingStep.ToString());
                     currentTracingStep += tracingStepIncrement;
@@ -885,7 +901,24 @@ namespace NetworkModel
             return PassiveNeighbours;
         }
 
-        private Int32 GetRandomIndex(List<Int32> list, RNGCrypto Rand) => list.OrderBy(x => Rand.Next()).FirstOrDefault();
+        private Int32 GetRandomIndex(List<Int32> list, RNGCrypto Rand)
+        {
+            if (list.Count == 0)
+            {
+                return -1;
+            }
+            return Rand.Next(list.Count);
+        }
+
+        private void ActivateVertex(bool allPas, int n, RNGCrypto Rand)
+        {
+            Int32 RandomNode = allPas ? GetRandomIndex(container.Neighbourship[n], Rand)
+                                      : GetRandomIndex(GetVertexPassiveNeighbours(n), Rand);
+            if (RandomNode != -1)
+            {
+                container.SetActiveStatus(RandomNode, true);
+            }
+        }
 
         #endregion
 

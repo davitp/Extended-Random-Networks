@@ -33,13 +33,13 @@
             this.excelStorageDirectoryTxt = new System.Windows.Forms.TextBox();
             this.excelStorageDirectory = new System.Windows.Forms.Label();
             this.excelStorageRadio = new System.Windows.Forms.RadioButton();
-            this.sqlStorageRadio = new System.Windows.Forms.RadioButton();
+            this.txtStorageRadio = new System.Windows.Forms.RadioButton();
             this.xmlStorageRadio = new System.Windows.Forms.RadioButton();
-            this.databaseBrowseButton = new System.Windows.Forms.Button();
+            this.txtStorageBrowseButton = new System.Windows.Forms.Button();
             this.xmlStorageBrowseButton = new System.Windows.Forms.Button();
-            this.databaseTxt = new System.Windows.Forms.TextBox();
+            this.txtStorageDirectoryTxt = new System.Windows.Forms.TextBox();
             this.xmlStorageDirectoryTxt = new System.Windows.Forms.TextBox();
-            this.database = new System.Windows.Forms.Label();
+            this.txtStorageDirectory = new System.Windows.Forms.Label();
             this.xmlStorageDirectory = new System.Windows.Forms.Label();
             this.SaveSettingsButton = new System.Windows.Forms.Button();
             this.CancelSettingsButton = new System.Windows.Forms.Button();
@@ -53,13 +53,13 @@
             this.dataStorageGrp.Controls.Add(this.excelStorageDirectoryTxt);
             this.dataStorageGrp.Controls.Add(this.excelStorageDirectory);
             this.dataStorageGrp.Controls.Add(this.excelStorageRadio);
-            this.dataStorageGrp.Controls.Add(this.sqlStorageRadio);
+            this.dataStorageGrp.Controls.Add(this.txtStorageRadio);
             this.dataStorageGrp.Controls.Add(this.xmlStorageRadio);
-            this.dataStorageGrp.Controls.Add(this.databaseBrowseButton);
+            this.dataStorageGrp.Controls.Add(this.txtStorageBrowseButton);
             this.dataStorageGrp.Controls.Add(this.xmlStorageBrowseButton);
-            this.dataStorageGrp.Controls.Add(this.databaseTxt);
+            this.dataStorageGrp.Controls.Add(this.txtStorageDirectoryTxt);
             this.dataStorageGrp.Controls.Add(this.xmlStorageDirectoryTxt);
-            this.dataStorageGrp.Controls.Add(this.database);
+            this.dataStorageGrp.Controls.Add(this.txtStorageDirectory);
             this.dataStorageGrp.Controls.Add(this.xmlStorageDirectory);
             this.dataStorageGrp.Location = new System.Drawing.Point(12, 12);
             this.dataStorageGrp.Name = "dataStorageGrp";
@@ -106,17 +106,17 @@
             this.excelStorageRadio.UseVisualStyleBackColor = true;
             this.excelStorageRadio.CheckedChanged += new System.EventHandler(this.storageRadio_CheckedChanged);
             // 
-            // sqlStorageRadio
+            // txtStorageRadio
             // 
-            this.sqlStorageRadio.AutoSize = true;
-            this.sqlStorageRadio.Location = new System.Drawing.Point(10, 70);
-            this.sqlStorageRadio.Name = "sqlStorageRadio";
-            this.sqlStorageRadio.Size = new System.Drawing.Size(86, 17);
-            this.sqlStorageRadio.TabIndex = 5;
-            this.sqlStorageRadio.TabStop = true;
-            this.sqlStorageRadio.Text = "SQL Storage";
-            this.sqlStorageRadio.UseVisualStyleBackColor = true;
-            this.sqlStorageRadio.CheckedChanged += new System.EventHandler(this.storageRadio_CheckedChanged);
+            this.txtStorageRadio.AutoSize = true;
+            this.txtStorageRadio.Location = new System.Drawing.Point(10, 70);
+            this.txtStorageRadio.Name = "txtStorageRadio";
+            this.txtStorageRadio.Size = new System.Drawing.Size(86, 17);
+            this.txtStorageRadio.TabIndex = 5;
+            this.txtStorageRadio.TabStop = true;
+            this.txtStorageRadio.Text = "TXT Storage";
+            this.txtStorageRadio.UseVisualStyleBackColor = true;
+            this.txtStorageRadio.CheckedChanged += new System.EventHandler(this.storageRadio_CheckedChanged);
             // 
             // xmlStorageRadio
             // 
@@ -130,15 +130,15 @@
             this.xmlStorageRadio.UseVisualStyleBackColor = true;
             this.xmlStorageRadio.CheckedChanged += new System.EventHandler(this.storageRadio_CheckedChanged);
             // 
-            // databaseBrowseButton
+            // txtStorageBrowseButton
             // 
-            this.databaseBrowseButton.Location = new System.Drawing.Point(509, 87);
-            this.databaseBrowseButton.Name = "databaseBrowseButton";
-            this.databaseBrowseButton.Size = new System.Drawing.Size(75, 20);
-            this.databaseBrowseButton.TabIndex = 3;
-            this.databaseBrowseButton.Text = "Browse...";
-            this.databaseBrowseButton.UseVisualStyleBackColor = true;
-            this.databaseBrowseButton.Click += new System.EventHandler(this.databaseBrowseButton_Click);
+            this.txtStorageBrowseButton.Location = new System.Drawing.Point(509, 87);
+            this.txtStorageBrowseButton.Name = "txtStorageBrowseButton";
+            this.txtStorageBrowseButton.Size = new System.Drawing.Size(75, 20);
+            this.txtStorageBrowseButton.TabIndex = 3;
+            this.txtStorageBrowseButton.Text = "Browse...";
+            this.txtStorageBrowseButton.UseVisualStyleBackColor = true;
+            this.txtStorageBrowseButton.Click += new System.EventHandler(this.txtStorageBrowseButton_Click);
             // 
             // xmlStorageBrowseButton
             // 
@@ -150,12 +150,12 @@
             this.xmlStorageBrowseButton.UseVisualStyleBackColor = true;
             this.xmlStorageBrowseButton.Click += new System.EventHandler(this.xmlStorageBrowseButton_Click);
             // 
-            // databaseTxt
+            // txtStorageDirectoryTxt
             // 
-            this.databaseTxt.Location = new System.Drawing.Point(114, 87);
-            this.databaseTxt.Name = "databaseTxt";
-            this.databaseTxt.Size = new System.Drawing.Size(388, 20);
-            this.databaseTxt.TabIndex = 2;
+            this.txtStorageDirectoryTxt.Location = new System.Drawing.Point(114, 87);
+            this.txtStorageDirectoryTxt.Name = "txtStorageDirectoryTxt";
+            this.txtStorageDirectoryTxt.Size = new System.Drawing.Size(388, 20);
+            this.txtStorageDirectoryTxt.TabIndex = 2;
             // 
             // xmlStorageDirectoryTxt
             // 
@@ -164,14 +164,14 @@
             this.xmlStorageDirectoryTxt.Size = new System.Drawing.Size(388, 20);
             this.xmlStorageDirectoryTxt.TabIndex = 0;
             // 
-            // database
+            // txtStorageDirectory
             // 
-            this.database.AutoSize = true;
-            this.database.Location = new System.Drawing.Point(52, 90);
-            this.database.Name = "database";
-            this.database.Size = new System.Drawing.Size(56, 13);
-            this.database.TabIndex = 1;
-            this.database.Text = "Database:";
+            this.txtStorageDirectory.AutoSize = true;
+            this.txtStorageDirectory.Location = new System.Drawing.Point(39, 90);
+            this.txtStorageDirectory.Name = "txtStorageDirectory";
+            this.txtStorageDirectory.Size = new System.Drawing.Size(69, 13);
+            this.txtStorageDirectory.TabIndex = 1;
+            this.txtStorageDirectory.Text = "File directory:";
             // 
             // xmlStorageDirectory
             // 
@@ -229,11 +229,11 @@
         #endregion
 
         private System.Windows.Forms.GroupBox dataStorageGrp;
-        private System.Windows.Forms.Button databaseBrowseButton;
+        private System.Windows.Forms.Button txtStorageBrowseButton;
         private System.Windows.Forms.Button xmlStorageBrowseButton;
-        private System.Windows.Forms.TextBox databaseTxt;
+        private System.Windows.Forms.TextBox txtStorageDirectoryTxt;
         private System.Windows.Forms.TextBox xmlStorageDirectoryTxt;
-        private System.Windows.Forms.Label database;
+        private System.Windows.Forms.Label txtStorageDirectory;
         private System.Windows.Forms.Label xmlStorageDirectory;
         private System.Windows.Forms.Button SaveSettingsButton;
         private System.Windows.Forms.Button CancelSettingsButton;
@@ -241,7 +241,7 @@
         private System.Windows.Forms.TextBox excelStorageDirectoryTxt;
         private System.Windows.Forms.Label excelStorageDirectory;
         private System.Windows.Forms.RadioButton excelStorageRadio;
-        private System.Windows.Forms.RadioButton sqlStorageRadio;
+        private System.Windows.Forms.RadioButton txtStorageRadio;
         private System.Windows.Forms.RadioButton xmlStorageRadio;
         private System.Windows.Forms.FolderBrowserDialog browserDlg;
     }

@@ -27,8 +27,8 @@ namespace RandNetStat
             InitializeDataStorage();
 
             xmlStorageDirectoryTxt.Text = RandNetStatSettings.XMLStorageDirectory;
+            txtStorageDirectoryTxt.Text = RandNetStatSettings.TXTStorageDirectory;
             excelStorageDirectoryTxt.Text = RandNetStatSettings.ExcelStorageDirectory;
-            //databaseTxt.Text = StatisticAnalyzerSettings.ConnectionString;
         }
 
         private void storageRadio_CheckedChanged(object sender, EventArgs e)
@@ -39,17 +39,17 @@ namespace RandNetStat
                 case "xmlStorageRadio":
                     XmlChecked(true);
                     ExcelChecked(false);
-                    SqlChecked(false);
+                    TxtChecked(false);
                     break;
                 case "excelStorageRadio":
                     XmlChecked(false);
                     ExcelChecked(true);
-                    SqlChecked(false);
+                    TxtChecked(false);
                     break;
-                case "sqlStorageRadio":
+                case "txtStorageRadio":
                     XmlChecked(false);
                     ExcelChecked(false);
-                    SqlChecked(true);
+                    TxtChecked(true);
                     break;
                 default:
                     break;
@@ -65,9 +65,13 @@ namespace RandNetStat
             }
         }
 
-        private void databaseBrowseButton_Click(object sender, EventArgs e)
+        private void txtStorageBrowseButton_Click(object sender, EventArgs e)
         {
-
+            browserDlg.SelectedPath = RandNetStatSettings.TXTStorageDirectory;
+            if (browserDlg.ShowDialog() == DialogResult.OK)
+            {
+                txtStorageDirectoryTxt.Text = browserDlg.SelectedPath;
+            }
         }
 
         private void excelStorageBrowseButton_Click(object sender, EventArgs e)
@@ -84,6 +88,7 @@ namespace RandNetStat
             RandNetStatSettings.StorageType = GetDataStorage();
 
             RandNetStatSettings.XMLStorageDirectory = xmlStorageDirectoryTxt.Text;
+            RandNetStatSettings.TXTStorageDirectory = txtStorageDirectoryTxt.Text;
             RandNetStatSettings.ExcelStorageDirectory = excelStorageDirectoryTxt.Text;
             //StatisticAnalyzerSettings.ConnectionString = textBoxConnStr.Text;
 
@@ -104,11 +109,11 @@ namespace RandNetStat
                 case StorageType.XMLStorage:
                     xmlStorageRadio.Checked = true;
                     break;
+                case StorageType.TXTStorage:
+                    txtStorageRadio.Checked = true;
+                    break;
                 case StorageType.ExcelStorage:
                     excelStorageRadio.Checked = true;
-                    break;
-                case StorageType.SQLStorage:
-                    sqlStorageRadio.Checked = true;
                     break;
                 default:
                     break;
@@ -119,10 +124,10 @@ namespace RandNetStat
         {
             if (xmlStorageRadio.Checked == true)
                 return StorageType.XMLStorage;
-            else if (excelStorageRadio.Checked == true)
+            else if (txtStorageRadio.Checked == true)
+                return StorageType.TXTStorage;
+            else
                 return StorageType.ExcelStorage;
-            else 
-                return StorageType.SQLStorage;
         }
 
         private void XmlChecked(bool c)
@@ -139,11 +144,11 @@ namespace RandNetStat
             excelStorageBrowseButton.Enabled = c;
         }
 
-        private void SqlChecked(bool c)
+        private void TxtChecked(bool c)
         {
-            database.Enabled = c;
-            databaseTxt.Enabled = c;
-            databaseBrowseButton.Enabled = c;
+            txtStorageDirectory.Enabled = c;
+            txtStorageDirectoryTxt.Enabled = c;
+            txtStorageBrowseButton.Enabled = c;
         }
 
         #endregion

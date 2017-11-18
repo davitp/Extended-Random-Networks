@@ -30,8 +30,11 @@ namespace Research
     [RequiredResearchParameter(ResearchParameter.TracingStepIncrement)]
     [AvailableGenerationType(GenerationType.Random)]
     [AvailableGenerationType(GenerationType.Static)]
-    [AvailableAnalyzeOption(AnalyzeOption.ActivePartA
-        | AnalyzeOption.ActivePartB)]
+    [AvailableAnalyzeOption(AnalyzeOption.ModelA_AND_StdTime_Actives
+        | AnalyzeOption.ModelA_OR_ExtTime_Actives
+        | AnalyzeOption.ModelA_OR_ExtTime_All
+        | AnalyzeOption.ModelA_OR_StdTime_Actives
+        | AnalyzeOption.ModelA_OR_StdTime_All)]
     public class ActivationResearch : AbstractResearch
     {
         /// <summary>

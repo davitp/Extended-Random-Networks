@@ -9,12 +9,13 @@ using Core.Result;
 
 namespace Storage
 {
+    // depracetingh sql storage
     /// <summary>
     /// Implementation of SQL result storage.
     /// </summary>
-    public class SQLResultStorage : AbstractResultStorage
+    public class SQLResultStorage //: AbstractResultStorage
     {
-        public SQLResultStorage(string str) : base(str) { }
+        /*public SQLResultStorage(string str) : base(str) { }
 
         public override StorageType GetStorageType()
         {
@@ -68,6 +69,6 @@ namespace Storage
         private void SaveResearchResult(ResearchResult r)
         {
             throw new NotImplementedException();
-        }
+        }*/
     }
 }

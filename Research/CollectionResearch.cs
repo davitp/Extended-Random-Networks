@@ -88,12 +88,13 @@ namespace Research
                 r.AnalyzeOption = AnalyzeOption;
 
                 string storageString = Storage.StorageString;
-                if (Storage.GetStorageType() != StorageType.SQLStorage)
-                {
+                // depracate sql storage
+                /*if (Storage.GetStorageType() != StorageType.SQLStorage)
+                {*/
                     storageString += ResearchName;
                     if (!Directory.Exists(storageString))
                         Directory.CreateDirectory(storageString);
-                }
+                //}
                 r.Storage = AbstractResultStorage.CreateStorage(Storage.GetStorageType(), storageString);
                 r.OnUpdateResearchStatus += method;
 

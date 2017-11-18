@@ -15,7 +15,7 @@ namespace Core.Enumerations
     /// This metadata is used mainly for getting user-friendly information.
     /// </summary>
     [Flags]
-    public enum AnalyzeOption
+    public enum AnalyzeOption : UInt64
     {
         [AnalyzeOptionInfo("None", 
             "Indication of empty selection.",
@@ -95,19 +95,47 @@ namespace Core.Enumerations
             OptionType.ValueList)]
         LaplacianEigenValues = 0x1000,
 
-        [AnalyzeOptionInfo("ActivePartA",
+        [AnalyzeOptionInfo("ModelA_OR_StdTime_All",
             "Active part of vertices in activation process.",
             OptionType.Trajectory,
             "StepNumber",
             "AvgCount")]
-        ActivePartA = 0x2000,
+        ModelA_OR_StdTime_All = 0x2000,
+        
+        [AnalyzeOptionInfo("ModelA_OR_ExtTime_All",
+            "Active part of vertices in activation process.",
+            OptionType.Trajectory,
+            "StepNumber",
+            "AvgCount")]
+        ModelA_OR_ExtTime_All = 0x4000,
 
-        [AnalyzeOptionInfo("ActivePartB",
+        [AnalyzeOptionInfo("ModelA_OR_StdTime_Actives",
             "Active part of vertices in activation process.",
             OptionType.Trajectory,
             "StepNumber",
             "AvgCount")]
-        ActivePartB = 0x4000,
+        ModelA_OR_StdTime_Actives = 0x8000,
+
+        [AnalyzeOptionInfo("ModelA_OR_ExtTime_Actives",
+            "Active part of vertices in activation process.",
+            OptionType.Trajectory,
+            "StepNumber",
+            "AvgCount")]
+        ModelA_OR_ExtTime_Actives = 0x10000,
+
+        [AnalyzeOptionInfo("ModelA_AND_StdTime_Actives",
+            "Active part of vertices in activation process.",
+            OptionType.Trajectory,
+            "StepNumber",
+            "AvgCount")]
+        ModelA_AND_StdTime_Actives = 0x20000,
+
+        [AnalyzeOptionInfo("ModelB",
+            "Active part of vertices in activation process.",
+            OptionType.Trajectory,
+            "StepNumber",
+            "AvgCount")]
+        ModelB = 0x40000,
 
         // Distributions. //
 
@@ -116,63 +144,63 @@ namespace Core.Enumerations
             OptionType.Distribution,
             "Degree",
             "AvgCount")]
-        DegreeDistribution = 0x8000,
+        DegreeDistribution = 0x80000,
 
         [AnalyzeOptionInfo("Clustering coefficients distribution", 
             "Network's node clustering coefficient distribution.",
             OptionType.Distribution,
             "Coefficient",
             "AvgCount")]
-        ClusteringCoefficientDistribution = 0x10000,
+        ClusteringCoefficientDistribution = 0x100000,
 
         [AnalyzeOptionInfo("Clustering coefficient per vertex",
             "Clustering coefficient for each node of network.",
             OptionType.Distribution,
             "Vertex",
             "AvgCoefficient")]
-        ClusteringCoefficientPerVertex = 0x20000,
+        ClusteringCoefficientPerVertex = 0x200000,
 
         [AnalyzeOptionInfo("Connected component distribution",
             "Length distribution of the connected subnetworks in the network.",
             OptionType.Distribution,
             "Order",
             "AvgCount")]
-        ConnectedComponentDistribution = 0x40000,
+        ConnectedComponentDistribution = 0x400000,
 
         [AnalyzeOptionInfo("Complete component distribution", 
             "Length distribution of the complete subnetworks in the network.",
             OptionType.Distribution,
             "Order",
             "AvgCount")]
-        CompleteComponentDistribution = 0x80000,
+        CompleteComponentDistribution = 0x800000,
 
         [AnalyzeOptionInfo("Subtree distribution",
             "Length distribution of the subtrees in the network.",
             OptionType.Distribution,
             "Order",
             "AvgCount")]
-        SubtreeDistribution = 0x100000,
+        SubtreeDistribution = 0x1000000,
 
         [AnalyzeOptionInfo("Distance distribution", 
             "Node-node distance distribution in the network.",
             OptionType.Distribution,
             "Distance",
             "AvgCount")]
-        DistanceDistribution = 0x200000,
+        DistanceDistribution = 0x2000000,
 
         [AnalyzeOptionInfo("Triangle distribution", 
             "The distribution of cycles of length 3 (triangles), which contain the node x.",
             OptionType.Distribution,
             "TriangleCount",
             "AvgCount")]
-        TriangleByVertexDistribution = 0x400000,
+        TriangleByVertexDistribution = 0x4000000,
 
         [AnalyzeOptionInfo("Cycle distribution", 
             "Cycle length distribution in the network.",
             OptionType.Distribution,
             "Length",
             "AvgCount")]
-        CycleDistribution = 0x800000,        
+        CycleDistribution = 0x8000000,        
 
         // Trajectories. //
 
@@ -181,23 +209,23 @@ namespace Core.Enumerations
             OptionType.Trajectory,
             "StepNumber",
             "AvgCount")]
-        Cycles3Trajectory = 0x1000000,
+        Cycles3Trajectory = 0x10000000,
 
         //Centralities//
 
         [AnalyzeOptionInfo("Degree Centrality",
              "Network's node Degree Centrality.",
              OptionType.Centrality)]
-        DegreeCentrality = 0x2000000,
+        DegreeCentrality = 0x20000000,
 
         [AnalyzeOptionInfo("Betweenness Centrality",
            "Network's node Betweenness Centrality.",
            OptionType.Centrality)]
-        BetweennessCentrality = 0x4000000,
+        BetweennessCentrality = 0x40000000,
 
         [AnalyzeOptionInfo("Closeness Centrality",
            "Network's node Closeness Centrality.",
            OptionType.Centrality)]
-        ClosenessCentrality = 0x8000000
+        ClosenessCentrality = 0x80000000
     }
 }

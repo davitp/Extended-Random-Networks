@@ -85,10 +85,18 @@ namespace Core.Model
                     return CalculateDegreeCentrality();
                 case AnalyzeOption.Dr:
                     return CalculateDr();
-                case AnalyzeOption.ActivePartA:
-                    return CalculateActivePartA();
-                case AnalyzeOption.ActivePartB:
-                    return CalculateActivePartB();
+                case AnalyzeOption.ModelA_OR_StdTime_All:
+                    return CalculateActivePartModelA(true, true, true);
+                case AnalyzeOption.ModelA_OR_ExtTime_All:
+                    return CalculateActivePartModelA(true, false, true);
+                case AnalyzeOption.ModelA_OR_StdTime_Actives:
+                    return CalculateActivePartModelA(true, true, false);
+                case AnalyzeOption.ModelA_OR_ExtTime_Actives:
+                    return CalculateActivePartModelA(true, false, false);
+                case AnalyzeOption.ModelA_AND_StdTime_Actives:
+                    return CalculateActivePartModelA(false, true, false);
+                case AnalyzeOption.ModelB:
+                    return CalculateActivePartModelB();
                 default:
                     return null;
             }
@@ -393,12 +401,12 @@ namespace Core.Model
             throw new NotImplementedException();
         }
 
-        protected virtual SortedDictionary<Double, Double> CalculateActivePartA()
+        protected virtual SortedDictionary<Double, Double> CalculateActivePartModelA(bool b1, bool b2, bool b3)
         {
             throw new NotImplementedException();
         }
 
-        protected virtual SortedDictionary<Double, Double> CalculateActivePartB()
+        protected virtual SortedDictionary<Double, Double> CalculateActivePartModelB()
         {
             throw new NotImplementedException();
         }

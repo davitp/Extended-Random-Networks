@@ -331,7 +331,7 @@ namespace NetworkModel
             return base.CalculateEigenVectorCentrality();
         }*/
 
-        protected override SortedDictionary<Double, Double> CalculateActivePartA()
+        protected override SortedDictionary<Double, Double> CalculateActivePartModelA(bool b1, bool b2, bool b3)
         {
             // Retrieving research parameters from network. Research MUST be Activation. //
             Debug.Assert(network.ResearchParameterValues != null);
@@ -388,7 +388,7 @@ namespace NetworkModel
             return ActiveParts;
         }
 
-        protected override SortedDictionary<Double, Double> CalculateActivePartB()
+        protected override SortedDictionary<Double, Double> CalculateActivePartModelB()
         {
             // Retrieving research parameters from network. Research MUST be Activation. //
             Debug.Assert(network.ResearchParameterValues != null);
