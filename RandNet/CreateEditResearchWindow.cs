@@ -71,13 +71,13 @@ namespace RandNet
 
         private void generationTypeCmb_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (GetCurrentGenerationType() == GenerationType.Random)
+            /*if (GetCurrentGenerationType() == GenerationType.Random)
                 realizationCountTxt.Enabled = true;
             else
             {
                 realizationCountTxt.Enabled = false;
                 realizationCountTxt.Value = 1;
-            }
+            }*/
             InitializeParametersGroup();
         }
 
@@ -299,8 +299,8 @@ namespace RandNet
             if (dType != DialogType.Create)
             {
                 generationTypeCmb.SelectedText = SessionManager.GetResearchGenerationType(researchId).ToString();
-                if (GetCurrentGenerationType() == GenerationType.Static)
-                    realizationCountTxt.Enabled = false;
+                /*if (GetCurrentGenerationType() == GenerationType.Static)
+                    realizationCountTxt.Enabled = false;*/
             }
             else
             {

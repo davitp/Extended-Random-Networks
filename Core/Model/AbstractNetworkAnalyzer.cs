@@ -89,12 +89,18 @@ namespace Core.Model
                     return CalculateActivePartModelA(true, true, true);
                 case AnalyzeOption.ModelA_OR_ExtTime_All:
                     return CalculateActivePartModelA(true, false, true);
-                case AnalyzeOption.ModelA_OR_StdTime_Actives:
+                case AnalyzeOption.ModelA_OR_StdTime_Passives:
                     return CalculateActivePartModelA(true, true, false);
-                case AnalyzeOption.ModelA_OR_ExtTime_Actives:
+                case AnalyzeOption.ModelA_OR_ExtTime_Passives:
                     return CalculateActivePartModelA(true, false, false);
-                case AnalyzeOption.ModelA_AND_StdTime_Actives:
+                case AnalyzeOption.ModelA_AND_StdTime_All:
+                    return CalculateActivePartModelA(false, true, true);
+                case AnalyzeOption.ModelA_AND_ExtTime_All:
+                    return CalculateActivePartModelA(false, false, true);
+                case AnalyzeOption.ModelA_AND_StdTime_Passives:
                     return CalculateActivePartModelA(false, true, false);
+                case AnalyzeOption.ModelA_AND_ExtTime_Passives:
+                    return CalculateActivePartModelA(false, false, false);
                 case AnalyzeOption.ModelB:
                     return CalculateActivePartModelB();
                 default:

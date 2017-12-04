@@ -167,8 +167,10 @@ namespace Core.Result
                         FillListResults(option, results, r);
                         break;
                     case OptionType.Distribution:
-                    case OptionType.Trajectory:
                         FillDictionaryResults(option, results, r);
+                        break;
+                    case OptionType.Trajectory:
+                        FillTrajectoryResults(option, results, r);
                         break;
                     default: { break; }
                 }
@@ -313,6 +315,24 @@ namespace Core.Result
                         temp[k.Key] += Math.Round(k.Value / results.Count, 4);
                     else
                         temp.Add(k.Key, Math.Round(k.Value / results.Count, 4));
+                }
+            }
+            r.Result.Add(option, temp);
+        }
+
+        private static void FillTrajectoryResults(AnalyzeOption option, List<RealizationResult> results, EnsembleResult r)
+        {
+            SortedDictionary<Double, Double> temp = new SortedDictionary<Double, Double>();
+            foreach (RealizationResult res in results)
+            {
+                Debug.Assert(res.Result[option] is SortedDictionary<Double, Double>);
+                SortedDictionary<Double, Double> d = res.Result[option] as SortedDictionary<Double, Double>;
+                foreach (KeyValuePair<double, double> k in d)
+                {
+                    if (temp.ContainsKey(k.Key))
+                        temp[k.Key] += k.Value / results.Count;
+                    else
+                        temp.Add(k.Key, k.Value / results.Count);
                 }
             }
             r.Result.Add(option, temp);

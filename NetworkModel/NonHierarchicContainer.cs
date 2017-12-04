@@ -359,6 +359,11 @@ namespace NetworkModel
             clone.existingEdges = new List<KeyValuePair<int, int>>(existingEdges);
             clone.nonExistingEdges = new List<KeyValuePair<int, int>>(nonExistingEdges);
 
+            if (activeNodes != null)
+            {
+                clone.activeNodes = new BitArray(activeNodes);
+            }
+
             return clone;
         }
 
@@ -366,11 +371,13 @@ namespace NetworkModel
         {
             RNGCrypto rand = new RNGCrypto();
 
-            int edgeToRemove = rand.Next(0, existingEdges.Count - 1);
+            int edgeToRemove = rand.Next(0, existingEdges.Count);
+            Debug.Assert(edgeToRemove < existingEdges.Count);
             int rvertex1 = existingEdges[edgeToRemove].Key;
             int rvertex2 = existingEdges[edgeToRemove].Value;
 
-            int edgeToAdd = rand.Next(0, nonExistingEdges.Count - 1);
+            int edgeToAdd = rand.Next(0, nonExistingEdges.Count);
+            Debug.Assert(edgeToAdd < nonExistingEdges.Count);
             int avertex1 = nonExistingEdges[edgeToAdd].Key;
             int avertex2 = nonExistingEdges[edgeToAdd].Value;
 
@@ -389,8 +396,10 @@ namespace NetworkModel
         {
             RNGCrypto rand = new RNGCrypto();
 
-            int e1 = rand.Next(0, existingEdges.Count - 1);
-            int e2 = rand.Next(0, existingEdges.Count - 1);
+            int e1 = rand.Next(0, existingEdges.Count);
+            Debug.Assert(e1 < existingEdges.Count);
+            int e2 = rand.Next(0, existingEdges.Count);
+            Debug.Assert(e2 < existingEdges.Count);
 
             while (e1 == e2 ||
                 existingEdges[e1].Key == existingEdges[e2].Key ||
@@ -400,8 +409,10 @@ namespace NetworkModel
                 AreConnected(existingEdges[e1].Key, existingEdges[e2].Key) ||
                 AreConnected(existingEdges[e1].Value, existingEdges[e2].Value))
             {
-                e1 = rand.Next(0, existingEdges.Count - 1);
-                e2 = rand.Next(0, existingEdges.Count - 1);
+                e1 = rand.Next(0, existingEdges.Count);
+                Debug.Assert(e1 < existingEdges.Count);
+                e2 = rand.Next(0, existingEdges.Count);
+                Debug.Assert(e2 < existingEdges.Count);
             }
 
             int vertex1 = existingEdges[e1].Key, vertex2 = existingEdges[e1].Value;

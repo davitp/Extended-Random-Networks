@@ -45,7 +45,7 @@ namespace Core.Model
 
         #region Activation Extra Interface
 
-        private BitArray activeNodes = null;
+        protected BitArray activeNodes = null;
 
         public BitArray GetActiveStatuses() => activeNodes;
 

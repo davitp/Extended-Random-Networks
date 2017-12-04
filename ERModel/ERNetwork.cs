@@ -33,11 +33,14 @@ namespace ERModel
         | AnalyzeOption.TriangleByVertexDistribution
         | AnalyzeOption.Cycles3Trajectory
         | AnalyzeOption.Dr
-        | AnalyzeOption.ModelA_AND_StdTime_Actives
-        | AnalyzeOption.ModelA_OR_ExtTime_Actives
-        | AnalyzeOption.ModelA_OR_ExtTime_All
-        | AnalyzeOption.ModelA_OR_StdTime_Actives
         | AnalyzeOption.ModelA_OR_StdTime_All
+        | AnalyzeOption.ModelA_OR_ExtTime_All
+        | AnalyzeOption.ModelA_OR_StdTime_Passives
+        | AnalyzeOption.ModelA_OR_ExtTime_Passives
+        | AnalyzeOption.ModelA_AND_StdTime_All
+        | AnalyzeOption.ModelA_AND_ExtTime_All
+        | AnalyzeOption.ModelA_AND_StdTime_Passives
+        | AnalyzeOption.ModelA_AND_ExtTime_Passives
         | AnalyzeOption.DegreeCentrality
         | AnalyzeOption.ClosenessCentrality
         | AnalyzeOption.BetweennessCentrality

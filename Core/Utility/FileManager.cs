@@ -415,7 +415,13 @@ namespace Core.Utility
                 for(int i = 0; i < activeStates.Length - 1; ++i)
                 {
                     if (!activeStates[i])
+                    {
+                        if (i == activeStates.Length - 2 && activeStates[activeStates.Length - 1])
+                        {
+                            writer.Write(i + 1);
+                        }
                         continue;
+                    }
                     if (activeStates[i] && !activeStates[i + 1])
                     {
                         writer.WriteLine(i);
@@ -430,6 +436,8 @@ namespace Core.Utility
                     writer.WriteLine(j - 1);
                     i = j;            
                 }
+                if (!activeStates[activeStates.Length - 1])
+                { }
             }
         }
     }
