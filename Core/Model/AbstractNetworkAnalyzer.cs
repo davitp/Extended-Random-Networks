@@ -103,9 +103,20 @@ namespace Core.Model
                     return CalculateActivePartModelA(false, false, false);
                 case AnalyzeOption.ModelB:
                     return CalculateActivePartModelB();
+                case AnalyzeOption.Degeneracy:
+                    return CalculateDegeneracy();
                 default:
                     return null;
             }
+        }
+
+        /// <summary>
+        /// Calculate degeneracy
+        /// </summary>
+        /// <returns></returns>
+        protected virtual double CalculateDegeneracy()
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>

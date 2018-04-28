@@ -245,7 +245,7 @@ namespace RandNet
         private StorageType GetCurrentStorageType()
         {
             if (storageTypeCmb.Text == "")
-                return StorageType.ExcelStorage;
+                return StorageType.TXTStorage;
             return (StorageType)Enum.Parse(typeof(StorageType), storageTypeCmb.Text);
         }
 

@@ -43,6 +43,7 @@ namespace Research
         | AnalyzeOption.DegreeCentrality
         | AnalyzeOption.ClosenessCentrality
         | AnalyzeOption.BetweennessCentrality
+        | AnalyzeOption.Degeneracy                    
         )]
     public class BasicResearch : AbstractResearch
     {

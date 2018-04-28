@@ -247,6 +247,9 @@ namespace Core.Enumerations
         [AnalyzeOptionInfo("Closeness Centrality",
            "Network's node Closeness Centrality.",
            OptionType.Centrality)]
-        ClosenessCentrality = 0x400000000
+        ClosenessCentrality = 0x400000000,
+
+        [AnalyzeOptionInfo("Degeneracy of graph", "Maximum K-Core value", OptionType.Global)]
+        Degeneracy = 0x800000000
     }
 }

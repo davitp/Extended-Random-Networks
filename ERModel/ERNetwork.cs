@@ -44,6 +44,7 @@ namespace ERModel
         | AnalyzeOption.DegreeCentrality
         | AnalyzeOption.ClosenessCentrality
         | AnalyzeOption.BetweennessCentrality
+        | AnalyzeOption.Degeneracy 
         )]
     public class ERNetwork : AbstractNetwork
     {
