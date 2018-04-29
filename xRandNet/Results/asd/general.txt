@@ -1,0 +1,17 @@
+Research Info
+ResearchID - f790a26a-25db-4ba9-ae9c-45dd29272772
+ResearchName - asd
+ResearchType - Basic
+ModelType - HMN
+RealizationCount - 1
+Date - 4/28/2018 5:12:57 PM
+Size - 24
+Edges - 31
+
+Generation Parameters
+Vertices 24
+Probability 0.1
+Alpha 0.1
+ZeroLevelNodesCount 3
+BlocksCount 2
+MakeConnected True

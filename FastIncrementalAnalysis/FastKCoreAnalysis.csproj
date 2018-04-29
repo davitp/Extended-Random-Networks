@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{01436119-65E9-43EA-AD7F-B7B2D10E1275}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>FastIncrementalAnalysis</RootNamespace>
+    <AssemblyName>FastIncrementalAnalysis</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Bounds.cs" />
+    <Compile Include="DependencyAnalysisDefinition.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ResearchDefinition.cs" />
+    <Compile Include="Researches\ERKCoreResarch.cs" />
+    <Compile Include="Researches\IKCoreResearch.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Core\Core.csproj">
+      <Project>{479c57f7-2b45-48f4-b434-c7e59d0b0f7b}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ERModel\ERModel.csproj">
+      <Project>{f89973d5-0b32-4daa-80b7-8a5a7f717168}</Project>
+      <Name>ERModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HMNModel\HMNModel.csproj">
+      <Project>{6d6af5bb-b73c-4a48-b798-3b2cf22a70ab}</Project>
+      <Name>HMNModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NetworkModel\NetworkModel.csproj">
+      <Project>{8c7de68f-5fcc-4779-ae38-5eaceb84a4ec}</Project>
+      <Name>NetworkModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NonRegularHierarchicModel\NonRegularHierarchicModel.csproj">
+      <Project>{09adfd58-61a9-4a46-b9cf-4b7ba6466ec0}</Project>
+      <Name>NonRegularHierarchicModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RandomNumberGeneration\RandomNumberGeneration.csproj">
+      <Project>{c64d64ac-5910-485f-9ee3-60e525952ece}</Project>
+      <Name>RandomNumberGeneration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RegularHierarchicModel\RegularHierarchicModel.csproj">
+      <Project>{14d01a9a-6a57-4e91-b06a-fb9f4e674924}</Project>
+      <Name>RegularHierarchicModel</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

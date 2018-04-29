@@ -40,6 +40,7 @@ namespace Research
         | AnalyzeOption.EigenValues
         | AnalyzeOption.TriangleByVertexDistribution
         | AnalyzeOption.Dr
+        | AnalyzeOption.Degeneracy
         )]
     public class ThresholdResearch : AbstractResearch
     {
