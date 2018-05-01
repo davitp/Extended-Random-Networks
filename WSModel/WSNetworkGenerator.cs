@@ -20,9 +20,9 @@ namespace WSModel
     {
         private NonHierarchicContainer container;
 
-        public WSNetworkGenerator()
+        public WSNetworkGenerator(ContainerMode mode) : base(mode)
         {
-            container = new NonHierarchicContainer();
+            container = new NonHierarchicContainer(mode);
         }
 
         public override INetworkContainer Container

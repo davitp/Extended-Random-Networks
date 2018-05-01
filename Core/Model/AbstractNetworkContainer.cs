@@ -4,12 +4,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Diagnostics;
+using Core.Enumerations;
 using RandomNumberGeneration;
 
 namespace Core.Model
 {
     public abstract class AbstractNetworkContainer : INetworkContainer
     {
+
+        protected AbstractNetworkContainer(ContainerMode containerMode)
+        {
+            this.containerMode = containerMode;
+        }
+
         public abstract UInt32 Size { get; set; }
 
         public abstract void SetMatrix(ArrayList matrix);
@@ -46,6 +53,7 @@ namespace Core.Model
         #region Activation Extra Interface
 
         protected BitArray activeNodes = null;
+        protected readonly ContainerMode containerMode;
 
         public BitArray GetActiveStatuses() => activeNodes;
 

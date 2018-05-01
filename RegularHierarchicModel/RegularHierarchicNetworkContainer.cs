@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 
 using System.IO;
-
+using Core.Enumerations;
 using Core.Exceptions;
 using Core.Model;
 using NetworkModel.HierarchicEngine;
@@ -25,7 +25,7 @@ namespace RegularHierarchicModel
         private UInt32 level = 0;        
         private BitArray[][] hierarchicTree;
 
-        public RegularHierarchicNetworkContainer()
+        public RegularHierarchicNetworkContainer(ContainerMode containerMode) : base(containerMode)
         {
             hierarchicTree = new BitArray[0][];
         }

@@ -1,16 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Core;
 using Core.Enumerations;
 using ERModel;
+using FastIncrementalAnalysis;
+using Microsoft.Win32;
 
 namespace FastIncrementalAnalysis.Researches
 {
     public class ERKCoreResarch : IKCoreResearch
     {
-        private SortedDictionary<int, DependencyAnalysisDefinition> analysis;
+        private readonly SortedDictionary<int, DependencyAnalysisDefinition> analysis;
 
         private int initialVertexes;
         private int realizations;
@@ -68,7 +71,7 @@ namespace FastIncrementalAnalysis.Researches
             Bounds<double, double> bounds = this.GetProbabilityBounds();
 
             Dictionary<double, ICollection<double>> allResults = new Dictionary<double, ICollection<double>>();
-            for (var start = bounds.InitialValue; start < bounds.MaxValue; start += bounds.Step)
+            for (var start = bounds.InitialValue; start <= bounds.MaxValue; start += bounds.Step)
             {
                 var networks = new ERNetwork[this.realizations];
                 var results = new double[this.realizations];
@@ -85,7 +88,7 @@ namespace FastIncrementalAnalysis.Researches
                     };
 
                     networks[i] = (ERNetwork)AbstractNetwork.CreateNetworkByType(ModelType.ER, $"Prob_{prob}_Run_{i}",
-                        ResearchType.Basic, GenerationType.Random, new Dictionary<ResearchParameter, object> { }, param, AnalyzeOption.Degeneracy);
+                        ResearchType.Basic, GenerationType.Random, new Dictionary<ResearchParameter, object> { }, param, AnalyzeOption.Degeneracy, ContainerMode.Fast);
 
                     networks[i].Generate();
 
@@ -93,11 +96,52 @@ namespace FastIncrementalAnalysis.Researches
 
                     results[i] = (double)networks[i].NetworkResult.Result[AnalyzeOption.Degeneracy];
                 });
-
-               
             }
 
+            this.SaveProbResearchResult(allResults);
+            Console.WriteLine("Research is completed. You can start other experiment or close app.");
+            Console.WriteLine();
+
         }
+
+        /// <summary>
+        /// Save result to CSV file
+        /// </summary>
+        /// <param name="allResults">The result set</param>
+        private void SaveProbResearchResult(Dictionary<double, ICollection<double>> allResults)
+        {
+            var aggregated = new SortedDictionary<double, double>(allResults.ToDictionary(kv => kv.Key, kv => kv.Value.Average()));
+
+            // Displays a SaveFileDialog so the user can save the Image  
+            // assigned to Button2.  
+            var saveFileDialog1 = new SaveFileDialog
+            {
+                Filter = "CSV Files (*.csv)|*.csv",
+                Title = "Save a resulting CSV file"
+            };
+            saveFileDialog1.ShowDialog();
+
+            // If the file name is not an empty string open it for saving.  
+            if (saveFileDialog1.FileName == "") return;
+            
+            // Saves the Image via a FileStream created by the OpenFile method.  
+            using (var fs = (FileStream) saveFileDialog1.OpenFile())
+            {
+
+                using (var writer = new StreamWriter(fs))
+                {
+                    writer.Write("Probability, Avg" + Environment.NewLine);
+
+                    foreach (var r in aggregated)
+                    {
+                        writer.Write("{0},{1}{2}", r.Key, r.Value, Environment.NewLine);
+                    }
+
+                    writer.Flush();
+                }
+            }
+        }
+    
 
         private Bounds<double, double> GetProbabilityBounds()
         {

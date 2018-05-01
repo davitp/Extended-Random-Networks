@@ -40,9 +40,9 @@ namespace RegularHierarchicModel
             GenerationType gType,
             Dictionary<ResearchParameter, object> rParams,
             Dictionary<GenerationParameter, object> genParams,
-            AnalyzeOption analyzeOpts) : base(rName, rType, gType, rParams, genParams, analyzeOpts)
+            AnalyzeOption analyzeOpts, ContainerMode mode) : base(rName, rType, gType, rParams, genParams, analyzeOpts, mode)
         {
-            networkGenerator = new RegularHierarchicNetworkGenerator();
+            networkGenerator = new RegularHierarchicNetworkGenerator(mode);
             networkAnalyzer = new RegularHierarchicNetworkAnalyzer(this);
         }
     }

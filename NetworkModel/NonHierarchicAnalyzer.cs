@@ -502,7 +502,7 @@ namespace NetworkModel
             double currentCycle3Count = CalculateCycles3();
             trajectory.Add(currentStep, currentCycle3Count);
 
-            NonHierarchicContainer previousContainer = new NonHierarchicContainer();
+            NonHierarchicContainer previousContainer = new NonHierarchicContainer(this.containerMode);
             RNGCrypto rand = new RNGCrypto();
             while (currentStep != stepCount)
             {
@@ -1536,7 +1536,7 @@ namespace NetworkModel
         public ConnectedComponents GetSubGraph(IEnumerable<int> nodes)
         {
             ConnectedComponents comp;
-            NonHierarchicContainer g = new NonHierarchicContainer();
+            NonHierarchicContainer g = new NonHierarchicContainer(this.containerMode);
             Dictionary<int, int> tempnodes = new Dictionary<int, int>();
             for (int i = 0; i < nodes.Count(); i++)
             {                

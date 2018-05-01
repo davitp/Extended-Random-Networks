@@ -22,10 +22,10 @@ namespace BAModel
         private NonHierarchicContainer container;
         private NonHierarchicContainer initialcontainer;
 
-        public BANetworkGenerator()
+        public BANetworkGenerator(ContainerMode mode): base(mode)
         {
-            container = new NonHierarchicContainer();
-            initialcontainer = new NonHierarchicContainer();
+            container = new NonHierarchicContainer(this.containerMode);
+            initialcontainer = new NonHierarchicContainer(this.containerMode);
         }
 
         public override INetworkContainer Container

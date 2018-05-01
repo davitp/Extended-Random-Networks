@@ -33,6 +33,7 @@ namespace Core
 
         protected INetworkGenerator networkGenerator;
         protected INetworkAnalyzer networkAnalyzer;
+        protected readonly ContainerMode containerMode;
 
         public int NetworkID { get; set; }
         public bool SuccessfullyCompleted { get; private set; }
@@ -40,11 +41,17 @@ namespace Core
 
         public event NetworkStatusUpdateHandler OnUpdateStatus;
 
+        public ContainerMode GetContainerMode()
+        {
+            return this.containerMode;
+        }
+
         public static AbstractNetwork CreateNetworkByType(ModelType mt, String rName,
             ResearchType rType, GenerationType gType,
             Dictionary<ResearchParameter, object> rParams,
             Dictionary<GenerationParameter, object> genParams,
-            AnalyzeOption AnalyzeOptions)
+            AnalyzeOption AnalyzeOptions,
+            ContainerMode mode)
         {
             ModelTypeInfo[] info = (ModelTypeInfo[])mt.GetType().GetField(mt.ToString()).GetCustomAttributes(typeof(ModelTypeInfo), false);
             Type t = Type.GetType(info[0].Implementation);
@@ -54,23 +61,28 @@ namespace Core
                     typeof(GenerationType),
                     typeof(Dictionary<ResearchParameter, object>),
                     typeof(Dictionary<GenerationParameter, object>), 
-                    typeof(AnalyzeOption) };
+                    typeof(AnalyzeOption),
+                    typeof(ContainerMode)
+            };
             object[] invokeParams = new object[] {
                     rName,
                     rType,
                     gType,
                     rParams,
                     genParams, 
-                    AnalyzeOptions };
+                    AnalyzeOptions,
+                    mode
+            };
             return (AbstractNetwork)t.GetConstructor(constructTypes).Invoke(invokeParams);
         }
 
-        public AbstractNetwork(String rName, ResearchType rType,
+        protected AbstractNetwork(String rName, ResearchType rType,
             GenerationType gType,
             Dictionary<ResearchParameter, object> rParams,
             Dictionary<GenerationParameter, object> genParams,
-            AnalyzeOption AnalyzeOptions)
+            AnalyzeOption AnalyzeOptions, ContainerMode mode)
         {
+            this.containerMode = mode;
             ResearchName = rName;
             ResearchType = rType;
             GenerationType = gType;

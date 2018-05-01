@@ -81,7 +81,7 @@ namespace NetworkModel
         private List<KeyValuePair<int, int>> existingEdges;
         private List<KeyValuePair<int, int>> nonExistingEdges;
 
-        public NonHierarchicContainer()
+        public NonHierarchicContainer(ContainerMode mode) : base(mode)
         {
             neighbourship = new SortedDictionary<int, List<int>>();
             degrees = new List<int>();
@@ -234,6 +234,12 @@ namespace NetworkModel
         /// <param name="j">Second vertex number.</param>
         public void AddConnection(int i, int j)
         {
+            if (this.containerMode == ContainerMode.Fast)
+            {
+                neighbourship[i].Add(j);
+                neighbourship[j].Add(i);
+            }
+
             Debug.Assert(i < size);
             Debug.Assert(j < size);
             if (!AreConnected(i, j))

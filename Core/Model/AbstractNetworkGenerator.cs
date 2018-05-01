@@ -12,6 +12,13 @@ namespace Core.Model
 {
     public abstract class AbstractNetworkGenerator : INetworkGenerator
     {
+        protected readonly ContainerMode containerMode;
+
+        protected AbstractNetworkGenerator(ContainerMode mode)
+        {
+            this.containerMode = mode;
+        }
+
         public abstract INetworkContainer Container { get; set; }
 
         public abstract void RandomGeneration(Dictionary<GenerationParameter, object> genParam);

@@ -21,9 +21,9 @@ namespace ERModel
     {
         private NonHierarchicContainer container;
      
-        public ERNetworkGenerator()
+        public ERNetworkGenerator(ContainerMode containerMode) : base(containerMode)
         {
-            container = new NonHierarchicContainer();
+            container = new NonHierarchicContainer(containerMode);
         }
 
         public override INetworkContainer Container

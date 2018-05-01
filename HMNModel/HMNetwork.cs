@@ -52,9 +52,10 @@ namespace HMNModel
             GenerationType gType,
             Dictionary<ResearchParameter, object> rParams,
             Dictionary<GenerationParameter, object> genParams,
-            AnalyzeOption analyzeOpts) : base(rName, rType, gType, rParams, genParams, analyzeOpts)
+            AnalyzeOption analyzeOpts,
+            ContainerMode containerMode) : base(rName, rType, gType, rParams, genParams, analyzeOpts, containerMode)
         {
-            networkGenerator = new HMNetworkGenerator();
+            networkGenerator = new HMNetworkGenerator(containerMode);
             networkAnalyzer = new NonHierarchicAnalyzer(this);
         }
     }

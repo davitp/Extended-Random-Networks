@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using Core.Enumerations;
 using Core.Model;
 using NetworkModel.HierarchicEngine;
 
@@ -22,7 +22,7 @@ namespace NonRegularHierarchicModel
         private UInt32[][] branches;
         private BitArray[][] hierarchicTree;
 
-        public NonRegularHierarchicNetworkContainer()
+        public NonRegularHierarchicNetworkContainer(ContainerMode mode) : base(mode)
         {
             branches = new UInt32[0][];
             hierarchicTree = new BitArray[0][];            

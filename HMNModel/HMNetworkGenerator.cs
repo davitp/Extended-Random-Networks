@@ -18,9 +18,9 @@ namespace HMNModel
     {
         private NonHierarchicContainer container;
 
-        public HMNetworkGenerator()
+        public HMNetworkGenerator(ContainerMode containerMode) : base(containerMode)
         {
-            container = new NonHierarchicContainer();
+            container = new NonHierarchicContainer(containerMode);
             rand = new RNGCrypto();
             node = 0;
         }

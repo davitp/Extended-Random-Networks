@@ -23,9 +23,9 @@ namespace RegularHierarchicModel
         /// </summary>
         private RegularHierarchicNetworkContainer container;
 
-        public RegularHierarchicNetworkGenerator()
+        public RegularHierarchicNetworkGenerator(ContainerMode mode) : base(mode)
         {
-            container = new RegularHierarchicNetworkContainer();
+            container = new RegularHierarchicNetworkContainer(mode);
         }
 
         public override INetworkContainer Container

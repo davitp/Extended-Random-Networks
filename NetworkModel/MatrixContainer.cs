@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Diagnostics;
-
+using Core.Enumerations;
 using Core.Model;
 
 namespace NetworkModel
@@ -14,7 +14,7 @@ namespace NetworkModel
         private List<BitArray> graph;
         private SortedDictionary<double, double> degrees;
 
-        public MatrixContainer()
+        public MatrixContainer(ContainerMode mode) : base(mode)
         {
             graph = new List<BitArray>();
             degrees = new SortedDictionary<double, double>();

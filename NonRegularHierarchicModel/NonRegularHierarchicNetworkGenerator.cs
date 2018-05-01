@@ -24,9 +24,9 @@ namespace NonRegularHierarchicModel
         /// </summary>
         private NonRegularHierarchicNetworkContainer container;
 
-        public NonRegularHierarchicNetworkGenerator()
+        public NonRegularHierarchicNetworkGenerator(ContainerMode mode) : base(mode)
         {
-            container = new NonRegularHierarchicNetworkContainer();
+            container = new NonRegularHierarchicNetworkContainer(mode);
         }
 
         public override INetworkContainer Container

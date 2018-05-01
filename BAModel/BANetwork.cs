@@ -53,9 +53,10 @@ namespace BAModel
             GenerationType gType,
             Dictionary<ResearchParameter, object> rParams,
             Dictionary<GenerationParameter, object> genParams,
-            AnalyzeOption analyzeOpts) : base(rName, rType, gType, rParams, genParams, analyzeOpts)
+            AnalyzeOption analyzeOpts,
+            ContainerMode mode) : base(rName, rType, gType, rParams, genParams, analyzeOpts, mode)
         {
-            networkGenerator = new BANetworkGenerator();
+            networkGenerator = new BANetworkGenerator(mode);
             networkAnalyzer = new NonHierarchicAnalyzer(this);
         }
     }

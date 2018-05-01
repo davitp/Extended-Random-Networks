@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using Core.Enumerations;
 using QuickGraph;
 
 using Core.Model;
@@ -17,7 +17,7 @@ namespace NetworkModel
     {
         private UndirectedGraph<int, UndirectedEdge<int>> graph;
 
-        public QuickGraphContainer()
+        public QuickGraphContainer(ContainerMode mode) : base(mode)
         {
             graph = new UndirectedGraph<int, UndirectedEdge<int>>(false);
         }

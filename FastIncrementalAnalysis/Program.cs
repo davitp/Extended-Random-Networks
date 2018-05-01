@@ -14,7 +14,7 @@ namespace FastIncrementalAnalysis
             {1, new ResearchDefinition{ResearchName = "ER Model", ResearchCreator = () => new ERKCoreResarch()} }
         };
 
-
+        [STAThread]
         static void Main(string[] args)
         {
             Console.WriteLine("Welcome to K-Core analysis app...");

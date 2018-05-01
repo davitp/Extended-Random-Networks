@@ -93,6 +93,7 @@
     <Compile Include="Attributes\StorageTypeInfo.cs" />
     <Compile Include="Enumerations\AnalyzeOption.cs" />
     <Compile Include="Enumerations\ApproximationType.cs" />
+    <Compile Include="Enumerations\ContainerMode.cs" />
     <Compile Include="Enumerations\GenerationParameter.cs" />
     <Compile Include="Enumerations\GenerationType.cs" />
     <Compile Include="Enumerations\ManagerType.cs" />

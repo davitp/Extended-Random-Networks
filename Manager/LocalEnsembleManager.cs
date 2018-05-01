@@ -89,7 +89,8 @@ namespace Manager
                     GenerationType,
                     ResearchParamaterValues,
                     GenerationParameterValues,
-                    AnalyzeOptions);
+                    AnalyzeOptions,
+                    ContainerMode.Default);
 
                 networks[i].NetworkID = i;
                 networks[i].OnUpdateStatus += new NetworkStatusUpdateHandler(NetworkStatusUpdateHandlerMethod);

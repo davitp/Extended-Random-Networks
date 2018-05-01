@@ -21,6 +21,7 @@ namespace Core.Model
         public AbstractNetworkAnalyzer(AbstractNetwork n)
         {
             network = n;
+            this.containerMode = n.GetContainerMode();
         }
 
         public Double CalculateEdgesCount()
@@ -193,6 +194,8 @@ namespace Core.Model
 
         private bool calledEigens = false;
         private List<double> eigenValues = new List<double>();
+
+        protected readonly ContainerMode containerMode;
 
         /// <summary>
         /// Calculates the eigenvalues of adjacency matrix of the network.

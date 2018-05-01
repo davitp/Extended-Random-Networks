@@ -169,7 +169,8 @@ namespace RandNet
                 GenerationType.Static, 
                 new Dictionary<ResearchParameter,object>(),
                 gp,
-                opts);
+                opts,
+                ContainerMode.Default);
             n.Generate();
             n.Analyze();
             RealizationResult rn = n.NetworkResult;
