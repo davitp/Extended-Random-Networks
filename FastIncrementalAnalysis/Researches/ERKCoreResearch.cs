@@ -11,7 +11,7 @@ using Microsoft.Win32;
 
 namespace FastIncrementalAnalysis.Researches
 {
-    public class ERKCoreResarch : IKCoreResearch
+    public class ERKCoreResearch : IKCoreResearch
     {
         private readonly SortedDictionary<int, DependencyAnalysisDefinition> analysis;
 
@@ -19,7 +19,7 @@ namespace FastIncrementalAnalysis.Researches
         private int realizations;
         private int option;
 
-        public ERKCoreResarch()
+        public ERKCoreResearch()
         {
             this.InitializeParams();
             this.analysis =  new SortedDictionary<int, DependencyAnalysisDefinition>
@@ -46,7 +46,7 @@ namespace FastIncrementalAnalysis.Researches
                 res = 1;
             }
 
-            return 1;
+            return res;
         }
 
         private void InitializeParams()

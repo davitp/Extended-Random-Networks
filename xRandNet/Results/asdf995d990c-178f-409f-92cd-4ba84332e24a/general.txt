@@ -1,0 +1,14 @@
+Research Info
+ResearchID - 995d990c-178f-409f-92cd-4ba84332e24a
+ResearchName - asdf
+ResearchType - Basic
+ModelType - RegularHierarchic
+RealizationCount - 1
+Date - 5/1/2018 11:44:15 PM
+Size - 1024
+Edges - 412688
+
+Generation Parameters
+BranchingIndex 2
+Level 10
+Mu 0.1

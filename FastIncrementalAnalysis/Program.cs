@@ -11,7 +11,8 @@ namespace FastIncrementalAnalysis
 
         private static readonly SortedDictionary<int, ResearchDefinition> Researches = new SortedDictionary<int, ResearchDefinition>
         {
-            {1, new ResearchDefinition{ResearchName = "ER Model", ResearchCreator = () => new ERKCoreResarch()} }
+            {1, new ResearchDefinition{ResearchName = "ER Model", ResearchCreator = () => new ERKCoreResearch()} },
+            {2, new ResearchDefinition{ResearchName = "Regular Hierarchic Model", ResearchCreator = () => new RHKCoreResearch()} }
         };
 
         [STAThread]

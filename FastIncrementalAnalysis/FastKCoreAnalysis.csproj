@@ -47,7 +47,8 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResearchDefinition.cs" />
-    <Compile Include="Researches\ERKCoreResarch.cs" />
+    <Compile Include="Researches\RHKCoreResearch.cs" />
+    <Compile Include="Researches\ERKCoreResearch.cs" />
     <Compile Include="Researches\IKCoreResearch.cs" />
   </ItemGroup>
   <ItemGroup>
