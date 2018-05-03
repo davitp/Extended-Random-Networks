@@ -15,14 +15,16 @@ namespace FastIncrementalAnalysis.Researches
     {
         private readonly SortedDictionary<int, DependencyAnalysisDefinition> analysis;
 
+        private readonly int parallel;
         private int branchingIndex;
         private int level;
 
         private int realizations;
         private int option;
 
-        public RHKCoreResearch()
+        public RHKCoreResearch(int parallel)
         {
+            this.parallel = parallel;
             this.InitializeParams();
             this.analysis =  new SortedDictionary<int, DependencyAnalysisDefinition>
             {
@@ -88,7 +90,7 @@ namespace FastIncrementalAnalysis.Researches
                 allResults[start] = results;
 
                 var mu = start;
-                Parallel.For(0, this.realizations, new ParallelOptions{MaxDegreeOfParallelism = 8}, i =>
+                Parallel.For(0, this.realizations, new ParallelOptions{MaxDegreeOfParallelism = this.parallel}, i =>
                 {
                     var param = new Dictionary<GenerationParameter, object>
                     {

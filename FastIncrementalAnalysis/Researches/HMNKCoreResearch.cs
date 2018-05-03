@@ -7,25 +7,30 @@ using Core;
 using Core.Enumerations;
 using ERModel;
 using FastIncrementalAnalysis;
+using HMNModel;
 using Microsoft.Win32;
 
 namespace FastIncrementalAnalysis.Researches
 {
-    public class ERKCoreResearch : IKCoreResearch
+    public class HMNKCoreResearch : IKCoreResearch
     {
         private readonly SortedDictionary<int, DependencyAnalysisDefinition> analysis;
-        private readonly int parallel;
+
         private int initialVertexes;
+        private int blocks;
+        private int alpha;
+        private int zeroNodes;
         private int realizations;
         private int option;
+        private int parallel;
 
-        public ERKCoreResearch(int parallel)
+        public HMNKCoreResearch(int parallel)
         {
             this.parallel = parallel;
             this.InitializeParams();
             this.analysis =  new SortedDictionary<int, DependencyAnalysisDefinition>
             {
-                {1, new DependencyAnalysisDefinition{Parameter = GenerationParameter.Probability, Description = "Dependency of the K-Core topology from probability of ER Generation.", Activator = this.ProbabilityDependencyAnalysis} }
+                {1, new DependencyAnalysisDefinition{Parameter = GenerationParameter.Probability, Description = "Dependency of the K-Core topology from Mu (P = b^-Mu) of HMN Network.", Activator = this.MuDependencyAnalysis} }
             };
             
         }
@@ -59,6 +64,27 @@ namespace FastIncrementalAnalysis.Researches
                 this.initialVertexes = 24;
             }
 
+            Console.Write("Please enter the number of blocks (Default = 2): ");
+
+            if (!int.TryParse(Console.ReadLine(), out this.blocks))
+            {
+                this.blocks = 2;
+            }
+
+            Console.Write("Please enter the Alpha value (Default = 1): ");
+
+            if (!int.TryParse(Console.ReadLine(), out this.alpha))
+            {
+                this.alpha = 1;
+            }
+
+            Console.Write("Please enter the number of zero level nodes (Default = 2): ");
+
+            if (!int.TryParse(Console.ReadLine(), out this.zeroNodes))
+            {
+                this.zeroNodes = 2;
+            }
+
             Console.Write("Please enter the number of realization (Default = 1): ");
 
             if (!int.TryParse(Console.ReadLine(), out this.realizations))
@@ -67,28 +93,35 @@ namespace FastIncrementalAnalysis.Researches
             }
         }
 
-        private void ProbabilityDependencyAnalysis()
+        private void MuDependencyAnalysis()
         {
-            Bounds<double, double> bounds = this.GetProbabilityBounds();
+            Console.WriteLine("Starting Mu dependency research considering P = b^mu");
+
+            Bounds<double, double> bounds = this.GetMuBounds();
 
             Dictionary<double, ICollection<double>> allResults = new Dictionary<double, ICollection<double>>();
-            for (var start = bounds.InitialValue; start <= bounds.MaxValue; start += bounds.Step)
+            for (var start = Math.Min(bounds.InitialValue, bounds.MaxValue); start <= Math.Max(bounds.InitialValue, bounds.MaxValue); start += bounds.Step)
             {
-                var networks = new ERNetwork[this.realizations];
+                var networks = new HMNetwork[this.realizations];
                 var results = new double[this.realizations];
 
+                var mu = start;
+                var prob = Math.Pow(this.blocks, -mu);
                 allResults[start] = results;
 
-                var prob = start;
                 Parallel.For(0, this.realizations, new ParallelOptions{MaxDegreeOfParallelism = this.parallel}, i =>
                 {
                     var param = new Dictionary<GenerationParameter, object>
                     {
                         {GenerationParameter.Probability, prob},
+                        {GenerationParameter.BlocksCount, this.blocks },
+                        {GenerationParameter.MakeConnected, true },
+                        {GenerationParameter.Alpha, this.alpha},
+                        {GenerationParameter.ZeroLevelNodesCount, this.zeroNodes},
                         {GenerationParameter.Vertices, this.initialVertexes }
                     };
 
-                    networks[i] = (ERNetwork)AbstractNetwork.CreateNetworkByType(ModelType.ER, $"Prob_{prob}_Run_{i}",
+                    networks[i] = (HMNetwork)AbstractNetwork.CreateNetworkByType(ModelType.HMN, $"Mu_{prob}_Run_{i}",
                         ResearchType.Basic, GenerationType.Random, new Dictionary<ResearchParameter, object> { }, param, AnalyzeOption.Degeneracy, ContainerMode.Fast);
 
                     networks[i].Generate();
@@ -99,7 +132,7 @@ namespace FastIncrementalAnalysis.Researches
                 });
             }
 
-            this.SaveProbResearchResult(allResults);
+            this.SaveMuResearchResult(allResults);
             Console.WriteLine("Research is completed. You can start other experiment or close app.");
             Console.WriteLine();
 
@@ -109,7 +142,7 @@ namespace FastIncrementalAnalysis.Researches
         /// Save result to CSV file
         /// </summary>
         /// <param name="allResults">The result set</param>
-        private void SaveProbResearchResult(Dictionary<double, ICollection<double>> allResults)
+        private void SaveMuResearchResult(Dictionary<double, ICollection<double>> allResults)
         {
             var aggregated = new SortedDictionary<double, double>(allResults.ToDictionary(kv => kv.Key, kv => kv.Value.Average()));
 
@@ -131,7 +164,7 @@ namespace FastIncrementalAnalysis.Researches
 
                 using (var writer = new StreamWriter(fs))
                 {
-                    writer.Write("Probability, Avg" + Environment.NewLine);
+                    writer.Write("Mu, Avg" + Environment.NewLine);
 
                     foreach (var r in aggregated)
                     {
@@ -144,13 +177,13 @@ namespace FastIncrementalAnalysis.Researches
         }
     
 
-        private Bounds<double, double> GetProbabilityBounds()
+        private Bounds<double, double> GetMuBounds()
         {
             double min;
             double max;
             double step;
 
-            Console.Write("Enter the probability for research (Default = 0.1): ");
+            Console.Write("Enter the Mu for research (Default = 0.1): ");
 
             if (!double.TryParse(Console.ReadLine(), out min))
             {

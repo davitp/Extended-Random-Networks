@@ -8,11 +8,13 @@ namespace FastIncrementalAnalysis
     {
         private static readonly int SupportedNetworks = 3;
         private static readonly int MaxRuns = 10000;
+        private static readonly int MaxParallel = 8;
 
         private static readonly SortedDictionary<int, ResearchDefinition> Researches = new SortedDictionary<int, ResearchDefinition>
         {
-            {1, new ResearchDefinition{ResearchName = "ER Model", ResearchCreator = () => new ERKCoreResearch()} },
-            {2, new ResearchDefinition{ResearchName = "Regular Hierarchic Model", ResearchCreator = () => new RHKCoreResearch()} }
+            {1, new ResearchDefinition{ResearchName = "ER Model", ResearchCreator = () => new ERKCoreResearch(MaxParallel)} },
+            {2, new ResearchDefinition{ResearchName = "Regular Hierarchic Model", ResearchCreator = () => new RHKCoreResearch(MaxParallel)} },
+            {3, new ResearchDefinition{ResearchName = "HMN Model", ResearchCreator = () => new HMNKCoreResearch(MaxParallel)} }
         };
 
         [STAThread]
