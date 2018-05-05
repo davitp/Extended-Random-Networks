@@ -9,6 +9,7 @@ using Core;
 using Core.Model;
 using NetworkModel;
 using NetworkModel.HierarchicEngine;
+using QuickGraph;
 
 namespace NonRegularHierarchicModel
 {
@@ -77,6 +78,38 @@ namespace NonRegularHierarchicModel
         protected override Double CalculateCycles4()
         {
             return (long)Count4Cycle(0, 0)[0];
+        }
+
+
+        protected AdjacencyGraph<int, Edge<int>> ToQuickGraph()
+        {
+
+            var g = new AdjacencyGraph<int, Edge<int>>();
+
+            for (var i = 0; i < this.container.Size; ++i)
+            {
+                g.AddVertex(i);
+            }
+
+            foreach (var kv in this.container.GetNeighbourship())
+            {
+                g.AddEdge(new Edge<int>(kv.Key, kv.Value));
+
+            }
+
+            return g;
+        }
+
+
+        protected override double CalculateDegeneracy()
+        {
+
+            return this.ToQuickGraph().CoreDecomposition().Degeneracy;
+        }
+
+        protected override List<double> CalculateCoreCollapseSequence()
+        {
+            return this.ToQuickGraph().CoreDecomposition().CollapseSequence.Values.ToList();
         }
 
         protected override SortedDictionary<Double, Double> CalculateDegreeDistribution()

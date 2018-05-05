@@ -238,6 +238,7 @@ namespace NetworkModel
             {
                 neighbourship[i].Add(j);
                 neighbourship[j].Add(i);
+                return;
             }
 
             Debug.Assert(i < size);

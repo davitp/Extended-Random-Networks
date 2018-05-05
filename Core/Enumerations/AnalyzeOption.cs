@@ -250,6 +250,10 @@ namespace Core.Enumerations
         ClosenessCentrality = 0x400000000,
 
         [AnalyzeOptionInfo("Degeneracy of graph", "Maximum K-Core value", OptionType.Global)]
-        Degeneracy = 0x800000000
+        Degeneracy = 0x800000000,
+
+
+        [AnalyzeOptionInfo("Core Collapse Sequence", "The Core Collapse Sequence", OptionType.ValueList)]
+        CCS = 0x1000000000
     }
 }

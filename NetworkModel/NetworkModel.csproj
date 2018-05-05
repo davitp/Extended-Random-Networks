@@ -71,6 +71,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConnectedComponents.cs" />
+    <Compile Include="DegeneracyResult.cs" />
     <Compile Include="Engine\Cycles\CyclesCounter.cs" />
     <Compile Include="Engine\Cycles\CyclesCounterSingleThreaded.cs" />
     <Compile Include="Engine\Cycles\CyclesParrallelCounter.cs" />
@@ -81,6 +82,7 @@
     <Compile Include="NonHierarchicAnalyzer.cs" />
     <Compile Include="NonHierarchicContainer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QGExtended.cs" />
     <Compile Include="QuickGraphAnalyzer.cs" />
     <Compile Include="QuickGraphContainer.cs" />
   </ItemGroup>

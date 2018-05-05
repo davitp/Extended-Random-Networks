@@ -106,9 +106,20 @@ namespace Core.Model
                     return CalculateActivePartModelB();
                 case AnalyzeOption.Degeneracy:
                     return CalculateDegeneracy();
+                case AnalyzeOption.CCS:
+                    return CalculateCoreCollapseSequence();
                 default:
                     return null;
             }
+        }
+
+        /// <summary>
+        /// Calculate ore Collapse Sequence
+        /// </summary>
+        /// <returns></returns>
+        protected virtual List<double> CalculateCoreCollapseSequence()
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>

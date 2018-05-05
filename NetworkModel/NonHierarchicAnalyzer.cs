@@ -32,7 +32,8 @@ namespace NetworkModel
             set { container = (NonHierarchicContainer)value; }
         }
 
-        protected override double CalculateDegeneracy()
+
+        protected AdjacencyGraph<int, Edge<int>> ToQuickGraph()
         {
             var g = new AdjacencyGraph<int, Edge<int>>();
 
@@ -49,64 +50,18 @@ namespace NetworkModel
                 }
             }
 
-            var scores = new Dictionary<int, int>();
-            var degeneracy = 0;
+            return g;
+        }
 
-            /*
-             * Initialize buckets
-             */
-            var n = g.VertexCount;
-            var maxDegree = n - 1;
+        protected override double CalculateDegeneracy()
+        {
+            
+            return this.ToQuickGraph().CoreDecomposition().Degeneracy;
+        }
 
-            var buckets = new HashSet<int>[maxDegree + 1];
-
-            for (var i = 0; i<buckets.Length; i++) {
-                buckets[i] = new HashSet<int>();
-            }
-
-            var minDegree = n;
-            var degrees = new Dictionary<int, int>();
-
-            foreach (var v in g.Vertices) {
-                var d = g.OutDegree(v);
-
-                buckets[d].Add(v);
-                degrees.Add(v, d);
-                minDegree = Math.Min(minDegree, d);
-            }
-
-            /*
-             * Extract from buckets
-             */
-            while (minDegree<n) {
-                var b = buckets[minDegree];
-                if (b.Count == 0) {
-                    minDegree++;
-                    continue;
-                }
-
-                var iterator = b.GetEnumerator();
-                iterator.MoveNext();
-                var v = iterator.Current;
-                b.Remove(v);
-                scores.Add(v, minDegree);
-                degeneracy = Math.Max(degeneracy, minDegree);
-
-                foreach (var e in g.OutEdges(v)) {
-                    var u = e.GetOtherVertex(v);
-                    int uDegree = degrees[u];
-                    if (uDegree > minDegree && !scores.ContainsKey(u)) {
-                        buckets[uDegree].Remove(u);
-                        uDegree--;
-                        degrees[u] = uDegree;
-                        buckets[uDegree].Add(u);
-                        minDegree = Math.Min(minDegree, uDegree);
-                    }
-                }
-            }
-
-            return degeneracy;
-
+        protected override List<double> CalculateCoreCollapseSequence()
+        {
+            return this.ToQuickGraph().CoreDecomposition().CollapseSequence.Values.ToList();
         }
 
         protected override Double CalculateEdgesCountOfNetwork()
