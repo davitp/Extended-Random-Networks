@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using QuickGraph;
 
 namespace NetworkModel
@@ -111,11 +112,49 @@ namespace NetworkModel
                 }
             }
 
-            // calculate core collapse sequence by grouping corenesses
-            var coreCollapseSequence = corenesses.Values.GroupBy(e => e).ToDictionary(g => g.Key, g => g.Count() * 1.0 / size);
+            // core counts 
+            var coreGroups = new SortedDictionary<int, HashSet<int>> {[0] = new HashSet<int>(Enumerable.Range(0, 6))};
+
+
+            for (var k = 1; k <= degeneracy; ++k)
+            {
+                coreGroups[k] = new HashSet<int>();
+                for (var vertex = 0; vertex < size; ++vertex)
+                {
+                    if (corenesses[vertex] < k) continue;
+                    coreGroups[k].Add(vertex);
+                }
+            }
+
+            // max collapse core
+            var maxCollapse = coreGroups.Reverse().First().Key;
+
+            var ccs = new SortedDictionary<int, double>();
+
+            for (var k = 0; k <= maxCollapse; ++k)
+            {
+                HashSet<int> kGroup;
+                HashSet<int> k1Group;
+
+                if (!coreGroups.TryGetValue(k, out kGroup))
+                {
+                    kGroup = new HashSet<int>();
+                }
+
+                if (!coreGroups.TryGetValue(k + 1, out k1Group))
+                {
+                    k1Group = new HashSet<int>();
+                }
+
+                var remainder = new HashSet<int>(kGroup);
+                remainder.RemoveWhere(item => k1Group.Contains(item));
+
+                ccs.Add(k, (double)remainder.Count / size);
+            
+            }
 
             // craete and return result
-            return new DegeneracyResult(new SortedDictionary<int, double>(coreCollapseSequence), degeneracy);
+            return new DegeneracyResult(ccs, degeneracy);
 
         }
     }

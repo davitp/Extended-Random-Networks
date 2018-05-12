@@ -236,6 +236,7 @@ namespace NetworkModel
         {
             if (this.containerMode == ContainerMode.Fast)
             {
+                if (this.AreConnected(i, j)) return;
                 neighbourship[i].Add(j);
                 neighbourship[j].Add(i);
                 return;
