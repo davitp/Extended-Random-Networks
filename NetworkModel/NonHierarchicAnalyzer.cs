@@ -33,9 +33,11 @@ namespace NetworkModel
         }
 
 
-        protected AdjacencyGraph<int, Edge<int>> ToQuickGraph()
+        protected UndirectedGraph<int, Edge<int>> ToQuickGraph()
         {
-            var g = new AdjacencyGraph<int, Edge<int>>();
+            if (this.quickGraph != null) return this.quickGraph;
+
+            var g = new UndirectedGraph<int, Edge<int>>();
 
             foreach (var kv in this.container.Neighbourship)
             {
@@ -46,22 +48,34 @@ namespace NetworkModel
             {
                 foreach (var edge in kv.Value)
                 {
-                    g.AddEdge(new Edge<int>(kv.Key, edge));
+                    if (!g.ContainsEdge(kv.Key, edge))
+                    {
+                        g.AddEdge(new Edge<int>(kv.Key, edge));
+                    }
                 }
             }
 
+            this.quickGraph = g;
             return g;
         }
 
         protected override double CalculateDegeneracy()
         {
-            
-            return this.ToQuickGraph().CoreDecomposition().Degeneracy;
+            if (this.degeneracy == null)
+            {
+                this.degeneracy = this.ToQuickGraph().CoreDecomposition();
+            }
+            return degeneracy.Degeneracy;
         }
 
         protected override List<double> CalculateCoreCollapseSequence()
         {
-            return this.ToQuickGraph().CoreDecomposition().CollapseSequence.Values.ToList();
+
+            if (this.degeneracy == null)
+            {
+                this.degeneracy = this.ToQuickGraph().CoreDecomposition();
+            }
+            return degeneracy.CollapseSequence.Values.ToList();
         }
 
         protected override Double CalculateEdgesCountOfNetwork()
@@ -1004,7 +1018,10 @@ namespace NetworkModel
         private bool calledCoeffs = false;
         private SortedDictionary<Double, Double> coefficients =
             new SortedDictionary<Double, Double>();
-        
+
+        private UndirectedGraph<int, Edge<int>> quickGraph;
+        private DegeneracyResult degeneracy;
+
         private class Node
         {
             public int ancestor = -1;

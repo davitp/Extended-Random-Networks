@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using QuickGraph;
 
 namespace NetworkModel
@@ -13,7 +12,7 @@ namespace NetworkModel
         /// </summary>
         /// <param name="graph">The given graph</param>
         /// <returns></returns>
-        public static DegeneracyResult CoreDecomposition(this AdjacencyGraph<int, Edge<int>> graph)
+        public static DegeneracyResult CoreDecomposition(this UndirectedGraph<int, Edge<int>> graph)
         {
             // coreness per vertex
             var corenesses = new Dictionary<int, int>();
@@ -43,7 +42,7 @@ namespace NetworkModel
             foreach (var vertex in graph.Vertices)
             {
                 // degree of vertex
-                var degree = graph.OutDegree(vertex);
+                var degree = graph.AdjacentEdges(vertex).Count();
 
                 // add the vertex to bucket with corresponding degree
                 buckets[degree].Add(vertex);
@@ -83,7 +82,7 @@ namespace NetworkModel
                 degeneracy = Math.Max(degeneracy, minDegree);
 
                 // process edges
-                foreach (var e in graph.OutEdges(vertex))
+                foreach (var e in graph.AdjacentEdges(vertex))
                 {
                     // get the neighbour of the vertex
                     var pairVertex = e.GetOtherVertex(vertex);
@@ -96,7 +95,7 @@ namespace NetworkModel
                     if (pairDegree <= minDegree || corenesses.ContainsKey(pairVertex)) continue;
 
                     // remove pair from queue 
-                    buckets[pairDegree].Remove(pairDegree);
+                    buckets[pairDegree].Remove(pairVertex);
 
                     // decrease its degree
                     pairDegree--;

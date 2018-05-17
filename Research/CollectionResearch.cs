@@ -46,6 +46,8 @@ namespace Research
         | AnalyzeOption.LaplacianEigenValues
         | AnalyzeOption.TriangleByVertexDistribution
         | AnalyzeOption.Dr
+        | AnalyzeOption.Degeneracy
+        | AnalyzeOption.CCS
         )]
     public class CollectionResearch : AbstractResearch
     {

@@ -80,9 +80,10 @@ namespace RegularHierarchicModel
             return Count3Cycle(0, 0)[0];
         }
 
-        protected AdjacencyGraph<int, Edge<int>> ToQuickGraph()
+        protected UndirectedGraph<int, Edge<int>> ToQuickGraph()
         {
-            var g = new AdjacencyGraph<int, Edge<int>>();
+            if (this.quickGraph != null) return this.quickGraph;
+            var g = new UndirectedGraph<int, Edge<int>>();
 
             for (var i = 0; i < this.container.Size; ++i)
             {
@@ -92,22 +93,31 @@ namespace RegularHierarchicModel
             for (int i = 0; i < this.container.Size; ++i)
             {
                 for (int j = i + 1; j < this.container.Size; ++j)
-                    if (this.container[i, j] == 1)
+                    if (this.container[i, j] == 1 && !g.ContainsEdge(i, j))
                         g.AddEdge(new Edge<int>(i, j));
             }
 
+            this.quickGraph = g;
             return g;
         }
 
         protected override double CalculateDegeneracy()
         {
-           
-            return this.ToQuickGraph().CoreDecomposition().Degeneracy;
+            if (this.degeneracy == null)
+            {
+                this.degeneracy = this.ToQuickGraph().CoreDecomposition();
+            }
+            return degeneracy.Degeneracy;
         }
 
         protected override List<double> CalculateCoreCollapseSequence()
         {
-            return this.ToQuickGraph().CoreDecomposition().CollapseSequence.Values.ToList();
+
+            if (this.degeneracy == null)
+            {
+                this.degeneracy = this.ToQuickGraph().CoreDecomposition();
+            }
+            return degeneracy.CollapseSequence.Values.ToList();
         }
 
         protected override Double CalculateCycles4()
@@ -555,6 +565,8 @@ namespace RegularHierarchicModel
 
         private List<List<int>> matchesFrom4 = null;
         private List<List<int>> matchesFrom5 = null;
+        private UndirectedGraph<int, Edge<int>> quickGraph;
+        private DegeneracyResult degeneracy;
 
         private IEnumerable<List<int>> getMatchesFrom4
         {

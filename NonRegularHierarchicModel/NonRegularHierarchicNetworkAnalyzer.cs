@@ -81,10 +81,11 @@ namespace NonRegularHierarchicModel
         }
 
 
-        protected AdjacencyGraph<int, Edge<int>> ToQuickGraph()
+        protected UndirectedGraph<int, Edge<int>> ToQuickGraph()
         {
+            if (this.quickGraph != null) return this.quickGraph;
 
-            var g = new AdjacencyGraph<int, Edge<int>>();
+            var g = new UndirectedGraph<int, Edge<int>>();
 
             for (var i = 0; i < this.container.Size; ++i)
             {
@@ -93,23 +94,35 @@ namespace NonRegularHierarchicModel
 
             foreach (var kv in this.container.GetNeighbourship())
             {
-                g.AddEdge(new Edge<int>(kv.Key, kv.Value));
+                if (!g.ContainsEdge(kv.Key, kv.Value))
+                {
+                    g.AddEdge(new Edge<int>(kv.Key, kv.Value));
+                }
 
             }
 
+            this.quickGraph = g;
             return g;
         }
 
 
         protected override double CalculateDegeneracy()
         {
-
-            return this.ToQuickGraph().CoreDecomposition().Degeneracy;
+            if (this.degeneracy == null)
+            {
+                this.degeneracy = this.ToQuickGraph().CoreDecomposition();
+            }
+            return degeneracy.Degeneracy;
         }
 
         protected override List<double> CalculateCoreCollapseSequence()
         {
-            return this.ToQuickGraph().CoreDecomposition().CollapseSequence.Values.ToList();
+
+            if (this.degeneracy == null)
+            {
+                this.degeneracy = this.ToQuickGraph().CoreDecomposition();
+            }
+            return degeneracy.CollapseSequence.Values.ToList();
         }
 
         protected override SortedDictionary<Double, Double> CalculateDegreeDistribution()
@@ -179,6 +192,9 @@ namespace NonRegularHierarchicModel
         private uint diameter;
         private SortedDictionary<Double, Double> distanceDistribution =
             new SortedDictionary<Double, Double>();
+
+        private UndirectedGraph<int, Edge<int>> quickGraph;
+        private DegeneracyResult degeneracy;
 
         /// <summary>
         /// A method that is used to count distance distribution, average path length and diameter.

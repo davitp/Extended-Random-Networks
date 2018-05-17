@@ -261,7 +261,11 @@ namespace Core.Utility
 
                     try
                     {
-                        int i = Convert.ToInt32(split[0]), j = Convert.ToInt32(split[1]);
+                        int i;// Convert.ToInt32(split[0])
+                        int j;// Convert.ToInt32(split[1]);
+
+                        if(!int.TryParse(split[0], out i) || !int.TryParse(split[1], out j)) continue;
+
                         neighbours.Add(i);
                         neighbours.Add(j);
                     }

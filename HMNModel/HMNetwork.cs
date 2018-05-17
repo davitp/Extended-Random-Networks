@@ -44,6 +44,7 @@ namespace HMNModel
         | AnalyzeOption.ClosenessCentrality
         | AnalyzeOption.BetweennessCentrality
         | AnalyzeOption.Degeneracy
+        | AnalyzeOption.CCS
         )]
     public class HMNetwork : AbstractNetwork
     {

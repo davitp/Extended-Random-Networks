@@ -32,6 +32,7 @@ namespace RegularHierarchicModel
         | AnalyzeOption.LaplacianEigenValues
         | AnalyzeOption.TriangleByVertexDistribution
         | AnalyzeOption.Degeneracy                            
+        | AnalyzeOption.CCS
         )]
     public class RegularHierarchicNetwork : AbstractNetwork
     {

@@ -45,6 +45,8 @@ namespace WSModel
         | AnalyzeOption.DegreeCentrality
         | AnalyzeOption.ClosenessCentrality
         | AnalyzeOption.BetweennessCentrality
+        | AnalyzeOption.Degeneracy
+        | AnalyzeOption.CCS
         )]
     public class WSNetwork : AbstractNetwork
     {
