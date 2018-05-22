@@ -6,7 +6,6 @@ namespace FastIncrementalAnalysis
 {
     class Program
     {
-        private static readonly int SupportedNetworks = 3;
         private static readonly int MaxRuns = 10000;
         private static readonly int MaxParallel = 8;
 
@@ -14,7 +13,8 @@ namespace FastIncrementalAnalysis
         {
             {1, new ResearchDefinition{ResearchName = "ER Model", ResearchCreator = () => new ERKCoreResearch(MaxParallel)} },
             {2, new ResearchDefinition{ResearchName = "Regular Hierarchic Model", ResearchCreator = () => new RHKCoreResearch(MaxParallel)} },
-            {3, new ResearchDefinition{ResearchName = "HMN Model", ResearchCreator = () => new HMNKCoreResearch(MaxParallel)} }
+            {3, new ResearchDefinition{ResearchName = "HMN Model", ResearchCreator = () => new HMNKCoreResearch(MaxParallel)} },
+            {4, new ResearchDefinition{ResearchName = "Static Graphs", ResearchCreator = () => new StataicKCoreResearch(MaxParallel)}}
         };
 
         [STAThread]
@@ -56,7 +56,7 @@ namespace FastIncrementalAnalysis
 
                 if (int.TryParse(read, out result))
                 {
-                    return result > SupportedNetworks || result < 1 ? 1 : result;
+                    return result > Researches.Count || result < 1 ? 1 : result;
                 }
 
                 return 1;

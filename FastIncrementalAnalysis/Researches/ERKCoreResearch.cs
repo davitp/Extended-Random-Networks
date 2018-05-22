@@ -166,7 +166,7 @@ namespace FastIncrementalAnalysis.Researches
                 step = 0.1;
             }
 
-            step = step.Equals(0.0) ? Math.Min(step, 0.1) : 0.1;
+            step = !step.Equals(0.0) ? Math.Min(step, 0.1) : 0.1;
 
             Console.Write("Enter the maximum value (Default = 1): ");
 
