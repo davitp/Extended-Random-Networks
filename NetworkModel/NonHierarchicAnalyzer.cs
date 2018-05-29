@@ -20,7 +20,7 @@ namespace NetworkModel
     /// <summary>
     /// Implementation of non hierarchic network's analyzer.
     /// </summary>
-    public class NonHierarchicAnalyzer : AbstractNetworkAnalyzer
+    public class NonHierarchicAnalyzer : AbstractNetworkAnalyzer, IQuickGraphConverter
     {
         private NonHierarchicContainer container;
 
@@ -33,7 +33,7 @@ namespace NetworkModel
         }
 
 
-        protected UndirectedGraph<int, Edge<int>> ToQuickGraph()
+        public UndirectedGraph<int, Edge<int>> ToQuickGraph()
         {
             if (this.quickGraph != null) return this.quickGraph;
 

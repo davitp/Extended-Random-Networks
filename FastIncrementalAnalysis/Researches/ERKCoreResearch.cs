@@ -8,6 +8,8 @@ using Core.Enumerations;
 using ERModel;
 using FastIncrementalAnalysis;
 using Microsoft.Win32;
+using NetworkModel;
+using QuickGraph;
 
 namespace FastIncrementalAnalysis.Researches
 {
@@ -22,10 +24,10 @@ namespace FastIncrementalAnalysis.Researches
         public ERKCoreResearch(int parallel)
         {
             this.parallel = parallel;
-            this.InitializeParams();
             this.analysis =  new SortedDictionary<int, DependencyAnalysisDefinition>
             {
-                {1, new DependencyAnalysisDefinition{Parameter = GenerationParameter.Probability, Description = "Dependency of the K-Core topology from probability of ER Generation.", Activator = this.ProbabilityDependencyAnalysis} }
+                {1, new DependencyAnalysisDefinition{Parameter = GenerationParameter.Probability, Description = "Dependency of the K-Core topology from probability of ER Generation.", Activator = this.ProbabilityDependencyAnalysis} },
+                {2, new DependencyAnalysisDefinition{Parameter = GenerationParameter.Vertices, Description = "Dependency of the active state from the external field strength for ER Generation.", Activator = this.ActivationAnalysis} }
             };
             
         }
@@ -50,7 +52,101 @@ namespace FastIncrementalAnalysis.Researches
             return res;
         }
 
-        private void InitializeParams()
+
+        private void ActivationAnalysis()
+        {
+            Console.Write("Please enter the number of vertecies (Default = 1024): ");
+            
+            if (!int.TryParse(Console.ReadLine(), out this.initialVertexes))
+            {
+                this.initialVertexes = 1024;
+            }
+
+            double probability;
+
+            Console.Write("Please enter the generation probability (Default = 0.01): ");
+
+            if (!double.TryParse(Console.ReadLine(), out probability))
+            {
+                probability = 0.01;
+            }
+
+            double delta;
+            Console.Write("Please enter the delta value (Default = 0.001): ");
+
+            if (!double.TryParse(Console.ReadLine(), out delta))
+            {
+                delta = 0.001;
+            }
+
+            var param = new Dictionary<GenerationParameter, object>
+            {
+                {GenerationParameter.Probability, probability},
+                {GenerationParameter.Vertices, this.initialVertexes }
+            };
+
+            var network = (ERNetwork)AbstractNetwork.CreateNetworkByType(ModelType.ER, $"Prob_{probability}_",
+                ResearchType.Basic, GenerationType.Random, new Dictionary<ResearchParameter, object> { }, param, AnalyzeOption.None, ContainerMode.Fast);
+
+            network.Generate();
+            network.Analyze();
+            var quick = ((IQuickGraphConverter) network.GetAnalyzer()).ToQuickGraph();
+
+            var decomposition = quick.CoreDecomposition();
+
+            var energySequence = new List<double>();
+            var activePortions = new List<double>();
+            var uValues = new List<double>();
+
+            for (var k = 1; k <= decomposition.Degeneracy + 2; ++k)
+            {
+                var uValue = - delta - k;
+                uValues.Add(Math.Abs(uValue));
+                var kSize = decomposition.CoreDescritpros.ContainsKey(k) ? decomposition.CoreDescritpros[k] : new CoreDescriptor(k, 0, 0);
+
+                var vertexPortion = kSize.VertexCount*1.0 / quick.VertexCount;
+                activePortions.Add(vertexPortion);
+
+                var energy = -1.0 * kSize.EdgeCount / quick.VertexCount + (k - 1 + delta) * vertexPortion;
+
+                energySequence.Add(energy);
+            }
+
+            this.SaveActivationResearchResult(quick, decomposition, uValues, activePortions, energySequence);
+        }
+
+        private void SaveActivationResearchResult(UndirectedGraph<int, Edge<int>> quick, DegeneracyResult decomposition, List<double> uValues, List<double> activePortions, List<double> energySequence)
+        {
+            // Displays a SaveFileDialog so the user can save the Image  
+            // assigned to Button2.  
+            var saveFileDialog1 = new SaveFileDialog
+            {
+                Filter = "CSV Files (*.csv)|*.csv",
+                Title = "Save a resulting CSV file"
+            };
+            saveFileDialog1.ShowDialog();
+
+            // If the file name is not an empty string open it for saving.  
+            if (saveFileDialog1.FileName == "") return;
+
+            // Saves the Image via a FileStream created by the OpenFile method.  
+            using (var fs = (FileStream)saveFileDialog1.OpenFile())
+            {
+                using (var writer = new StreamWriter(fs))
+                {
+                    writer.Write("K,U,Mk,Ek" + Environment.NewLine);
+
+                    for (var k = 0; k < uValues.Count; ++k)
+                    {
+                        writer.Write("{0},{1},{2},{3}{4}", k+1, uValues[k], activePortions[k], energySequence[k], Environment.NewLine);
+                    }
+
+                    writer.Flush();
+                }
+            }
+        }
+
+        private void ProbabilityDependencyAnalysis()
         {
             Console.Write("Please enter the number of vertecies (Default = 24): ");
 
@@ -65,10 +161,7 @@ namespace FastIncrementalAnalysis.Researches
             {
                 this.realizations = 1;
             }
-        }
 
-        private void ProbabilityDependencyAnalysis()
-        {
             Bounds<double, double> bounds = this.GetProbabilityBounds();
 
             Dictionary<double, ICollection<double>> allResults = new Dictionary<double, ICollection<double>>();

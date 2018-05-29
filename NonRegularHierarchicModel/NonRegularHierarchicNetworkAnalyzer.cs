@@ -16,7 +16,7 @@ namespace NonRegularHierarchicModel
     /// <summary>
     /// Implementation of non regularly branching block-hierarchic network's analyzer.
     /// </summary>
-    class NonRegularHierarchicNetworkAnalyzer : AbstractNetworkAnalyzer
+    class NonRegularHierarchicNetworkAnalyzer : AbstractNetworkAnalyzer, IQuickGraphConverter
     {
         /// <summary>
         /// Container with network of specified model (non regular block-hierarchic).
@@ -81,7 +81,7 @@ namespace NonRegularHierarchicModel
         }
 
 
-        protected UndirectedGraph<int, Edge<int>> ToQuickGraph()
+        public UndirectedGraph<int, Edge<int>> ToQuickGraph()
         {
             if (this.quickGraph != null) return this.quickGraph;
 

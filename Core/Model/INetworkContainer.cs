@@ -46,5 +46,6 @@ namespace Core.Model
         /// </summary>
         /// <param name="act"></param>
         void SetActiveStatuses(BitArray act);
+
     }
 }

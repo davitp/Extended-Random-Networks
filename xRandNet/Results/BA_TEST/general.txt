@@ -1,0 +1,15 @@
+Research Info
+ResearchID - 7ee32f75-0aa5-4225-ab35-da7606114335
+ResearchName - BA_TEST
+ResearchType - Basic
+ModelType - BA
+RealizationCount - 1
+Date - 5/29/2018 11:58:05 PM
+Size - 1024
+Edges - 0
+
+Generation Parameters
+Vertices 500
+Edges 10
+Probability 0.01
+StepCount 524

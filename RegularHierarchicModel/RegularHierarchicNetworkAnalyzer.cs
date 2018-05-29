@@ -15,7 +15,7 @@ namespace RegularHierarchicModel
     /// <summary>
     /// Implementation of regularly branching block-hierarchic network's analyzer.
     /// </summary>
-    class RegularHierarchicNetworkAnalyzer : AbstractNetworkAnalyzer
+    class RegularHierarchicNetworkAnalyzer : AbstractNetworkAnalyzer, IQuickGraphConverter
     {
         /// <summary>
         /// Container with network of specified model (regular block-hierarchic).
@@ -80,7 +80,7 @@ namespace RegularHierarchicModel
             return Count3Cycle(0, 0)[0];
         }
 
-        protected UndirectedGraph<int, Edge<int>> ToQuickGraph()
+        public UndirectedGraph<int, Edge<int>> ToQuickGraph()
         {
             if (this.quickGraph != null) return this.quickGraph;
             var g = new UndirectedGraph<int, Edge<int>>();

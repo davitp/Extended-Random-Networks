@@ -46,6 +46,11 @@ namespace Core
             return this.containerMode;
         }
 
+        public INetworkAnalyzer GetAnalyzer()
+        {
+            return this.networkAnalyzer;
+        }
+
         public static AbstractNetwork CreateNetworkByType(ModelType mt, String rName,
             ResearchType rType, GenerationType gType,
             Dictionary<ResearchParameter, object> rParams,

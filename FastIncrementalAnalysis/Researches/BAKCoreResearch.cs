@@ -8,6 +8,8 @@ using Core;
 using Core.Enumerations;
 using ERModel;
 using Microsoft.Win32;
+using NetworkModel;
+using QuickGraph;
 
 namespace FastIncrementalAnalysis.Researches
 {
@@ -15,19 +17,16 @@ namespace FastIncrementalAnalysis.Researches
     {
         private readonly SortedDictionary<int, DependencyAnalysisDefinition> analysis;
         private readonly int parallel;
-        private int initialVertexes;
-        private int edges;
-        private int stepsCount;
-        private int realizations;
         private int option;
 
         public BAKCoreResearch(int parallel)
         {
             this.parallel = parallel;
-            this.InitializeParams();
             this.analysis =  new SortedDictionary<int, DependencyAnalysisDefinition>
             {
-                {1, new DependencyAnalysisDefinition{Parameter = GenerationParameter.Probability, Description = "Dependency of the K-Core topology from probability of BA Generation.", Activator = this.ProbabilityDependencyAnalysis} }
+                {1, new DependencyAnalysisDefinition{Parameter = GenerationParameter.Probability, Description = "Dependency of the K-Core topology from probability of BA Generation.", Activator = this.ProbabilityDependencyAnalysis} },
+                {2, new DependencyAnalysisDefinition{Parameter = GenerationParameter.Vertices, Description = "Dependency of the active state from the external field strength for ER Generation.", Activator = this.ActivationAnalysis} }
+
             };
             
         }
@@ -52,58 +51,171 @@ namespace FastIncrementalAnalysis.Researches
             return res;
         }
 
-        private void InitializeParams()
+
+
+
+        private void ActivationAnalysis()
         {
-            Console.Write("Please enter the number of vertecies (Default = 1024): ");
+            Console.Write("Please enter the initial number of vertecies (Default = 500): ");
 
-            if (!int.TryParse(Console.ReadLine(), out this.initialVertexes))
+            int initialVertexes;
+
+            if (!int.TryParse(Console.ReadLine(), out initialVertexes))
             {
-                this.initialVertexes = 1024;
+                initialVertexes = 500;
             }
 
-            Console.Write("Please enter the number of vertecies (Default = 128): ");
-
-            if (!int.TryParse(Console.ReadLine(), out this.edges))
+            Console.Write("Please enter the number of generation steps (Default = 500): ");
+            int steps;
+            if (!int.TryParse(Console.ReadLine(), out steps))
             {
-                this.edges = 128;
+                steps = 500;
             }
 
-            Console.Write("Number of generation steps (Default = 1): ");
-
-            if (!int.TryParse(Console.ReadLine(), out this.stepsCount))
+            Console.Write("Number of edges per step (Default = 10): ");
+            int edges;
+            if (!int.TryParse(Console.ReadLine(), out edges))
             {
-                this.stepsCount = 1;
+                edges = 10;
             }
 
-            Console.Write("Please enter the number of realization (Default = 1): ");
+            Console.Write("Please enter generation probability (Default = 0.01): ");
 
-            if (!int.TryParse(Console.ReadLine(), out this.realizations))
+            double probability;
+            if (!double.TryParse(Console.ReadLine(), out probability))
             {
-                this.realizations = 1;
+                probability = 0.01;
+            }
+
+            double delta;
+            Console.Write("Please enter the delta value (Default = 0.001): ");
+
+            if (!double.TryParse(Console.ReadLine(), out delta))
+            {
+                delta = 0.001;
+            }
+
+
+            var param = new Dictionary<GenerationParameter, object>
+            {
+                {GenerationParameter.Probability, probability},
+                {GenerationParameter.Vertices, initialVertexes },
+                {GenerationParameter.Edges, edges },
+                {GenerationParameter.StepCount, steps }
+            };
+
+            var network = (BANetwork)AbstractNetwork.CreateNetworkByType(ModelType.BA, $"Prob_{probability}_",
+                ResearchType.Basic, GenerationType.Random, new Dictionary<ResearchParameter, object> { }, param, AnalyzeOption.None, ContainerMode.Fast);
+   
+            network.Generate();
+            network.Analyze();
+            var quick = ((IQuickGraphConverter)network.GetAnalyzer()).ToQuickGraph();
+
+            var decomposition = quick.CoreDecomposition();
+
+            var energySequence = new List<double>();
+            var activePortions = new List<double>();
+            var uValues = new List<double>();
+
+            for (var k = 1; k <= decomposition.Degeneracy + 2; ++k)
+            {
+                var uValue = -delta - k;
+                uValues.Add(Math.Abs(uValue));
+                var kSize = decomposition.CoreDescritpros.ContainsKey(k) ? decomposition.CoreDescritpros[k] : new CoreDescriptor(k, 0, 0);
+
+                var vertexPortion = kSize.VertexCount * 1.0 / quick.VertexCount;
+                activePortions.Add(vertexPortion);
+
+                var energy = -1.0 * kSize.EdgeCount / quick.VertexCount + (k - 1 + delta) * vertexPortion;
+
+                energySequence.Add(energy);
+            }
+
+            this.SaveActivationResearchResult(quick, decomposition, uValues, activePortions, energySequence);
+        }
+
+        private void SaveActivationResearchResult(UndirectedGraph<int, Edge<int>> quick, DegeneracyResult decomposition, List<double> uValues, List<double> activePortions, List<double> energySequence)
+        {
+            // Displays a SaveFileDialog so the user can save the Image  
+            // assigned to Button2.  
+            var saveFileDialog1 = new SaveFileDialog
+            {
+                Filter = "CSV Files (*.csv)|*.csv",
+                Title = "Save a resulting CSV file"
+            };
+            saveFileDialog1.ShowDialog();
+
+            // If the file name is not an empty string open it for saving.  
+            if (saveFileDialog1.FileName == "") return;
+
+            // Saves the Image via a FileStream created by the OpenFile method.  
+            using (var fs = (FileStream)saveFileDialog1.OpenFile())
+            {
+                using (var writer = new StreamWriter(fs))
+                {
+                    writer.Write("K,U,Mk,Ek" + Environment.NewLine);
+
+                    for (var k = 0; k < uValues.Count; ++k)
+                    {
+                        writer.Write("{0},{1},{2},{3}{4}", k + 1, uValues[k], activePortions[k], energySequence[k], Environment.NewLine);
+                    }
+
+                    writer.Flush();
+                }
             }
         }
 
         private void ProbabilityDependencyAnalysis()
         {
+            Console.Write("Please enter the initial number of vertecies (Default = 500): ");
+
+            int initialVertexes;
+
+            if (!int.TryParse(Console.ReadLine(), out initialVertexes))
+            {
+                initialVertexes = 500;
+            }
+
+            Console.Write("Please enter the number of generation steps (Default = 500): ");
+            int steps;
+            if (!int.TryParse(Console.ReadLine(), out steps))
+            {
+                steps = 500;
+            }
+
+            Console.Write("Number of edges per step (Default = 10): ");
+            int edges;
+            if (!int.TryParse(Console.ReadLine(), out edges))
+            {
+                edges = 10;
+            }
+
+            Console.Write("Please enter the number of realization (Default = 1): ");
+
+            int realizations;
+            if (!int.TryParse(Console.ReadLine(), out realizations))
+            {
+                realizations = 1;
+            }
             Bounds<double, double> bounds = this.GetProbabilityBounds();
 
             Dictionary<double, ICollection<double>> allResults = new Dictionary<double, ICollection<double>>();
             for (var start = bounds.InitialValue; start <= bounds.MaxValue; start += bounds.Step)
             {
-                var networks = new BANetwork[this.realizations];
-                var results = new double[this.realizations];
+                var networks = new BANetwork[realizations];
+                var results = new double[realizations];
 
                 allResults[start] = results;
 
                 var prob = start;
-                Parallel.For(0, this.realizations, new ParallelOptions{MaxDegreeOfParallelism = this.parallel}, i =>
+                Parallel.For(0, realizations, new ParallelOptions{MaxDegreeOfParallelism = this.parallel}, i =>
                 {
                     var param = new Dictionary<GenerationParameter, object>
                     {
                         {GenerationParameter.Probability, prob},
-                        {GenerationParameter.Vertices, this.initialVertexes },
-                        {GenerationParameter.Edges, this.edges },
-                        {GenerationParameter.StepCount, this.stepsCount }
+                        {GenerationParameter.Vertices, initialVertexes },
+                        {GenerationParameter.Edges, edges },
+                        {GenerationParameter.StepCount, steps }
                     };
 
                     networks[i] = (BANetwork)AbstractNetwork.CreateNetworkByType(ModelType.BA, $"Prob_{prob}_Run_{i}",

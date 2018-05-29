@@ -78,6 +78,7 @@
     <Compile Include="Engine\Cycles\CyclesParrallelCounter.cs" />
     <Compile Include="HierarchicEngine\Engine.cs" />
     <Compile Include="HierarchicEngine\EngineForConnectedComp.cs" />
+    <Compile Include="IQuickGraphConverter.cs" />
     <Compile Include="MatrixAnalyzer.cs" />
     <Compile Include="MatrixContainer.cs" />
     <Compile Include="NonHierarchicAnalyzer.cs" />
