@@ -1,0 +1,13 @@
+Research Info
+ResearchID - c1ac35a9-be1e-4dac-9c65-19976dfee317
+ResearchName - ER_P_0.1
+ResearchType - Basic
+ModelType - ER
+RealizationCount - 1
+Date - 5/27/2018 12:30:48 AM
+Size - 1024
+Edges - 0
+
+Generation Parameters
+Vertices 1024
+Probability 0.1

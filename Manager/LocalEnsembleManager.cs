@@ -90,7 +90,7 @@ namespace Manager
                     ResearchParamaterValues,
                     GenerationParameterValues,
                     AnalyzeOptions,
-                    ContainerMode.Default);
+                    ContainerMode.Fast);
 
                 networks[i].NetworkID = i;
                 networks[i].OnUpdateStatus += new NetworkStatusUpdateHandler(NetworkStatusUpdateHandlerMethod);

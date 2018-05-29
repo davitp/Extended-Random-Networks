@@ -71,6 +71,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConnectedComponents.cs" />
+    <Compile Include="CoreDescriptor.cs" />
     <Compile Include="DegeneracyResult.cs" />
     <Compile Include="Engine\Cycles\CyclesCounter.cs" />
     <Compile Include="Engine\Cycles\CyclesCounterSingleThreaded.cs" />

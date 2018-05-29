@@ -60,6 +60,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResearchDefinition.cs" />
+    <Compile Include="Researches\BAKCoreResearch.cs" />
     <Compile Include="Researches\HMNKCoreResearch.cs" />
     <Compile Include="Researches\RHKCoreResearch.cs" />
     <Compile Include="Researches\ERKCoreResearch.cs" />
@@ -71,6 +72,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BAModel\BAModel.csproj">
+      <Project>{EC12671D-FB67-4E24-9CB7-0785CE78BD06}</Project>
+      <Name>BAModel</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Core\Core.csproj">
       <Project>{479c57f7-2b45-48f4-b434-c7e59d0b0f7b}</Project>
       <Name>Core</Name>
